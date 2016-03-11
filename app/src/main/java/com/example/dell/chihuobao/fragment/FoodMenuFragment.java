@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.FoodMenuAddNewFoodActivity;
-import com.example.dell.chihuobao.util.MyFoodListViewAdapter;
+import com.example.dell.chihuobao.util.FoodMenuRightListViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +118,7 @@ public class FoodMenuFragment extends Fragment {
 	private void initView()
 	{
 		//菜品种类的listView
-		MyFoodListViewAdapter myFoodListViewAdapter = new MyFoodListViewAdapter(getActivity(),allFood,foodType);
+		FoodMenuRightListViewAdapter myFoodListViewAdapter = new FoodMenuRightListViewAdapter(getActivity(),allFood,foodType);
 		myFoodListViewAdapter.notifyDataSetChanged();
 
 		listView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.adapter_left_food_type, foodType));
