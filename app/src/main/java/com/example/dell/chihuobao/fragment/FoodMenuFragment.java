@@ -17,7 +17,8 @@ import android.widget.TextView;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.FoodMenuAddNewFoodActivity;
-import com.example.dell.chihuobao.util.MyFoodListViewAdapter;
+import com.example.dell.chihuobao.util.FoodMenuRightListViewAdapter;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,11 +119,11 @@ public class FoodMenuFragment extends Fragment {
 	private void initView()
 	{
 		//菜品种类的listView
-		MyFoodListViewAdapter myFoodListViewAdapter = new MyFoodListViewAdapter(getActivity(),allFood,foodType);
-		myFoodListViewAdapter.notifyDataSetChanged();
+		FoodMenuRightListViewAdapter foodMenuRightListViewAdapter = new FoodMenuRightListViewAdapter(getActivity(),allFood,foodType);
+		foodMenuRightListViewAdapter.notifyDataSetChanged();
 
 		listView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.adapter_left_food_type, foodType));
-		listView2.setAdapter(myFoodListViewAdapter);
+		listView2.setAdapter(foodMenuRightListViewAdapter);
 		/**
 		 * 下面这个函数表示点了种类表中的item中，item变色，然后右边的菜品列表跳转的当前种类置顶
 		 */
