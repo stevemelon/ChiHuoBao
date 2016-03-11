@@ -8,7 +8,7 @@
                 android:gravity="center_horizontal"
                 android:background="@color/gray">
 
-    <com.example.dell.fragmentinfragment.appwidget.XCRoundImageView
+    <com.example.dell.chihuobao.util.XCRoundImageView
         android:id="@+id/photo"
         android:layout_width="match_parent"
         android:layout_height="250dp"

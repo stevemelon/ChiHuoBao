@@ -20,11 +20,5 @@
 
 
     <string name="notification_vibration">提示振动</string>
-    <string-array name="foodType">
-        <item>套餐一</item>
-        <item>套餐二</item>
-        <item>套餐三</item>
-        <item>套餐四</item>
-        <item>套餐五</item>
-    </string-array>
+
 </resources>
