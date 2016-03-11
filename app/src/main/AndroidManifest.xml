@@ -70,6 +70,7 @@
         <activity android:name=".activity.FeedBackActivity">
 
         </activity>
+        <activity android:name=".activity.FoodMenuAddNewFoodActivity"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
