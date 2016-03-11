@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:clickable="true"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="#fff"
+        android:layout_alignParentTop="true"
+        android:id="@+id/item_information">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp">
+            <ImageView
+                android:id="@+id/food_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="#000000"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="#fff"
+                android:layout_toRightOf="@id/food_image"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+
+
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#000000"
+                        android:id="@+id/group_list_item_text"
+                        android:layout_marginLeft="20dp"
+                        android:textSize="18sp"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/holo_orange_dark"
+                        android:id="@+id/group_list_item_price"
+                        android:layout_marginLeft="20dp"
+                        android:text="¥2"
+                        android:textSize="15sp"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+    </RelativeLayout>
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        android:layout_below="@+id/item_information"
+        >
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="15dp"
+            android:background="#66666666"
+            android:text="编辑"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:id="@+id/item_food_detail_modify"
+            android:layout_toLeftOf="@+id/item_food_detail_soldOut"
+            android:textColor="@android:color/black"/>
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="25dp"
+            android:layout_marginTop ="25dp"
+            android:layout_marginRight="20dp"
+            android:background="#66666666"
+            android:text="停售"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:id="@+id/item_food_detail_soldOut"
+            android:layout_alignParentRight="true"
+            android:textColor="@android:color/black"
+
+            />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

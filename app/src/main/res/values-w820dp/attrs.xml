@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="SettingsItemView">
+        <attr name="settingTitle" format="string" />
+        <attr name="settingTitleTextSize" format="dimension" />
+        <attr name="settingTitleTextColor" format="color" />
+
+
+        <attr name="leftBackground" format="reference|color" />
+
+
+
+        <attr name="rightBackground" format="reference|color" />
+
+    </declare-styleable>
+
+</resources>

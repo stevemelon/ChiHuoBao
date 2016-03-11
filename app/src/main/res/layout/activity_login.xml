@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.LoginActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="50dp"
+        android:background="@color/napos_gray"
+        android:orientation="vertical"
+        android:padding="10.0dip">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:layout_marginTop="21.0dip"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@id/login_user_name"
+                style="@style/Widget.EditText.Ele"
+                android:layout_width="wrap_content"
+                android:layout_weight="1.0"
+                android:hint="请输入用户名"
+                android:singleLine="true"
+                android:textSize="10.0sp" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@id/login_user_pwd"
+            style="@style/Widget.EditText.Ele"
+            android:layout_width="fill_parent"
+            android:layout_marginLeft="5.0dip"
+            android:layout_marginRight="5.0dip"
+            android:layout_marginTop="27.0dip"
+            android:hint="请输入密码"
+            android:password="true"
+            android:singleLine="true"
+            android:textSize="10.0sp" />
+
+        <Button
+            android:id="@id/login"
+            android:layout_width="fill_parent"
+            android:layout_height="@dimen/cell_height"
+            android:layout_marginTop="25.0dip"
+            android:background="@drawable/selector_button_blue_deep"
+            android:singleLine="true"
+            android:text="验证并登陆"
+            android:textColor="@color/white"
+            android:textSize="18.0sp" />
+
+        <TextView
+            android:id="@id/to_login_by_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="15.0dip"
+            android:text="忘记密码？"
+            android:textColor="@color/napos_text_gray" />
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>
