@@ -1,6 +1,7 @@
 package com.example.dell.chihuobao.fragment;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.activity.FoodMenuAddNewFoodActivity;
 import com.example.dell.chihuobao.util.MyFoodListViewAdapter;
 
 import java.util.ArrayList;
