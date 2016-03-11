@@ -1,6 +1,6 @@
 package com.example.dell.chihuobao.fragment;
 
-import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,18 +8,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.activity.FoodMenuAddNewFoodActivity;
 import com.example.dell.chihuobao.util.MyFoodListViewAdapter;
 
 import java.util.ArrayList;
@@ -107,26 +104,10 @@ public class FoodMenuFragment extends Fragment {
 		mButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				final AlertDialog addFood = new AlertDialog.Builder(getActivity()).create();
-				addFood.setView(new EditText(getActivity()));
-				addFood.show();
-				Window window = addFood.getWindow();
-				window.setContentView(R.layout.add_food_alert);
-				Button btnCancel = (Button)addFood.findViewById(R.id.add_food_cancel);
-				Button btnConfirm = (Button)addFood.findViewById(R.id.add_food_confirm);
-				btnCancel.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						addFood.dismiss();
-					}
-				});
-				btnConfirm.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						Toast.makeText(getActivity(),"哈哈",Toast.LENGTH_SHORT).show();
-						addFood.dismiss();
-					}
-				});
+				Intent intent = new Intent();
+				intent.setClass(getActivity(), FoodMenuAddNewFoodActivity.class);
+				startActivity(intent);
+
 
 			}
 		});
