@@ -37,4 +37,31 @@
         <item>套餐四</item>
         <item>套餐五</item>
     </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
+
+
+    <string-array name="array_names">
+        <item>"Anastasia Druzhinina"</item>
+        <item>"Andriy Hristyan"</item>
+        <item>"Dmitriy Dovbnya"</item>
+        <item>"Dmitry Denisenko"</item>
+        <item>"Eduard Baev"</item>
+        <item>"Iliya Bershadskiy"</item>
+        <item>"Kirill Penzykov"</item>
+        <item>"Konstantin Rudenko"</item>
+        <item>"Oleksii Shliama"</item>
+        <item>"Pavel Apisov"</item>
+        <item>"Vadim Ooleynik"</item>
+    </string-array>
+    <string name="title_activity_deliver_man">DeliverManActivity</string>
+
+
+    <string name="notification_vibration">提示振动</string>
+    <string-array name="foodType">
+        <item>套餐一</item>
+        <item>套餐二</item>
+        <item>套餐三</item>
+        <item>套餐四</item>
+        <item>套餐五</item>
+    </string-array>
 </resources>

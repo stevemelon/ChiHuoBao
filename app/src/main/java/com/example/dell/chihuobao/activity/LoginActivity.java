@@ -27,6 +27,7 @@ import java.util.HashMap;
 public class LoginActivity extends BaseActivity {
     public static final int LOGIN_SUCCESS = 1;
     public static final int LOGIN_FAILURE = 2;
+    
     public static final String ADDRESS="http://10.6.12.70:8080/chb/user/login.do?";
     @ViewInject(R.id.toolbar)
     private Toolbar toolbar;
