@@ -9,7 +9,7 @@ import com.example.dell.chihuobao.util.HttpUtil;
  */
 public class HttpUtilTest extends InstrumentationTestCase {
     public void test() throws Exception {
-        String s=HttpUtil.getURLResponse("http://10.6.12.82:8080/chb/user/login.do?username=xia&password=dsf");
+        String s=HttpUtil.getURLResponse("http://10.6.12.82:8080/chb/fragment_user/login.do?username=xia&password=dsf");
 
         //assertEquals(s,);
 

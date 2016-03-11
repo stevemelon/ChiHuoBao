@@ -27,7 +27,7 @@ public class HttpUtil {
     // 创建HttpClient对象
 
     public static HttpClient httpClient = new DefaultHttpClient();
-    public static final String BASE_URL = "http://10.6.12.82:8080/chb/user/";
+    public static final String BASE_URL = "http://10.6.12.82:8080/chb/fragment_user/";
  /* http://10.6.12.60:8080/chb/user/login.do?usernamexia&password=dsf
   http://10.6.12.60:8080/chb/user/login.do?username=xia&password=dsf*/
 

@@ -13,7 +13,7 @@ public class UserFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		//引入我们的布局
-		return inflater.inflate(R.layout.user, container, false);
+		return inflater.inflate(R.layout.fragment_user, container, false);
 	}
 
 }
