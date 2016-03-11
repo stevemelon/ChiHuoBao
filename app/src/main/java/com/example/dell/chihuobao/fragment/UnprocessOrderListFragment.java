@@ -69,11 +69,13 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
     public void initData(){
         for (int i=0;i<3;i++){
             Item item=new Item();
+            List<Item> items=new ArrayList<Item>();
             Order mOrder=new Order();
             item.setItem_cout(item_count[i]);
             item.setItem_name(item_name[i]);
             item.setItem_price(item_price[i]);
-            mOrder.setItem(item);
+            items.add(item);
+            mOrder.setItem(items);
             mOrder.setAdddress(address[i]);
             mOrder.setOrder_search_result_item_id(order_search_result_item_id[i]);
             mOrder.setNotice(notice[i]);

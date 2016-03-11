@@ -1,8 +1,6 @@
 package com.example.dell.chihuobao.util;
 
 import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,15 +8,17 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.example.dell.chihuobao.activity.DeliverManActivity;
+import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.appwidget.MyListView;
+import com.example.dell.chihuobao.bean.Item;
 import com.example.dell.chihuobao.bean.Order;
 
+import java.util.ArrayList;
 import java.util.List;
-import com.example.dell.chihuobao.R;
 /*
 
- * 我的订单ListView的adapter。
+ * 未处理订单ListView的adapter，其中嵌套一个listview。
+ * Created by Zx on 2016/3/9
 
  * */
 
@@ -58,6 +58,8 @@ public class OrderAdapter extends BaseAdapter {
     @Override
     public View getView(int arg0, View arg1, ViewGroup arg2) {
         ViewHolder viewHolder=null;
+        List<Item> mItems=new ArrayList<Item>();
+
 
 
 
@@ -69,16 +71,13 @@ public class OrderAdapter extends BaseAdapter {
             viewHolder.time = (TextView) arg1.findViewById(R.id.order_search_result_item_time);
             viewHolder.address = (TextView)arg1.findViewById(R.id.order_search_result_item_address);
             viewHolder.orderId=(TextView) arg1.findViewById(R.id.order_search_result_item_orderId);
-            viewHolder.price=(TextView) arg1.findViewById(R.id.order_item_price);
-            viewHolder.count=(TextView) arg1.findViewById(R.id.order_item_count);
-            viewHolder.name=(TextView) arg1.findViewById(R.id.order_item_name);
+            viewHolder.food= (MyListView) arg1.findViewById(R.id.MyListView);//嵌套的listview
             viewHolder.notice=(TextView) arg1.findViewById(R.id.order_notice);
             viewHolder.receipt= (TextView) arg1.findViewById(R.id.order_receipt);
             viewHolder.item_id= (TextView) arg1.findViewById(R.id.order_search_result_item_id);
             viewHolder.accept= (TextView) arg1.findViewById(R.id.accept_order);
             arg1.setTag(viewHolder);
         }else {
-            Log.i("!!!!!!!!!!!!!!!!!!", " " + arg1.getTag());
             viewHolder = (ViewHolder) arg1.getTag();
         }
         Order order=getItem(arg0);
@@ -88,9 +87,9 @@ public class OrderAdapter extends BaseAdapter {
             viewHolder.time.setText(order.getTime());
             viewHolder.address.setText(order.getAdddress());
             viewHolder.orderId.setText(order.getOrderId());
-            viewHolder.price.setText(order.getItem_price());
-            viewHolder.count.setText(order.getItem_count());
-            viewHolder.name.setText(order.getItem_name());
+            mItems=order.getItem();
+            OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);//嵌套listvie的适配器
+            viewHolder.food.setAdapter(orderFoodAdapter);
             viewHolder.notice.setText(order.getNotice());
             viewHolder.receipt.setText(order.getReceipt());
             viewHolder.item_id.setText(order.getOrder_search_result_item_id());
@@ -124,21 +123,18 @@ public class OrderAdapter extends BaseAdapter {
         @Override
         public void onClick(View v) {
             int vid = v.getId();
-            Toast.makeText(context,position+"",Toast.LENGTH_SHORT).show();
-           Intent intent = new Intent(context, DeliverManActivity.class);
-            context.startActivity(intent);
+            Toast.makeText(context,"将订单状态改为已处理",Toast.LENGTH_SHORT).show();
+
         }
     }
 
-        private  class ViewHolder
+    private  class ViewHolder
     {
         TextView telephone;
         TextView time;
         TextView address;
         TextView orderId;
-        TextView price;
-        TextView count;
-        TextView name;
+        MyListView food;//嵌套的lsitview
         TextView notice;
         TextView receipt;
         TextView item_id;

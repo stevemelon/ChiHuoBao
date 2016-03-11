@@ -1,4 +1,5 @@
 package com.example.dell.chihuobao.bean;
+import java.util.List;
 
 /**
  * Created by dell on 2016/3/1.
@@ -8,23 +9,14 @@ public class Order {
     private String telephone;
     private String address;
     private String orderId;
-    private String item_price;
-    private String item_count;
-    private String item_name;
+    private List<Item> item;
     private String notice;
     private String receipt;
+    private String time;
 
-    public Item getItem() {
+    public List<Item> getItem() {
         return item;
     }
-
-    public void setItem(Item item) {
-        this.item = item;
-    }
-
-    private String time;
-    private Item item;
-
     public String getOrder_search_result_item_id() {
         return order_search_result_item_id;
     }
@@ -43,18 +35,6 @@ public class Order {
 
     public String getOrderId() {
         return orderId;
-    }
-
-    public String getItem_price() {
-        return item_price;
-    }
-
-    public String getItem_count() {
-        return item_count;
-    }
-
-    public String getItem_name() {
-        return item_name;
     }
 
     public String getNotice() {
@@ -81,17 +61,6 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public void setItem_price(String item_price) {
-        this.item_price = item_price;
-    }
-
-    public void setItem_count(String item_count) {
-        this.item_count = item_count;
-    }
-
-    public void setItem_name(String item_name) {
-        this.item_name = item_name;
-    }
 
     public void setNotice(String notice) {
         this.notice = notice;
@@ -103,5 +72,8 @@ public class Order {
 
     public void setTime(String time) {
         this.time = time;
+    }
+    public void setItem(List<Item> item) {
+        this.item = item;
     }
 }

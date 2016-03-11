@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="55dp"
-    android:background="@drawable/bottom_bar"
+    android:layout_height="60dp"
+    android:background="#f0f0f0"
     android:orientation="horizontal" >
     <LinearLayout 
         android:id="@+id/id_tab_weixin"
@@ -12,17 +12,22 @@
         android:gravity="center"
         android:layout_weight="1">
         <ImageButton 
-            android:id="@+id/id_tab_weixin_img"
+            android:id="@+id/id_tab_order_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
-            android:src="@drawable/icon_multi_order"
+            android:src="@drawable/shopping_home_tab_order"
             android:background="#00000000"/>
-        <TextView 
+        <TextView
+            android:id="@+id/id_tab_orde_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:text="订单管理"/>
+            android:textColor="#999999"
+            android:textSize="12sp"
+            android:text="订单"/>
+        <!--&lt;!&ndash;#a9a9a9&ndash;&gt;-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:text="订单管理"/>-->
     </LinearLayout>
     <LinearLayout 
         android:id="@+id/id_tab_frd"
@@ -32,16 +37,18 @@
         android:gravity="center"
         android:layout_weight="1">
         <ImageButton 
-            android:id="@+id/id_tab_frd_img"
+            android:id="@+id/id_tab_food_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
-            android:src="@drawable/icon_manage_food2"
+            android:src="@drawable/shopping_home_tab_take_out"
             android:background="#00000000"/>
-        <TextView 
+        <TextView
+            android:id="@+id/id_tab_food_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
+            android:textColor="#999999"
+            android:textSize="12sp"
             android:text="菜单管理"/>
     </LinearLayout>
     <LinearLayout 
@@ -52,16 +59,18 @@
         android:gravity="center"
         android:layout_weight="1">
         <ImageButton 
-            android:id="@+id/id_tab_address_img"
+            android:id="@+id/id_tab_count_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
-            android:src="@drawable/tab_address_normal"
+            android:src="@drawable/shopping_home_tab_found"
             android:background="#00000000"/>
-        <TextView 
+        <TextView
+            android:id="@+id/id_tab_count_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
+            android:textColor="#999999"
+            android:textSize="12sp"
             android:text="账户"/>
     </LinearLayout>
     <LinearLayout 
@@ -76,12 +85,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="false"
-            android:src="@drawable/tab_settings_normal"
+            android:src="@drawable/shopping_home_tab_personal"
             android:background="#00000000"/>
-        <TextView 
+        <TextView
+            android:id="@+id/id_tab_setting_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
+            android:textColor="#999999"
+            android:textSize="12sp"
             android:text="设置"/>
     </LinearLayout>
 

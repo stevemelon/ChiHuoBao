@@ -84,7 +84,7 @@ public class ProcessOrderAdapter extends BaseAdapter {
             viewHolder.time.setText(order.getTime());
             viewHolder.address.setText(order.getAdddress());
             viewHolder.orderId.setText(order.getOrderId());
-            mItems.add(order.getItem());
+            mItems=order.getItem();
             OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);
             viewHolder.food.setAdapter(orderFoodAdapter);
             viewHolder.notice.setText(order.getNotice());
