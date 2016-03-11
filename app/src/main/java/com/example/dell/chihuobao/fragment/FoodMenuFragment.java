@@ -120,10 +120,10 @@ public class FoodMenuFragment extends Fragment {
 		//菜品种类的listView
 		FoodMenuRightListViewAdapter myFoodListViewAdapter = new FoodMenuRightListViewAdapter(getActivity(),allFood,foodType);
 		myFoodListViewAdapter.notifyDataSetChanged();
-		foodMenuRightListViewAdapter.notifyDataSetChanged();
+		myFoodListViewAdapter.notifyDataSetChanged();
 
 		listView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.adapter_left_food_type, foodType));
-		listView2.setAdapter(foodMenuRightListViewAdapter);
+		listView2.setAdapter(myFoodListViewAdapter);
 		/**
 		 * 下面这个函数表示点了种类表中的item中，item变色，然后右边的菜品列表跳转的当前种类置顶
 		 */

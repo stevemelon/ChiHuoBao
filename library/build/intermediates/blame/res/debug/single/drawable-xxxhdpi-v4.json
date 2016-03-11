@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\library\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4\\sun.png",
+        "source": "D:\\Android\\ChiHuoBao\\library\\src\\main\\res\\drawable-xxxhdpi\\sun.png"
+    },
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\library\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4\\sky.png",
+        "source": "D:\\Android\\ChiHuoBao\\library\\src\\main\\res\\drawable-xxxhdpi\\sky.png"
+    },
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\library\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4\\buildings.png",
+        "source": "D:\\Android\\ChiHuoBao\\library\\src\\main\\res\\drawable-xxxhdpi\\buildings.png"
+    }
+]
