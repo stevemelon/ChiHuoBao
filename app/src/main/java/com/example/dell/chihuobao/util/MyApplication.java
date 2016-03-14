@@ -13,7 +13,12 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class MyApplication extends Application {
 
-    public static final String localhost = "";
+    private static final String localhost = "";
+
+    public static String getLocalhost() {
+        return localhost;
+    }
+
     // 在application的onCreate中初始化
     @Override
     public void onCreate() {
