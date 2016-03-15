@@ -11,7 +11,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/iv_food_add"
+            android:id="@+id/iv_food_modify"
             android:src="@drawable/add_food_image"/>
 
     </LinearLayout>
@@ -32,7 +32,7 @@
             android:layout_marginRight="20dp"
             />
         <Spinner
-            android:id="@+id/sp_food_add_type"
+            android:id="@+id/sp_food_modify_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/foodType"
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:id="@+id/et_food_add_name" />
+            android:id="@+id/et_food_modify_name" />
 
     </LinearLayout>
     <LinearLayout
@@ -79,7 +79,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/et_food_add_price"
+            android:id="@+id/et_food_modify_price"
             android:hint="元"
             android:textSize="20sp"/>
 
@@ -105,7 +105,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/et_food_add_achieve_money"
+                android:id="@+id/et_food_modify_achieve_money"
                 android:hint="元"
                 android:textSize="20sp"/>
 
@@ -127,7 +127,7 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/et_food_add_reduce_money"
+                android:id="@+id/et_food_modify_reduce_money"
                 android:hint="元"
                 android:textSize="20sp"/>
 
@@ -155,10 +155,32 @@
             android:textSize="20sp"/>
 
     </LinearLayout>
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="上传"
-        android:id="@+id/btn_upload"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|bottom">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改"
+            android:id="@+id/btn_modify"
+            android:layout_marginBottom="10dp"
+            android:background="#0088ff"
+            android:textColor="#fff"
+            android:textSize="17sp"
+            android:layout_marginRight="10dp"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除"
+            android:id="@+id/btn_delete"
+            android:layout_marginBottom="10dp"
+            android:background="#0088ff"
+            android:textColor="#fff"
+            android:textSize="17sp"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
 
 </LinearLayout>
