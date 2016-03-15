@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "D:\\Chihuobao\\library\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\sky.png",
+        "source": "D:\\Chihuobao\\library\\src\\main\\res\\drawable-xhdpi\\sky.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\library\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\sun.png",
+        "source": "D:\\Chihuobao\\library\\src\\main\\res\\drawable-xhdpi\\sun.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\library\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\buildings.png",
+        "source": "D:\\Chihuobao\\library\\src\\main\\res\\drawable-xhdpi\\buildings.png"
+    }
+]
