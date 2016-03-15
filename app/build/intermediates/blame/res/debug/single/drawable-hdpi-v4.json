@@ -32,12 +32,20 @@
         "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\drawable-hdpi\\oleksii.jpg"
     },
     {
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_pressed_holo_light.9.png",
+        "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-hdpi\\abc_list_pressed_holo_light.9.png"
+    },
+    {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png",
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-hdpi\\abc_ab_share_pack_mtrl_alpha.9.png"
     },
     {
-        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_list_pressed_holo_light.9.png",
-        "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-hdpi\\abc_list_pressed_holo_light.9.png"
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\search_btn_background.png",
+        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\drawable-hdpi\\search_btn_background.png"
+    },
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\search_top_background.png",
+        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\drawable-hdpi\\search_top_background.png"
     },
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\icon_processing.png",
@@ -168,8 +176,16 @@
         "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\drawable-hdpi\\ed.jpg"
     },
     {
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\delete.png",
+        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\drawable-hdpi\\delete.png"
+    },
+    {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png",
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-hdpi\\abc_scrubber_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\search_frame.9.png",
+        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\drawable-hdpi\\search_frame.9.png"
     },
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_ic_go_search_api_mtrl_alpha.png",

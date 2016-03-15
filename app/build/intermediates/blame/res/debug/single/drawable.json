@@ -1,11 +1,11 @@
 [
     {
-        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_snackbar_background.xml",
-        "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.1.1\\res\\drawable\\design_snackbar_background.xml"
-    },
-    {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\smssdk_btn_enable.xml",
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\SMSSDKGUI-2.0.2\\res\\drawable\\smssdk_btn_enable.xml"
+    },
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_snackbar_background.xml",
+        "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.1.1\\res\\drawable\\design_snackbar_background.xml"
     },
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\button_blue_bg.xml",
@@ -70,6 +70,10 @@
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\icon_1.png",
         "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\drawable\\icon_1.png"
+    },
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\top_background.xml",
+        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\drawable\\top_background.xml"
     },
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",

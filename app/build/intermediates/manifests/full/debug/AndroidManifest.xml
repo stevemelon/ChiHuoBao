@@ -89,6 +89,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.dell.chihuobao.activity.FoodMenuModifyActivity" />
         <!--
         极光推送
         ==============================================================================================================================

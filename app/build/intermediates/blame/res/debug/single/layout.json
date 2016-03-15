@@ -8,12 +8,12 @@
         "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\welcome_two.xml"
     },
     {
-        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\group_list_item.xml",
-        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\group_list_item.xml"
-    },
-    {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_action_menu_layout.xml"
+    },
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\group_list_item.xml",
+        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\group_list_item.xml"
     },
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_item_material.xml",
@@ -70,6 +70,10 @@
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_subheader.xml",
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.1.1\\res\\layout\\design_navigation_item_subheader.xml"
+    },
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\order_search.xml",
+        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\order_search.xml"
     },
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\welcome_main.xml",
@@ -246,6 +250,10 @@
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\welcome_one.xml",
         "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\welcome_one.xml"
+    },
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_food_menu_modify.xml",
+        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\activity_food_menu_modify.xml"
     },
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
