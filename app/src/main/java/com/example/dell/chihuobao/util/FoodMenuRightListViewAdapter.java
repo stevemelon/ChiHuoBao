@@ -2,6 +2,7 @@ package com.example.dell.chihuobao.util;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.activity.FoodMenuModifyActivity;
+
 /**
  * Created by dell on 2016/3/1.
  */
@@ -74,7 +77,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
         //无convertView，需要new出各个控件
         if(convertView == null)
         {
-            Log.d("convertView = ", " NULL");
+            Log.d("convertView = ", " NULL1");
 
             //按当前所需的样式，确定new的布局
             switch(type)
@@ -83,7 +86,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                     convertView = inflater.inflate(R.layout.adapter_food_menu_right_tag, parent, false);
                     viewHolderTag = new ViewHolderTag();
                     viewHolderTag.tvFoodTypeName = (TextView)convertView.findViewById(R.id.group_list_item_text);
-                    viewHolderTag.tvFoodTypeModify = (TextView)convertView.findViewById(R.id.tv_food_type_modify);
+                    //viewHolderTag.tvFoodTypeModify = (TextView)convertView.findViewById(R.id.tv_food_type_modify);
                     Log.d("convertView = ", "ITEM_TAG");
                     convertView.setTag(viewHolderTag);
                     break;
@@ -95,6 +98,9 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                     viewHolderNormal.tvPrice = (TextView)convertView.findViewById(R.id.group_list_item_price);
                     viewHolderNormal.btnModify = (Button)convertView.findViewById(R.id.item_food_detail_modify);
                     viewHolderNormal.btnSoldOut = (Button)convertView.findViewById(R.id.item_food_detail_soldOut);
+                    viewHolderNormal.tvAchieveMoney=(TextView)convertView.findViewById(R.id.item_food_achieve_money);
+                    viewHolderNormal.tvReduceMoney = (TextView)convertView.findViewById(R.id.item_food_reduce_money);
+
                     Log.d("convertView = ", "NULL ITEM_NORMAL");
                     convertView.setTag(viewHolderNormal);
                     break;
@@ -120,7 +126,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
         {
             case ITEM_TAG:
                 viewHolderTag.tvFoodTypeName.setText(getItem(position).toString());
-                viewHolderTag.tvFoodTypeModify.setOnClickListener(new View.OnClickListener() {
+                /*viewHolderTag.tvFoodTypeModify.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         TableLayout foodTypeEditView = (TableLayout) inflater.inflate(R.layout.dialog_food_menu_right_type_modify, null);
@@ -149,7 +155,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
 
                     }
 
-                });
+                });*/
                 break;
             case ITEM_NORMAL:
                 viewHolderNormal.tvFoodName.setText(getItem(position).toString());
@@ -167,6 +173,9 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                         /**
                          * 编辑菜品详细信息
                          */
+                        Intent intent = new Intent(context, FoodMenuModifyActivity.class);
+                        context.startActivity(intent);
+
                     }
                 });
                 break;
@@ -185,7 +194,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
 
     class ViewHolderTag{
         TextView tvFoodTypeName;
-        TextView tvFoodTypeModify;
+        //TextView tvFoodTypeModify;
 
     }
 
@@ -195,5 +204,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
         TextView tvPrice;
         Button btnModify;
         Button btnSoldOut;
+        TextView tvAchieveMoney;
+        TextView tvReduceMoney;
     }
 }

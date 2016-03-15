@@ -1,50 +1,37 @@
 package com.example.dell.chihuobao.activity;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.util.AndroidUtil;
 import com.example.dell.chihuobao.util.ServerUtil;
 
-
-import org.xutils.common.Callback;
-import org.xutils.common.util.IOUtil;
-import org.xutils.http.RequestParams;
-import org.xutils.http.request.HttpRequest;
-import org.xutils.x;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
 /**
- * Created by dell on 2016/3/9.
+ * Created by dell on 2016/3/15.
  */
-public class FoodMenuAddNewFoodActivity extends Activity {
+public class FoodMenuModifyActivity extends BaseActivity{
     private ImageView ivFoodImage;
     private EditText etFoodName;
     private EditText etFoodPrice;
@@ -52,14 +39,13 @@ public class FoodMenuAddNewFoodActivity extends Activity {
     private Spinner spFoodType;
     private EditText etFoodAchieveMoney;
     private EditText etFoodReduceMoney;
-    private HashMap foodHashMap= new HashMap();
+    private HashMap foodHashMap;
     private String date;
-    private Button btnUpload;
+
     private String[] items = { "拍照", "相册" };
     private String title = "选择照片";
 
-    private  File file;
-
+    private File file;
     private static final int PHOTO_CARMERA = 1;
     private static final int PHOTO_PICK = 2;
     private static final int PHOTO_CUT = 3;
@@ -67,32 +53,33 @@ public class FoodMenuAddNewFoodActivity extends Activity {
     private File tempFile = new File(Environment.getExternalStorageDirectory(),
             getPhotoFileName());
     private ServerUtil serverUtil = new ServerUtil();
+    private Button btnModify;
+    private Button btnDelete;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        x.Ext.init(getApplication());
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_menu_add_new_food);
+        setContentView(R.layout.activity_food_menu_modify);
         initView();
-        btnUpload.setOnClickListener(clickListener);
-        ivFoodImage.setOnClickListener(clickListener);
 
     }
-
-
     public void initView(){
-        ivFoodImage = (ImageView)findViewById(R.id.iv_food_add);
-        etFoodName = (EditText)findViewById(R.id.et_food_add_name);
-        etFoodPrice=(EditText)findViewById(R.id.et_food_add_price);
-        etFoodDescription = (EditText)findViewById(R.id.et_food_add_price);
-        spFoodType = (Spinner)findViewById(R.id.sp_food_add_type);
-        btnUpload  = (Button)findViewById(R.id.btn_upload);
-        etFoodAchieveMoney = (EditText)findViewById(R.id.et_food_add_achieve_money);
-        etFoodReduceMoney = (EditText)findViewById(R.id.et_food_add_reduce_money);
-        spFoodType = (Spinner)findViewById(R.id.sp_food_add_type);
+        etFoodName = (EditText)findViewById(R.id.et_food_modify_name);
+        etFoodPrice = (EditText)findViewById(R.id.et_food_modify_price);
+        spFoodType = (Spinner)findViewById(R.id.sp_food_modify_type);
+        etFoodDescription = (EditText)findViewById(R.id.et_food_description);
+        etFoodAchieveMoney = (EditText)findViewById(R.id.et_food_modify_achieve_money);
+        etFoodReduceMoney =(EditText)findViewById(R.id.et_food_modify_reduce_money);
+        btnModify = (Button)findViewById(R.id.btn_modify);
+        btnDelete = (Button)findViewById(R.id.btn_delete);
+        ivFoodImage = (ImageView)findViewById(R.id.iv_food_modify);
+        btnDelete.setOnClickListener(clickListener);
+        btnModify.setOnClickListener(clickListener);
+        ivFoodImage.setOnClickListener(clickListener);
     }
 
 
-    // 使用系统当前日期加以调整作为照片的名称
+
+
     private String getPhotoFileName() {
         Date date = new Date(System.currentTimeMillis());
         SimpleDateFormat sdf = new SimpleDateFormat("'PNG'_yyyyMMdd_HHmmss");
@@ -103,71 +90,30 @@ public class FoodMenuAddNewFoodActivity extends Activity {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.iv_food_add:
+                case R.id.iv_food_modify:
                     AlertDialog.Builder dialog = AndroidUtil.getListDialogBuilder(
-                            FoodMenuAddNewFoodActivity.this, items, title, dialogListener);
+                            FoodMenuModifyActivity.this, items, title, dialogListener);
                     dialog.show();
                     break;
-                case R.id.btn_upload:
-                    //serverUtil.addFood(getData());
-                    RequestParams params = new RequestParams("http://10.6.12.56:8080/chb/shop/addProduct.do");
-                    params.addBodyParameter("shopid","1",null);
-                    params.addBodyParameter("categoryid", "1", null);
-                    params.addBodyParameter("name", "ykg23454", null);
-                    params.addBodyParameter("storenumber", "45454", null);
-                    params.addBodyParameter("price", "45", null);
-                    params.addBodyParameter("description", "12", null);
-                    params.addBodyParameter("inserttime", "2016-02-21 23:23:23", null);
-                    params.addBodyParameter("salescount", "0",null);
-                    params.addBodyParameter("status", "1", null);
-                    params.addBodyParameter("achievemoney", "12", null);
-                    params.addBodyParameter("reducemoney", "23", null);
-                    params.addBodyParameter("rank", "1", null);
-                    params.addBodyParameter("photodetail",tempFile.getPath(),null);
-                    params.addBodyParameter("photo",new File(tempFile.getPath()),null);
-
-                    x.http().post(params, new Callback.CommonCallback<String>() {
-                        @Override
-                        public void onSuccess(String result) {
-                            Log.d("result", result);
-                            Toast.makeText(x.app(), "上传成功，马上去服务器看看吧！" + result, Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onError(Throwable ex, boolean isOnCallback) {
-                            Toast.makeText(x.app(), "上传失败，检查一下服务器地址是否正确", Toast.LENGTH_SHORT).show();
-                            ex.printStackTrace();
-
-                        }
-
-                        @Override
-                        public void onCancelled(CancelledException cex) {
-
-                        }
-
-                        @Override
-                        public void onFinished() {
-
-                        }
-                    });
-                    break;
-                default:
+                case R.id.btn_modify:
+                    serverUtil.uptateFood(getData());
+                    finish();
                     break;
 
+                case R.id.btn_delete:
+                    serverUtil.deleteFood("1");
+                    finish();
+                    break;
             }
-
-
-
-
 
         }
     };
 
     private HashMap getData(){
         file= new File(tempFile.getPath());
+        foodHashMap.put("id","1");
         foodHashMap.put("shopid", "1");
-        //foodHashMap.put("categoryid",spFoodType.getSelectedItem().toString());
-        foodHashMap.put("categoryid","1");
+        foodHashMap.put("categoryid",spFoodType.getSelectedItem().toString());
         foodHashMap.put("name",etFoodName.getText().toString());
         foodHashMap.put("storenumber","100");
         foodHashMap.put("price",etFoodPrice.getText().toString());
@@ -177,14 +123,13 @@ public class FoodMenuAddNewFoodActivity extends Activity {
         foodHashMap.put("achievemoney",etFoodAchieveMoney.getText().toString());
         foodHashMap.put("reducemoney",etFoodReduceMoney.getText().toString());
         foodHashMap.put("rank","6");
-        foodHashMap.put("photodetail","qwwwqwq");
+        foodHashMap.put("photodetail","");
         foodHashMap.put("photo",file);
         foodHashMap.put("inserttime",new  SimpleDateFormat("yyyy-MM-dd   hh:mm:ss").format(new Date()));
         return foodHashMap;
 
 
     }
-
 
     private DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
 

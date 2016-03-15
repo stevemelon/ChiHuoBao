@@ -1,5 +1,6 @@
 package com.example.dell.chihuobao.bean;
 
+
 /**此类事Order订单对象中的item实体类
  * Created by Zx on 2016/3/9.
  */
