@@ -19,8 +19,9 @@ public class ServerUtil {
     private final static String ADD_FOOD = "/chb/shop/addProduct.do";
     private final static String DELETE_FOOD ="/chb/shop/deleteProduct.do";
     private final static String UPDATE_FOOD = "/chb/shop/updateProduct.do";
+    private final static String QUERY_PRODUCT= "/chb/shop/queryProduct.do";
     private final static String QUERY_CATEGORY= "/chb/shop/queryCategory.do";
-    private final static String URL = "";
+    private final static String URL = "http://10.6.12.56:8080";
     public ServerUtil() {
         super();
     }
@@ -145,7 +146,7 @@ public class ServerUtil {
     }
 
     public void queryCategory(String shopId,String categoryId){
-        RequestParams params = new RequestParams(URL+QUERY_CATEGORY);
+        RequestParams params = new RequestParams(URL+QUERY_PRODUCT);
         params.addBodyParameter("shopid",shopId);
         params.addBodyParameter("categoryid",categoryId);
         x.http().post(params, new Callback.CommonCallback<String>() {
