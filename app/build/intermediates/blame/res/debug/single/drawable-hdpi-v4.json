@@ -80,12 +80,12 @@
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-hdpi\\abc_btn_radio_to_on_mtrl_015.png"
     },
     {
-        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
-        "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-hdpi\\abc_btn_switch_to_on_mtrl_00012.9.png"
-    },
-    {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\icon_multi_order.png",
         "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\drawable-hdpi\\icon_multi_order.png"
+    },
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
+        "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-hdpi\\abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4\\icon_manage_food.png",

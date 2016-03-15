@@ -73,20 +73,20 @@
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/icon_setting_right_arraw" />
         </LinearLayout>
- 
+
         <RelativeLayout
-            android:id="@+id/recommond_to_weixin_layout"
+            android:id="@+id/location"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dip"
             android:background="@drawable/setting_bg">
 
             <TextView
-                android:id="@+id/settings_connect_manager"
+
                 style="@style/setting_text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/contact_manager" />
+                android:text="@string/loaction" />
 
             <ImageView
                 android:layout_width="wrap_content"

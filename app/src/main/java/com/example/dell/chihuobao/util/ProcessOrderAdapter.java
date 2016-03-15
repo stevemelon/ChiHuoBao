@@ -70,7 +70,6 @@ public class ProcessOrderAdapter extends BaseAdapter {
             viewHolder.orderId=(TextView) arg1.findViewById(R.id.order_search_result_item_orderId);
             viewHolder.food= (MyListView) arg1.findViewById(R.id.MyListView);//嵌套的listview
             viewHolder.notice=(TextView) arg1.findViewById(R.id.order_notice);
-            viewHolder.receipt= (TextView) arg1.findViewById(R.id.order_receipt);
             viewHolder.item_id= (TextView) arg1.findViewById(R.id.order_search_result_item_id);
             viewHolder.accept= (TextView) arg1.findViewById(R.id.accept_order);
             arg1.setTag(viewHolder);
@@ -80,16 +79,15 @@ public class ProcessOrderAdapter extends BaseAdapter {
         Order order=getItem(arg0);
 
         if (order!=null){
-            viewHolder.telephone.setText(order.getTelphone());
-            viewHolder.time.setText(order.getTime());
-            viewHolder.address.setText(order.getAdddress());
+            viewHolder.telephone.setText(order.getTelephone());
+            viewHolder.time.setText(order.getOrdertime());
+            viewHolder.address.setText(order.getAddress());
             viewHolder.orderId.setText(order.getOrderId());
-            mItems=order.getItem();
+            mItems=order.getOrderdelist();
             OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);
             viewHolder.food.setAdapter(orderFoodAdapter);
-            viewHolder.notice.setText(order.getNotice());
-            viewHolder.receipt.setText(order.getReceipt());
-            viewHolder.item_id.setText(order.getOrder_search_result_item_id());
+            viewHolder.notice.setText(order.getRequest());
+            viewHolder.item_id.setText(order.getId());
             viewHolder.accept.setOnClickListener(new lvButtonListener(arg0));
         }
 
@@ -134,7 +132,6 @@ public class ProcessOrderAdapter extends BaseAdapter {
         TextView orderId;
         MyListView food;
         TextView notice;
-        TextView receipt;
         TextView item_id;
         TextView accept;
 

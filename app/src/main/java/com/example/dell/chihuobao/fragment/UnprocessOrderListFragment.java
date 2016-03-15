@@ -1,19 +1,31 @@
 package com.example.dell.chihuobao.fragment;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.appwidget.MyListView;
 import com.example.dell.chihuobao.bean.Item;
 import com.example.dell.chihuobao.bean.Order;
-import com.example.dell.chihuobao.util.OrderAdapter;
+import com.example.dell.chihuobao.bean.OrderJson;
+import com.example.dell.chihuobao.util.BaseLog;
+import com.example.dell.chihuobao.util.OrderFoodAdapter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yalantis.phoenix.PullToRefreshView;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,39 +34,32 @@ import java.util.List;
  * Created by Zx.
  */
 public class UnprocessOrderListFragment extends BaseRefreshFragment {
-
     private PullToRefreshView mPullToRefreshView;
-
-    private List<Order> list;
+    public List<Order> list;
     private  ListView mListView;
-    private String[] order_search_result_item_id=new String[]{"14","15","16"};
-    private String[] telephone=new String[]{"123456","545646546546","9999999"};
-    private String[] time=new String[]{"10:00","11:30","12:00"};
-    private String[] address=new String[]{"东南大学","文汇人才公寓","三江院"};
-    private String[] orderId=new String[]{"11111111111","222222222","33333333"};
-    private String[] item_price=new String[]{"10","15","20"};
-    private String[] item_count=new String[]{"2","5","1"};
-    private String[] item_name=new String[]{"鱼香肉丝","京酱肉丝","炒菜"};
-    private String[] notice=new String[]{"多放辣","多加饭","qweqwe"};
-    private String[] receipt=new String[]{"旭日科技有限公司","小旭私房菜","小旭生煎"};
-
+    private OrderAdapter simpleAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_list_view, container, false);
          mListView = (ListView) rootView.findViewById(R.id.list_view);
-        list=new ArrayList<Order>();
-        initData();
-        Log.i("!!!!!!!!",list.get(0).getAdddress());
-        Log.i("!!!!!!!!",list.get(1).getAdddress());
-        OrderAdapter simpleAdapter=new OrderAdapter(list,R.layout.order_unprocessing_item,getActivity());
-        int j=simpleAdapter.getCount();
-        mListView.setAdapter(simpleAdapter);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                getDataFromServe();
+            }
+        }).run();
+
         mPullToRefreshView = (PullToRefreshView) rootView.findViewById(R.id.pull_to_refresh);
         mPullToRefreshView.setOnRefreshListener(new PullToRefreshView.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 //此处写业务代码
-                Toast.makeText(getActivity(), "下拉刷新", Toast.LENGTH_SHORT).show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getDataFromServe();
+                    }
+                }).run();
                 mPullToRefreshView.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -66,26 +71,209 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
 
         return rootView;
     }
-    public void initData(){
-        for (int i=0;i<3;i++){
-            Item item=new Item();
-            List<Item> items=new ArrayList<Item>();
-            Order mOrder=new Order();
-            item.setItem_cout(item_count[i]);
-            item.setItem_name(item_name[i]);
-            item.setItem_price(item_price[i]);
-            items.add(item);
-            mOrder.setItem(items);
-            mOrder.setAdddress(address[i]);
-            mOrder.setOrder_search_result_item_id(order_search_result_item_id[i]);
-            mOrder.setNotice(notice[i]);
-            mOrder.setReceipt(receipt[i]);
-            mOrder.setTelphone(telephone[i]);
-            mOrder.setOrderId(orderId[i]);
-            mOrder.setTime(time[i]);
-            list.add(mOrder);
+//    从服务器获取数据
+    public void getDataFromServe(){
+        RequestParams params = new RequestParams("http://10.6.12.91:8080/zhbj/common.json");
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                parseData(result);
+                BaseLog.e("成功成功成功成功成功成功成功1");
+            }
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
+                BaseLog.e("失败失败失败失败失败失败1");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                BaseLog.e("取消取消取消取消取消取消取消取消取消取消取消1");
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+    /*
+    将从服务器端获取的数据解析，传给listview的适配器
+     */
+    public void parseData(String result){
+        list=new ArrayList<Order>();
+        Gson gson = new Gson();
+        java.lang.reflect.Type type = new TypeToken<OrderJson>() {
+        }.getType();
+        OrderJson orderBean = gson.fromJson(result, type);
+//        for (int i = 0; i < orderBean.getRows().size(); i++) {
+//            list.add(orderBean.getRows().get(i));
+//        }
+        simpleAdapter = new OrderAdapter(orderBean.getRows(), R.layout.order_unprocessing_item, getActivity());
+        mListView.setAdapter(simpleAdapter);
+    }
+    public class OrderAdapter extends BaseAdapter {
+
+        private List<Order> mOrders=null;//ListView显示的数据
+        private int resource;//显示列表项的Layout
+        private LayoutInflater  inflater;//界面生成器
+        private Context context;
+        public OrderAdapter(List<Order> orders, int resource, Context context){
+
+            this.mOrders = orders;
+            this.resource = resource;
+            this.context = context;
+            //inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        }
+        public void setMarkerData(List<Order> orderItems)
+        {
+            mOrders = orderItems;
         }
 
+        @Override
+        public int getCount() {
+            return mOrders.size();
+        }
 
+        @Override
+        public Order getItem(int arg0) {
+            return mOrders.get(arg0);
+        }
+        @Override
+        public long getItemId(int arg0) {
+            return arg0;
+        }
+
+        @Override
+        public View getView(final int arg0, View arg1, ViewGroup arg2) {
+            ViewHolder viewHolder=null;
+            List<Item> mItems=new ArrayList<Item>();
+
+
+
+
+            if(arg1 == null){
+                viewHolder = new ViewHolder();
+                LayoutInflater mInflater = LayoutInflater.from(context);
+                arg1 = mInflater.inflate(resource, null);
+                viewHolder.telephone = (TextView) arg1.findViewById(R.id.order_search_result_item_telphone);
+                viewHolder.time = (TextView) arg1.findViewById(R.id.order_search_result_item_time);
+                viewHolder.address = (TextView)arg1.findViewById(R.id.order_search_result_item_address);
+                viewHolder.orderId=(TextView) arg1.findViewById(R.id.order_search_result_item_orderId);
+                viewHolder.food= (MyListView) arg1.findViewById(R.id.MyListView);//嵌套的listview
+                viewHolder.notice=(TextView) arg1.findViewById(R.id.order_notice);
+                viewHolder.item_id= (TextView) arg1.findViewById(R.id.order_search_result_item_id);
+                viewHolder.accept= (TextView) arg1.findViewById(R.id.accept_order);
+                viewHolder.reject= (TextView) arg1.findViewById(R.id.reject_order);
+                arg1.setTag(viewHolder);
+            }else {
+                viewHolder = (ViewHolder) arg1.getTag();
+            }
+            Order order=mOrders.get(arg0);
+            if (order!=null){
+                viewHolder.telephone.setText(order.getTelephone());
+                viewHolder.time.setText(order.getOrdertime());
+                viewHolder.address.setText(order.getAddress());
+                viewHolder.orderId.setText(order.getOrderId());
+                mItems=order.getOrderdelist();
+                OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);//嵌套listvie的适配器
+                viewHolder.food.setAdapter(orderFoodAdapter);
+                viewHolder.notice.setText(order.getRequest());
+                viewHolder.item_id.setText(order.getId());
+                viewHolder.accept.setOnClickListener(new lvButtonListener(arg0));
+                viewHolder.reject.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new AlertDialog.Builder(context).setTitle("确认删除订单吗？")
+                                .setIcon(android.R.drawable.ic_dialog_info)
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // 点击“确认”后的操作
+//                                        mOrders.remove(arg0);
+//                                        simpleAdapter.notifyDataSetChanged();
+                                        RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/countPerformance.do?");
+                                        params.addQueryStringParameter("shopId", "232");
+                                        params.addQueryStringParameter("Orderstatus", "1");
+                                        x.http().post(params, new Callback.CommonCallback<String>() {
+                                            @Override
+                                            public void onSuccess(String result) {
+                                                mOrders.remove(arg0);
+                                                simpleAdapter.notifyDataSetChanged();
+                                                BaseLog.e("成功成功成功成功成功成功成功2");
+                                            }
+                                            @Override
+                                            public void onError(Throwable ex, boolean isOnCallback) {
+                                                Toast.makeText(context,"连接服务器失败",Toast.LENGTH_SHORT).show();
+                                            }
+                                            @Override
+                                            public void onCancelled(CancelledException cex) {
+
+                                            }
+
+                                            @Override
+                                            public void onFinished() {
+
+                                            }
+                                        });
+                                    }
+                                })
+                                .setNegativeButton("返回", new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // 点击“返回”后的操作,这里不设置没有任何操作
+                                    }
+                                }).show();
+
+                    }
+                });
+            }
+
+
+//        final Order order = mOrders.get(arg0);
+//        TextView telphone= (TextView) arg1.findViewById(R.id.order_search_result_item_telphone);
+//        TextView time= (TextView) arg1.findViewById(R.id.order_search_result_item_time);
+//        TextView address= (TextView) arg1.findViewById(R.id.order_search_result_item_address);
+//        TextView orderId= (TextView) arg1.findViewById(R.id.order_search_result_item_orderId);
+//        TextView price= (TextView) arg1.findViewById(R.id.order_item_price);
+//        TextView count= (TextView) arg1.findViewById(R.id.order_item_count);
+//        TextView name= (TextView) arg1.findViewById(R.id.order_item_name);
+//        TextView notice= (TextView) arg1.findViewById(R.id.order_notice);
+//        TextView receipt= (TextView) arg1.findViewById(R.id.order_receipt);
+//        TextView item_id= (TextView) arg1.findViewById(R.id.order_search_result_item_id);
+//        TextView accept= (TextView) arg1.findViewById(R.id.accept_order);
+
+            return arg1;
+
+        }
+        class lvButtonListener implements View.OnClickListener {
+            private int position;
+
+            lvButtonListener(int pos) {
+                position = pos;
+            }
+
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"!!!!!!!!!",Toast.LENGTH_LONG).show();
+            }
+        }
+
+        private  class ViewHolder
+        {
+            TextView telephone;
+            TextView time;
+            TextView address;
+            TextView orderId;
+            MyListView food;//嵌套的lsitview
+            TextView notice;
+            TextView item_id;
+            TextView accept;
+            TextView reject;
+
+        }
     }
 }

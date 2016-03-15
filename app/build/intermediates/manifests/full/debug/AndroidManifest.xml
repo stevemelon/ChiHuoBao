@@ -83,6 +83,11 @@
             android:name="com.example.dell.chihuobao.activity.WelcomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!--
         极光推送
@@ -185,7 +190,8 @@
         <activity
             android:name="com.example.dell.chihuobao.activity.LoginActivity"
             android:label="@string/title_activity_login"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
         <activity android:name="com.example.dell.chihuobao.activity.BaseActivity" />
         <!-- 验证短信activity -->
         <activity android:name="com.example.dell.chihuobao.activity.FoodMenuAddNewFoodActivity" />
@@ -200,11 +206,6 @@
             android:name="com.example.dell.chihuobao.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.example.dell.chihuobao.activity.DeliverManActivity"

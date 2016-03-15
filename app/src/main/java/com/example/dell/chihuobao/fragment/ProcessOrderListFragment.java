@@ -1,7 +1,6 @@
 package com.example.dell.chihuobao.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +40,6 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
         //mListView.setAdapter(new SampleAdapter(getActivity(), R.layout.list_item, mSampleList));
         list=new ArrayList<Order>();
         initData();
-        Log.i("!!!!!!!!", list.get(0).getAdddress());
-        Log.i("!!!!!!!!",list.get(1).getAdddress());
         ProcessOrderAdapter simpleAdapter=new ProcessOrderAdapter(list,R.layout.order_processing_item,getActivity());
         int j=simpleAdapter.getCount();
         mListView.setAdapter(simpleAdapter);
@@ -66,18 +63,17 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
             Item item=new Item();
             List<Item> items=new ArrayList<Item>();
             Order mOrder=new Order();
-            item.setItem_cout(item_count[i]);
-            item.setItem_name(item_name[i]);
-            item.setItem_price(item_price[i]);
+            item.setProductnum(item_count[i]);
+            item.setProductname(item_name[i]);
+            item.setProductprice(item_price[i]);
             items.add(item);
-            mOrder.setItem(items);
-            mOrder.setAdddress(address[i]);
-            mOrder.setOrder_search_result_item_id(order_search_result_item_id[i]);
-            mOrder.setNotice(notice[i]);
-            mOrder.setReceipt(receipt[i]);
-            mOrder.setTelphone(telephone[i]);
+            mOrder.setOrderdelist(items);
+            mOrder.setAddress(address[i]);
+            mOrder.setId(order_search_result_item_id[i]);
+            mOrder.setRequest(notice[i]);
+            mOrder.setTelephone(telephone[i]);
             mOrder.setOrderId(orderId[i]);
-            mOrder.setTime(time[i]);
+            mOrder.setOrdertime(time[i]);
             list.add(mOrder);
         }
 

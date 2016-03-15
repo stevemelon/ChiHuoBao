@@ -13,8 +13,6 @@ import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.util.BaseLog;
-import com.example.dell.chihuobao.util.GsonUtil;
-import com.example.dell.chihuobao.util.HttpUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -78,55 +76,57 @@ public class LoginActivity extends BaseActivity {
     @Event(R.id.login)
     private void onLoginClick(View view) {
         BaseLog.i("登录点击");
-
-        String s= "";
-        try {
-
-            s = HttpUtil.getURLResponse("http://www.baidu.com");
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            if (etUserName.getText().toString().trim().equals("") || erUserPwd.getText().toString().trim().equals("")) {
-                Toast.makeText(LoginActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
-                etUserName.setText(etUserName.getText().toString().trim());
-                erUserPwd.setText("");
-                return;
-
-            }
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        String username = etUserName.getText().toString().trim();
-                        String password = erUserPwd.getText().toString().trim();
-                        String loginData = HttpUtil.getURLResponse(ADDRESS +
-                                "username=" + username + "&password=" + password);
-                        HashMap<String, String> map = (HashMap<String, String>) GsonUtil.parseData(loginData);
-                        if (map.get("status").equals("success")) {
-                            Message msg = new Message();
-                            msg.what = LOGIN_SUCCESS;
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("data", map);
-                            msg.setData(bundle);
-                            handler.sendMessage(msg);
-                        } else if (map.get("status").equals("fail")) {
-                            Message msg = new Message();
-                            msg.what = LOGIN_SUCCESS;
-                            Bundle bundle = new Bundle();
-                            bundle.putSerializable("data", map);
-                            msg.setData(bundle);
-                            handler.sendMessage(msg);
-                        } else {
-                            BaseLog.e("返回数据出错！！！");
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-
-        }
+        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+        startActivity(intent);
+//
+//        String s= "";
+//        try {
+//
+//            s = HttpUtil.getURLResponse("http://www.baidu.com");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//
+//            if (etUserName.getText().toString().trim().equals("") || erUserPwd.getText().toString().trim().equals("")) {
+//                Toast.makeText(LoginActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+//                etUserName.setText(etUserName.getText().toString().trim());
+//                erUserPwd.setText("");
+//                return;
+//
+//            }
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    try {
+//                        String username = etUserName.getText().toString().trim();
+//                        String password = erUserPwd.getText().toString().trim();
+//                        String loginData = HttpUtil.getURLResponse(ADDRESS +
+//                                "username=" + username + "&password=" + password);
+//                        HashMap<String, String> map = (HashMap<String, String>) GsonUtil.parseData(loginData);
+//                        if (map.get("status").equals("success")) {
+//                            Message msg = new Message();
+//                            msg.what = LOGIN_SUCCESS;
+//                            Bundle bundle = new Bundle();
+//                            bundle.putSerializable("data", map);
+//                            msg.setData(bundle);
+//                            handler.sendMessage(msg);
+//                        } else if (map.get("status").equals("fail")) {
+//                            Message msg = new Message();
+//                            msg.what = LOGIN_SUCCESS;
+//                            Bundle bundle = new Bundle();
+//                            bundle.putSerializable("data", map);
+//                            msg.setData(bundle);
+//                            handler.sendMessage(msg);
+//                        } else {
+//                            BaseLog.e("返回数据出错！！！");
+//                        }
+//
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }).start();
+//
+//        }
     }
 
     @Event(R.id.to_login_by_phone)

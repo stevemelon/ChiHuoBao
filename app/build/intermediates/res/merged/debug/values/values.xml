@@ -695,10 +695,10 @@
     <string name="app_name">ChiHuoBao</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
-    <string name="contact_manager">联系市场经理</string>
     <string name="contact_service">联系客服</string>
     <string name="content_edit_hint">请输入你的建议，谢谢！</string>
     <string name="help">帮助与反馈</string>
+    <string name="loaction">店铺位置</string>
     <string name="logout">退出登录</string>
     <string name="mobile_number">电话</string>
     <string name="mobile_number_hint">请输入电话</string>

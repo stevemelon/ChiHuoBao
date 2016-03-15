@@ -5,75 +5,94 @@ import java.util.List;
  * Created by dell on 2016/3/1.
  */
 public class Order {
-    private String order_search_result_item_id;
+    private String id;//左上角订单标志号
     private String telephone;
     private String address;
-    private String orderId;
-    private List<Item> item;
-    private String notice;
-    private String receipt;
-    private String time;
+    private String orderId;//订单号
+    private List<Item> orderdelist;//商品项目
+    private String request;//备注
+//    private String receipt;
+    private String ordertime;
+    private int orderstatus;
+    private int totalprice;
 
-    public List<Item> getItem() {
-        return item;
-    }
-    public String getOrder_search_result_item_id() {
-        return order_search_result_item_id;
+
+    public static class shop{
+        public String id;
+        public String username;
+
+
     }
 
-    public String getTime() {
-        return time;
+    public String getId() {
+        return id;
     }
 
-    public String getTelphone() {
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getTelephone() {
         return telephone;
     }
 
-    public String getAdddress() {
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public String getAddress() {
         return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getOrderId() {
         return orderId;
     }
 
-    public String getNotice() {
-        return notice;
-    }
-
-    public String getReceipt() {
-        return receipt;
-    }
-
-    public void setOrder_search_result_item_id(String order_search_result_item_id) {
-        this.order_search_result_item_id = order_search_result_item_id;
-    }
-
-    public void setTelphone(String telphone) {
-        this.telephone = telphone;
-    }
-
-    public void setAdddress(String adddress) {
-        this.address = adddress;
-    }
-
     public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 
-
-    public void setNotice(String notice) {
-        this.notice = notice;
+    public List<Item> getOrderdelist() {
+        return orderdelist;
     }
 
-    public void setReceipt(String receipt) {
-        this.receipt = receipt;
+    public void setOrderdelist(List<Item> orderdelist) {
+        this.orderdelist = orderdelist;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public String getRequest() {
+        return request;
     }
-    public void setItem(List<Item> item) {
-        this.item = item;
+
+    public void setRequest(String request) {
+        this.request = request;
+    }
+
+    public String getOrdertime() {
+        return ordertime;
+    }
+
+    public void setOrdertime(String ordertime) {
+        this.ordertime = ordertime;
+    }
+
+    public int getOrderstatus() {
+        return orderstatus;
+    }
+
+    public void setOrderstatus(int orderstatus) {
+        this.orderstatus = orderstatus;
+    }
+
+    public int getTotalprice() {
+        return totalprice;
+    }
+
+    public void setTotalprice(int totalprice) {
+        this.totalprice = totalprice;
     }
 }

@@ -4,31 +4,31 @@ package com.example.dell.chihuobao.bean;
  * Created by Zx on 2016/3/9.
  */
 public class Item {
-    private String item_cout;
-    private String item_price;
-    private String item_name;
+    private String productnum;
+    private String productprice;
+    private String productname;
 
-    public void setItem_cout(String item_cout) {
-        this.item_cout = item_cout;
+    public String getProductnum() {
+        return productnum;
     }
 
-    public void setItem_price(String item_price) {
-        this.item_price = item_price;
+    public void setProductnum(String productnum) {
+        this.productnum = productnum;
     }
 
-    public void setItem_name(String item_name) {
-        this.item_name = item_name;
+    public String getProductprice() {
+        return productprice;
     }
 
-    public String getItem_cout() {
-        return item_cout;
+    public void setProductprice(String productprice) {
+        this.productprice = productprice;
     }
 
-    public String getItem_price() {
-        return item_price;
+    public String getProductname() {
+        return productname;
     }
 
-    public String getItem_name() {
-        return item_name;
+    public void setProductname(String productname) {
+        this.productname = productname;
     }
 }

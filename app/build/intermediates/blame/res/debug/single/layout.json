@@ -116,12 +116,12 @@
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_search_view.xml"
     },
     {
-        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item.xml",
-        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\list_item.xml"
-    },
-    {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_text.xml",
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.1.1\\res\\layout\\design_layout_tab_text.xml"
+    },
+    {
+        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\list_item.xml",
+        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\list_item.xml"
     },
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\adapter_food_menu_right_item.xml",
@@ -276,10 +276,6 @@
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
-        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\food_type_modify_dialog.xml",
-        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\food_type_modify_dialog.xml"
-    },
-    {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_feedback.xml",
         "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\activity_feedback.xml"
     },
@@ -294,10 +290,6 @@
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_activity_chooser_view.xml",
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_activity_chooser_view.xml"
-    },
-    {
-        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\food_menu.xml",
-        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\food_menu.xml"
     },
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\dialog_food_menu_right_type_modify.xml",
@@ -320,20 +312,8 @@
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\notification_template_media.xml"
     },
     {
-        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\food_type.xml",
-        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\food_type.xml"
-    },
-    {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
         "source": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
-    },
-    {
-        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\user.xml",
-        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\user.xml"
-    },
-    {
-        "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\add_food_alert.xml",
-        "source": "D:\\Android\\ChiHuoBao\\app\\src\\main\\res\\layout\\add_food_alert.xml"
     },
     {
         "merged": "D:\\Android\\ChiHuoBao\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
