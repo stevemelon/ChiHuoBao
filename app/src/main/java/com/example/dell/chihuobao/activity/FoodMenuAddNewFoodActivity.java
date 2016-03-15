@@ -110,10 +110,10 @@ public class FoodMenuAddNewFoodActivity extends Activity {
                     break;
                 case R.id.btn_upload:
                     //serverUtil.addFood(getData());
-                    RequestParams params = new RequestParams("http://10.6.12.56:8080/chb/shop/addProduct.do");
+                    RequestParams params = new RequestParams("http://10.6.12.56:8080/chb/shop/queryCategory.do");
                     params.addBodyParameter("shopid","1",null);
-                    params.addBodyParameter("categoryid", "1", null);
-                    params.addBodyParameter("name", "ykg23454", null);
+                    //params.addBodyParameter("categoryid", "1", null);
+                   /* params.addBodyParameter("name", "ykg23454", null);
                     params.addBodyParameter("storenumber", "45454", null);
                     params.addBodyParameter("price", "45", null);
                     params.addBodyParameter("description", "12", null);
@@ -124,7 +124,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
                     params.addBodyParameter("reducemoney", "23", null);
                     params.addBodyParameter("rank", "1", null);
                     params.addBodyParameter("photodetail",tempFile.getPath(),null);
-                    params.addBodyParameter("photo",new File(tempFile.getPath()),null);
+                    params.addBodyParameter("photo",new File(tempFile.getPath()),null);*/
 
                     x.http().post(params, new Callback.CommonCallback<String>() {
                         @Override
