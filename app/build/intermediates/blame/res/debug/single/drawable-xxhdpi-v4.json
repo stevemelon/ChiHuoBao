@@ -1,0 +1,298 @@
+[
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_textfield_default_mtrl_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_textfield_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_btn_radio_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_tab_indicator_mtrl_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_tab_indicator_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00012.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_btn_switch_to_on_mtrl_00012.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\shape_button_green.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\shape_button_green.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\sun.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\ChiHuoBao\\library\\unspecified\\res\\drawable-xxhdpi-v4\\sun.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\shape_button_blue.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\shape_button_blue.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_menu_paste_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_switch_track_mtrl_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_switch_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_setting_card.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_setting_card.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_voice_search_api_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_voice_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_menu_share_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ab_share_pack_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_moreoverflow_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_menu_moreoverflow_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_selector_disabled_holo_light.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_list_selector_disabled_holo_light.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_setting_right_arraw.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_setting_right_arraw.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_setting_connect_manager.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_setting_connect_manager.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_list_focused_holo.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_scrubber_control_to_pressed_mtrl_005.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_restaurant_photo_default.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_restaurant_photo_default.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_textfield_search_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\shape_button_blue_deep_pressed.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\shape_button_blue_deep_pressed.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_rating_star_off_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_btn_rating_star_off_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_selector_disabled_holo_dark.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_list_selector_disabled_holo_dark.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_2.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_2.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_000.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_scrubber_control_to_pressed_mtrl_000.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\selector_button_blue_deep.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\selector_button_blue_deep.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_setting_phone.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_setting_phone.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_btn_switch_to_on_mtrl_00001.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_check_to_on_mtrl_000.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_btn_check_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_textfield_search_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_menu_selectall_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_longpressed_holo.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_list_longpressed_holo.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_spinner_mtrl_am_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_commit_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_cab_background_top_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\shape_button_gray.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\shape_button_gray.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\rect_stroke_black_top_gray_solid_withe.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\rect_stroke_black_top_gray_solid_withe.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_pressed_holo_light.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_list_pressed_holo_light.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_3.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_3.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_rating_star_on_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_btn_rating_star_on_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_search_api_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_cut_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_menu_cut_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\lib_icon.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\lib_icon.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\common_bg_with_line.9.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\common_bg_with_line.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\selector_cancel_bg.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\selector_cancel_bg.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_check_to_on_mtrl_015.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_btn_check_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\setting_arrow.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\setting_arrow.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\selector_clickable_layout_bg_with_line.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\selector_clickable_layout_bg_with_line.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_popup_background_mtrl_mult.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_popup_background_mtrl_mult.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_go_search_api_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_go_search_api_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_textfield_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_menu_copy_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_ab_back_mtrl_am_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_ab_back_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\shape_button_red_pressed.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\shape_button_red_pressed.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_clear_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_ic_clear_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_setting_vibration.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_setting_vibration.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_scrubber_control_off_mtrl_alpha.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_scrubber_control_off_mtrl_alpha.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_setting_feedback.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_setting_feedback.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_pressed_holo_dark.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_list_pressed_holo_dark.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\shape_button_gray_light.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\shape_button_gray_light.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_1.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_1.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\shape_button_red.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\shape_button_red.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\buildings.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\ChiHuoBao\\library\\unspecified\\res\\drawable-xxhdpi-v4\\buildings.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_menu_hardkey_panel_mtrl_mult.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_radio_to_on_mtrl_000.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_btn_radio_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\shape_button_green_pressed.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\shape_button_green_pressed.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\shape_button_blue_deep.xml",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\shape_button_blue_deep.xml"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_setting_connect_service.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_setting_connect_service.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\icon_setting_notice_music.png",
+        "source": "D:\\Chihuobao\\app\\src\\main\\res\\drawable-xxhdpi\\icon_setting_notice_music.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_scrubber_track_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_list_divider_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.1.1\\res\\drawable-xxhdpi\\abc_scrubber_primary_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\sky.png",
+        "source": "D:\\Chihuobao\\app\\build\\intermediates\\exploded-aar\\ChiHuoBao\\library\\unspecified\\res\\drawable-xxhdpi-v4\\sky.png"
+    }
+]

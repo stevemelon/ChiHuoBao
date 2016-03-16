@@ -1,0 +1,163 @@
+[
+    {
+        "outputFile": "D:\\Chihuobao\\app\\build\\intermediates\\res\\merged\\debug\\values-w820dp-v13\\values-w820dp-v13.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 14,
+                    "endColumn": 19,
+                    "endOffset": 540
+                },
+                "from": {
+                    "file": "D:\\Chihuobao\\app\\src\\main\\res\\values-w820dp\\strings.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 4,
+                        "startOffset": 194,
+                        "endLine": 17,
+                        "endColumn": 19,
+                        "endOffset": 691
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 545,
+                    "endLine": 27,
+                    "endColumn": 24,
+                    "endOffset": 921
+                },
+                "from": {
+                    "file": "D:\\Chihuobao\\app\\src\\main\\res\\values-w820dp\\attrs.xml",
+                    "position": {
+                        "startLine": 3,
+                        "startColumn": 4,
+                        "startOffset": 59,
+                        "endLine": 15,
+                        "endColumn": 24,
+                        "endOffset": 452
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 28,
+                    "startColumn": 4,
+                    "startOffset": 926,
+                    "endColumn": 57,
+                    "endOffset": 979
+                },
+                "from": {
+                    "file": "D:\\Chihuobao\\app\\src\\main\\res\\values-w820dp\\dimens.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 295,
+                        "endColumn": 57,
+                        "endOffset": 348
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 29,
+                    "startColumn": 4,
+                    "startOffset": 984,
+                    "endColumn": 52,
+                    "endOffset": 1032
+                },
+                "from": {
+                    "file": "D:\\Chihuobao\\app\\src\\main\\res\\values-w820dp\\strings.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 74,
+                        "endColumn": 52,
+                        "endOffset": 122
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 30,
+                    "startColumn": 4,
+                    "startOffset": 1037,
+                    "endColumn": 55,
+                    "endOffset": 1088
+                },
+                "from": {
+                    "file": "D:\\Chihuobao\\app\\src\\main\\res\\values-w820dp\\strings.xml",
+                    "position": {
+                        "startLine": 1,
+                        "startColumn": 4,
+                        "startOffset": 17,
+                        "endColumn": 55,
+                        "endOffset": 68
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 31,
+                    "startColumn": 4,
+                    "startOffset": 1093,
+                    "endColumn": 55,
+                    "endOffset": 1144
+                },
+                "from": {
+                    "file": "D:\\Chihuobao\\app\\src\\main\\res\\values-w820dp\\strings.xml",
+                    "position": {
+                        "startLine": 21,
+                        "startColumn": 4,
+                        "startOffset": 776,
+                        "endColumn": 55,
+                        "endOffset": 827
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 32,
+                    "startColumn": 4,
+                    "startOffset": 1149,
+                    "endColumn": 73,
+                    "endOffset": 1218
+                },
+                "from": {
+                    "file": "D:\\Chihuobao\\app\\src\\main\\res\\values-w820dp\\strings.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 4,
+                        "startOffset": 697,
+                        "endColumn": 73,
+                        "endOffset": 766
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 33,
+                    "startColumn": 4,
+                    "startOffset": 1223,
+                    "endColumn": 62,
+                    "endOffset": 1281
+                },
+                "from": {
+                    "file": "D:\\Chihuobao\\app\\src\\main\\res\\values-w820dp\\strings.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 130,
+                        "endColumn": 62,
+                        "endOffset": 188
+                    }
+                }
+            }
+        ]
+    }
+]

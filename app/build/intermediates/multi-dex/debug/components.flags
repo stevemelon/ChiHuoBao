@@ -1,0 +1,103 @@
+-injars 'D:\Chihuobao\app\build\intermediates\transforms\jarMerging\debug\jars\1\1f\combined.jar'
+-outjars 'D:\Chihuobao\app\build\intermediates\multi-dex\debug\componentClasses.jar'
+
+-libraryjars 'D:\Android\sdk\build-tools\23.0.2\lib\shrinkedAndroid.jar'
+
+-forceprocessing
+-dontoptimize
+-dontobfuscate
+-dontusemixedcaseclassnames
+-dontpreverify
+-dontwarn
+-printconfiguration 'D:\Chihuobao\app\build\intermediates\multi-dex\debug\components.flags'
+
+
+-keep class com.example.dell.chihuobao.util.MyApplication {
+    <init>();
+    void attachBaseContext(android.content.Context);
+}
+
+-keep class com.baidu.location.f {
+    <init>();
+}
+
+-keep class com.example.dell.chihuobao.activity.WelcomeActivity {
+    <init>();
+}
+
+-keep class com.example.dell.chihuobao.activity.FoodMenuModifyActivity {
+    <init>();
+}
+
+-keep class cn.jpush.android.ui.PushActivity {
+    <init>();
+}
+
+-keep class cn.jpush.android.service.DownloadService {
+    <init>();
+}
+
+-keep class cn.jpush.android.service.PushService {
+    <init>();
+}
+
+-keep class cn.jpush.android.service.DaemonService {
+    <init>();
+}
+
+-keep class cn.jpush.android.service.PushReceiver {
+    <init>();
+}
+
+-keep class cn.jpush.android.service.AlarmReceiver {
+    <init>();
+}
+
+-keep class com.example.dell.chihuobao.service.PushReceiver {
+    <init>();
+}
+
+-keep class com.example.dell.chihuobao.activity.LoginActivity {
+    <init>();
+}
+
+-keep class com.example.dell.chihuobao.activity.BaseActivity {
+    <init>();
+}
+
+-keep class com.example.dell.chihuobao.activity.FoodMenuAddNewFoodActivity {
+    <init>();
+}
+
+-keep class com.mob.tools.MobUIShell {
+    <init>();
+}
+
+-keep class com.example.dell.chihuobao.activity.PhoneVerifyActivity {
+    <init>();
+}
+
+-keep class com.example.dell.chihuobao.activity.MainActivity {
+    <init>();
+}
+
+-keep class com.example.dell.chihuobao.activity.DeliverManActivity {
+    <init>();
+}
+
+-keep class com.example.dell.chihuobao.activity.LocationActivity {
+    <init>();
+}
+
+-keep class com.example.dell.chihuobao.activity.FeedBackActivity {
+    <init>();
+}
+
+-keep public class * extends android.app.backup.BackupAgent {
+    <init>();
+}
+
+-keep public class * extends java.lang.annotation.Annotation {
+    <fields>;
+    <methods>;
+}
