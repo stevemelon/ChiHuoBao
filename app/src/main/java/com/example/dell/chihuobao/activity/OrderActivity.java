@@ -25,7 +25,9 @@ public class OrderActivity extends Activity {
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RequestParams params = new RequestParams("http://10.6.12.35:8080/zhbj/common.json");
+                RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/countPerformance.do?");
+                params.addQueryStringParameter("shopId", "1");
+                params.addQueryStringParameter("Orderstatus", "1");
                 x.http().get(params, new Callback.CommonCallback<String>() {
                     @Override
                     public void onSuccess(String result) {

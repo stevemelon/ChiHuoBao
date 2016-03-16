@@ -1,8 +1,9 @@
 package com.example.dell.chihuobao.fragment;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.appwidget.MyListView;
 import com.example.dell.chihuobao.bean.Item;
 import com.example.dell.chihuobao.bean.Order;
 import com.example.dell.chihuobao.bean.OrderJson;
 import com.example.dell.chihuobao.util.BaseLog;
-
 import com.example.dell.chihuobao.util.OrderFoodAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -42,7 +41,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_list_view, container, false);
-        mListView = (ListView) rootView.findViewById(R.id.list_view);
+         mListView = (ListView) rootView.findViewById(R.id.list_view);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -72,7 +71,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
 
         return rootView;
     }
-    //    从服务器获取数据
+//    从服务器获取数据
     public void getDataFromServe(){
         RequestParams params = new RequestParams("http://10.6.12.91:8080/zhbj/common.json");
         x.http().get(params, new Callback.CommonCallback<String>() {
@@ -81,7 +80,6 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                 parseData(result);
                 BaseLog.e("成功成功成功成功成功成功成功1");
             }
-
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
@@ -187,34 +185,49 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                 viewHolder.reject.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mOrders.remove(arg0);
-                        simpleAdapter.notifyDataSetChanged();
-                        RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/countPerformance.do?");
-                        params.addQueryStringParameter("shopId", "232");
-                        params.addQueryStringParameter("Orderstatus", "1");
-                        x.http().post(params, new Callback.CommonCallback<String>() {
-                            @Override
-                            public void onSuccess(String result) {
-                                BaseLog.e("成功成功成功成功成功成功成功2");
-                            }
+                        new AlertDialog.Builder(context).setTitle("确认删除订单吗？")
+                                .setIcon(android.R.drawable.ic_dialog_info)
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
-                            @Override
-                            public void onError(Throwable ex, boolean isOnCallback) {
-                                getDataFromServe();
-                                BaseLog.e("失败失败失败失败2");
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // 点击“确认”后的操作
+//                                        mOrders.remove(arg0);
+//                                        simpleAdapter.notifyDataSetChanged();
+                                        RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/countPerformance.do?");
+                                        params.addQueryStringParameter("shopId", "232");
+                                        params.addQueryStringParameter("Orderstatus", "1");
+                                        x.http().post(params, new Callback.CommonCallback<String>() {
+                                            @Override
+                                            public void onSuccess(String result) {
+                                                mOrders.remove(arg0);
+                                                simpleAdapter.notifyDataSetChanged();
+                                                BaseLog.e("成功成功成功成功成功成功成功2");
+                                            }
+                                            @Override
+                                            public void onError(Throwable ex, boolean isOnCallback) {
+                                                Toast.makeText(context,"连接服务器失败",Toast.LENGTH_SHORT).show();
+                                            }
+                                            @Override
+                                            public void onCancelled(CancelledException cex) {
 
-                            }
+                                            }
 
-                            @Override
-                            public void onCancelled(CancelledException cex) {
+                                            @Override
+                                            public void onFinished() {
 
-                            }
+                                            }
+                                        });
+                                    }
+                                })
+                                .setNegativeButton("返回", new DialogInterface.OnClickListener() {
 
-                            @Override
-                            public void onFinished() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // 点击“返回”后的操作,这里不设置没有任何操作
+                                    }
+                                }).show();
 
-                            }
-                        });
                     }
                 });
             }

@@ -1,12 +1,22 @@
 package com.example.dell.chihuobao.activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.bean.DeliverMan;
-import com.example.dell.chihuobao.util.DeliverManAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +46,30 @@ public class DeliverManActivity extends AppCompatActivity {
         initData();
         DeliverManAdapter manAdapter=new DeliverManAdapter(mDeliverMans,R.layout.deliver_item_layout,this);
         mListView.setAdapter(manAdapter);
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                new AlertDialog.Builder(DeliverManActivity.this).setTitle("确认配送吗？")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // 点击“确认”后的操作
+                                DeliverManActivity.this.finish();
+
+                            }
+                        })
+                        .setNegativeButton("返回", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // 点击“返回”后的操作,这里不设置没有任何操作
+                            }
+                        }).show();
+
+            }
+        });
 
 
 
@@ -49,6 +83,62 @@ public class DeliverManActivity extends AppCompatActivity {
             mDeliverMans.add(deliverMan);
         }
 
+    }
+    public class DeliverManAdapter extends BaseAdapter {
+        private List<DeliverMan> mDeliverMans;
+        private int resource;
+        //private LayoutInflater mInflater;
+        private Context mContext;
+        public DeliverManAdapter(List<DeliverMan> deliverManList, int recouce, Context context){
+            this.mDeliverMans=deliverManList;
+            this.resource=recouce;
+            this.mContext=context;
+        }
+        @Override
+        public int getCount() {
+            return mDeliverMans.size();
+        }
+
+        @Override
+        public DeliverMan getItem(int position) {
+            return mDeliverMans.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder viewHolder;
+            if (convertView==null){
+                viewHolder = new ViewHolder();
+                LayoutInflater inflater=LayoutInflater.from(mContext);
+                convertView=inflater.inflate(resource,parent, false);
+                viewHolder.name= (TextView) convertView.findViewById(R.id.name);
+                viewHolder.photo= (ImageView) convertView.findViewById(R.id.photo);
+                viewHolder.telephone= (TextView) convertView.findViewById(R.id.telephone);
+                convertView.setTag(viewHolder);
+            }else{
+                Log.i("!!!!!!!!!!!", "" + convertView.getTag());
+                viewHolder=(ViewHolder)convertView.getTag();
+            }
+            DeliverMan deliverMan=getItem(position);
+            if (deliverMan!=null){
+                Log.i("22",""+viewHolder);
+                viewHolder.name.setText(deliverMan.getName());
+                viewHolder.photo.setImageResource(deliverMan.getImageId());
+                viewHolder.telephone.setText(deliverMan.getTelephone());
+            }
+            return convertView;
+        }
+        private  class ViewHolder
+        {
+            TextView telephone;
+            TextView name;
+            ImageView photo;
+        }
     }
 
 }
