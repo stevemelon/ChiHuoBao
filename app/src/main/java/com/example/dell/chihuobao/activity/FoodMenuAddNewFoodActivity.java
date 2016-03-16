@@ -109,47 +109,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
                     dialog.show();
                     break;
                 case R.id.btn_upload:
-                    //serverUtil.addFood(getData());
-                    RequestParams params = new RequestParams("http://10.6.12.56:8080/chb/shop/deleteProduct.do");
-                    params.addBodyParameter("id","33");
-                    /*params.addBodyParameter("shopid","1",null);
-                    params.addBodyParameter("categoryid", "1", null);params.addBodyParameter("name", "ykg23454", null);
-                    params.addBodyParameter("storenumber", "45454", null);
-                    params.addBodyParameter("price", "13", null);
-                    params.addBodyParameter("description", "12", null);
-                    params.addBodyParameter("inserttime", "2016-02-21 23:23:23", null);
-                    params.addBodyParameter("salescount", "0",null);
-                    params.addBodyParameter("status", "1", null);
-                    params.addBodyParameter("achievemoney", "12", null);
-                    params.addBodyParameter("reducemoney", "23", null);
-                    params.addBodyParameter("rank", "1", null);
-                    params.addBodyParameter("photodetail",tempFile.getPath(),null);
-                    params.addBodyParameter("photo",new File(tempFile.getPath()),null);*/
-
-                    x.http().post(params, new Callback.CommonCallback<String>() {
-                        @Override
-                        public void onSuccess(String result) {
-                            Log.d("result", result);
-                            Toast.makeText(x.app(), "上传成功，马上去服务器看看吧！" + result, Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onError(Throwable ex, boolean isOnCallback) {
-                            Toast.makeText(x.app(), "上传失败，检查一下服务器地址是否正确", Toast.LENGTH_SHORT).show();
-                            ex.printStackTrace();
-
-                        }
-
-                        @Override
-                        public void onCancelled(CancelledException cex) {
-
-                        }
-
-                        @Override
-                        public void onFinished() {
-
-                        }
-                    });
+                    serverUtil.addFood(getData());
                     break;
                 default:
                     break;
@@ -177,7 +137,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
         foodHashMap.put("achievemoney",etFoodAchieveMoney.getText().toString());
         foodHashMap.put("reducemoney",etFoodReduceMoney.getText().toString());
         foodHashMap.put("rank","6");
-        foodHashMap.put("photodetail","qwwwqwq");
+        foodHashMap.put("photodetail",tempFile.getPath());
         foodHashMap.put("photo",file);
         foodHashMap.put("inserttime",new  SimpleDateFormat("yyyy-MM-dd   hh:mm:ss").format(new Date()));
         return foodHashMap;

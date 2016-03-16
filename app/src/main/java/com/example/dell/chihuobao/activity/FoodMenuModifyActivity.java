@@ -85,6 +85,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
         SimpleDateFormat sdf = new SimpleDateFormat("'PNG'_yyyyMMdd_HHmmss");
         return sdf.format(date) + ".jpg";
     }
+
     private View.OnClickListener clickListener = new View.OnClickListener() {
 
         @Override
@@ -96,7 +97,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
                     dialog.show();
                     break;
                 case R.id.btn_modify:
-                    serverUtil.uptateFood(getData());
+                    serverUtil.updateFood(getData());
                     finish();
                     break;
 
