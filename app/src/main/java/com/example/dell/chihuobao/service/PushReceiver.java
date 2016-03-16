@@ -1,93 +1,276 @@
 package com.example.dell.chihuobao.service;
 
-import android.app.Notification;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
-import com.example.dell.chihuobao.R;
-import com.example.dell.chihuobao.activity.MainActivity;
+import com.baidu.android.pushservice.PushMessageReceiver;
+import com.example.dell.chihuobao.util.BaseLog;
+import com.yalantis.phoenix.util.Utils;
 
-import cn.jpush.android.api.BasicPushNotificationBuilder;
-import cn.jpush.android.api.JPushInterface;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by dell on 2016/3/8.
  */
-public class PushReceiver extends BroadcastReceiver {
-
-    private static final String TAG = "JPush";
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-
-        Bundle bundle = intent.getExtras();
-
-//		Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
-        addDiyStyleNotification(context);
-
-        if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
-            String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
-            Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
-
-        } else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
-//			Log.d(TAG, "[MyReceiver] 接收到推送下来的自定义消息: "+ bundle.getString(JPushInterface.EXTRA_MESSAGE));
-//			processCustomMessage(context, bundle);
-
-        } else if (JPushInterface.ACTION_NOTIFICATION_RECEIVED.equals(intent.getAction())) {
-            Log.d(TAG, "[MyReceiver] 接收到推送下来的通知");
-            int notifactionId = bundle.getInt(JPushInterface.EXTRA_NOTIFICATION_ID);
-            Log.d(TAG, "[MyReceiver] 接收到推送下来的通知的ID: " + notifactionId);
-
-        } else if (JPushInterface.ACTION_NOTIFICATION_OPENED.equals(intent.getAction())) {
-            Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
-            // 打开自定义的Activity
-            Intent i = new Intent(context, MainActivity.class);
-            i.putExtras(bundle);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            context.startActivity(i);
-
-        } else if (JPushInterface.ACTION_RICHPUSH_CALLBACK.equals(intent.getAction())) {
-            Log.d(TAG,"[MyReceiver] 用户收到到丰富的推送信息      RICH PUSH CALLBACK: " + bundle.getString(JPushInterface.EXTRA_EXTRA));
-            // 在这里根据 JPushInterface.EXTRA_EXTRA 的内容处理代码，比如打开新的Activity，
-            // 打开一个网页等..
-
-        } else if (JPushInterface.ACTION_CONNECTION_CHANGE.equals(intent.getAction())) {
-            boolean connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false);
-            Log.w(TAG, intent.getAction() + " connected state change to " + connected);   // 连接状态变化回调
-        } else {
-            Log.d(TAG, "[MyReceiver] Unhandled intent - " + intent.getAction());
-        }
-    }
-
-
-    // 打印所有的 intent extra 数据
-    private static String printBundle(Bundle bundle) {
-        StringBuilder sb = new StringBuilder();
-        for (String key : bundle.keySet()) {
-            if (key.equals(JPushInterface.EXTRA_NOTIFICATION_ID)) {
-                sb.append("\nkey:" + key + ", value:" + bundle.getInt(key));
-            } else if (key.equals(JPushInterface.EXTRA_CONNECTION_CHANGE)) {
-                sb.append("\nkey:" + key + ", value:" + bundle.getBoolean(key));
-            } else {
-                sb.append("\nkey:" + key + ", value:" + bundle.getString(key));
-            }
-        }
-        return sb.toString();
-    }
-
+public class PushReceiver extends PushMessageReceiver{
+    /** TAG to Log */
+    public static final String TAG = PushReceiver.class
+            .getSimpleName();
 
     /**
-     * 添加一个自定义样式的通知
+     * 调用PushManager.startWork后，sdk将对push
+     * server发起绑定请求，这个过程是异步的。绑定请求的结果通过onBind返回。 如果您需要用单播推送，需要把这里获取的channel
+     * id和user id上传到应用server中，再调用server接口用channel id和user id给单个手机或者用户推送。
+     *
      * @param context
+     *            BroadcastReceiver的执行Context
+     * @param errorCode
+     *            绑定接口返回值，0 - 成功
+     * @param appid
+     *            应用id。errorCode非0时为null
+     * @param userId
+     *            应用user id。errorCode非0时为null
+     * @param channelId
+     *            应用channel id。errorCode非0时为null
+     * @param requestId
+     *            向服务端发起的请求id。在追查问题时有用；
+     * @return none
      */
-    private void addDiyStyleNotification(Context context) {
-        BasicPushNotificationBuilder builder = new BasicPushNotificationBuilder(context);
-        builder.statusBarDrawable = R.drawable.jpush;
-        builder.notificationFlags = Notification.FLAG_AUTO_CANCEL;  //设置为自动消失
-        builder.notificationDefaults = Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE | Notification.DEFAULT_LIGHTS;  // 设置为铃声与震动都要
-        JPushInterface.setPushNotificationBuilder(1, builder);      // 设置该通知的编号
+    @Override
+    public void onBind(Context context, int errorCode, String appid,
+                       String userId, String channelId, String requestId) {
+        String responseString = "onBind errorCode=" + errorCode + " appid="
+                + appid + " userId=" + userId + " channelId=" + channelId
+                + " requestId=" + requestId;
+        Log.d(TAG, responseString);
+
+        if (errorCode == 0) {
+            // 绑定成功
+        }
+        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
+        BaseLog.e("onBind方法");
+
     }
+
+    /**
+     * 接收透传消息的函数。
+     *
+     * @param context
+     *            上下文
+     * @param message
+     *            推送的消息
+     * @param customContentString
+     *            自定义内容,为空或者json字符串
+     */
+    @Override
+    public void onMessage(Context context, String message,
+                          String customContentString) {
+        String messageString = "透传消息 message=\"" + message
+                + "\" customContentString=" + customContentString;
+        Log.d(TAG, messageString);
+
+        // 自定义内容获取方式，mykey和myvalue对应透传消息推送时自定义内容中设置的键和值
+        if (!TextUtils.isEmpty(customContentString)) {
+            JSONObject customJson = null;
+            try {
+                customJson = new JSONObject(customContentString);
+                String myvalue = null;
+                if (!customJson.isNull("mykey")) {
+                    myvalue = customJson.getString("mykey");
+                }
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
+        BaseLog.e("onMessage方法");
+    }
+
+    /**
+     * 接收通知点击的函数。
+     *
+     * @param context
+     *            上下文
+     * @param title
+     *            推送的通知的标题
+     * @param description
+     *            推送的通知的描述
+     * @param customContentString
+     *            自定义内容，为空或者json字符串
+     */
+    @Override
+    public void onNotificationClicked(Context context, String title,
+                                      String description, String customContentString) {
+        String notifyString = "通知点击 title=\"" + title + "\" description=\""
+                + description + "\" customContent=" + customContentString;
+        Log.d(TAG, notifyString);
+
+        // 自定义内容获取方式，mykey和myvalue对应通知推送时自定义内容中设置的键和值
+        if (!TextUtils.isEmpty(customContentString)) {
+            JSONObject customJson = null;
+            try {
+                customJson = new JSONObject(customContentString);
+                String myvalue = null;
+                if (!customJson.isNull("mykey")) {
+                    myvalue = customJson.getString("mykey");
+                }
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+
+        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
+        BaseLog.e("onNotificationClicked方法");
+    }
+
+    /**
+     * 接收通知到达的函数。
+     *
+     * @param context
+     *            上下文
+     * @param title
+     *            推送的通知的标题
+     * @param description
+     *            推送的通知的描述
+     * @param customContentString
+     *            自定义内容，为空或者json字符串
+     */
+
+    @Override
+    public void onNotificationArrived(Context context, String title,
+                                      String description, String customContentString) {
+
+        String notifyString = "onNotificationArrived  title=\"" + title
+                + "\" description=\"" + description + "\" customContent="
+                + customContentString;
+        Log.d(TAG, notifyString);
+
+        // 自定义内容获取方式，mykey和myvalue对应通知推送时自定义内容中设置的键和值
+        if (!TextUtils.isEmpty(customContentString)) {
+            JSONObject customJson = null;
+            try {
+                customJson = new JSONObject(customContentString);
+                String myvalue = null;
+                if (!customJson.isNull("mykey")) {
+                    myvalue = customJson.getString("mykey");
+                }
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
+        // 你可以參考 onNotificationClicked中的提示从自定义内容获取具体值
+        BaseLog.e("onNotificationArrived方法");
+
+    }
+
+    /**
+     * setTags() 的回调函数。
+     *
+     * @param context
+     *            上下文
+     * @param errorCode
+     *            错误码。0表示某些tag已经设置成功；非0表示所有tag的设置均失败。
+//     * @param successTags
+     *            设置成功的tag
+     * @param failTags
+     *            设置失败的tag
+     * @param requestId
+     *            分配给对云推送的请求的id
+     */
+    @Override
+    public void onSetTags(Context context, int errorCode,
+                          List<String> sucessTags, List<String> failTags, String requestId) {
+        String responseString = "onSetTags errorCode=" + errorCode
+                + " sucessTags=" + sucessTags + " failTags=" + failTags
+                + " requestId=" + requestId;
+        Log.d(TAG, responseString);
+
+        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
+
+    }
+
+    /**
+     * delTags() 的回调函数。
+     *
+     * @param context
+     *            上下文
+     * @param errorCode
+     *            错误码。0表示某些tag已经删除成功；非0表示所有tag均删除失败。
+     * @param successTags
+     *            成功删除的tag
+     * @param failTags
+     *            删除失败的tag
+     * @param requestId
+     *            分配给对云推送的请求的id
+     */
+    @Override
+    public void onDelTags(Context context, int errorCode,
+                          List<String> sucessTags, List<String> failTags, String requestId) {
+        String responseString = "onDelTags errorCode=" + errorCode
+                + " sucessTags=" + sucessTags + " failTags=" + failTags
+                + " requestId=" + requestId;
+        Log.d(TAG, responseString);
+
+        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
+
+    }
+
+    /**
+     * listTags() 的回调函数。
+     *
+     * @param context
+     *            上下文
+     * @param errorCode
+     *            错误码。0表示列举tag成功；非0表示失败。
+     * @param tags
+     *            当前应用设置的所有tag。
+     * @param requestId
+     *            分配给对云推送的请求的id
+     */
+    @Override
+    public void onListTags(Context context, int errorCode, List<String> tags,
+                           String requestId) {
+        String responseString = "onListTags errorCode=" + errorCode + " tags="
+                + tags;
+        Log.d(TAG, responseString);
+
+        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
+
+    }
+
+    /**
+     * PushManager.stopWork() 的回调函数。
+     *
+     * @param context
+     *            上下文
+     * @param errorCode
+     *            错误码。0表示从云推送解绑定成功；非0表示失败。
+     * @param requestId
+     *            分配给对云推送的请求的id
+     */
+    @Override
+    public void onUnbind(Context context, int errorCode, String requestId) {
+        String responseString = "onUnbind errorCode=" + errorCode
+                + " requestId = " + requestId;
+        Log.d(TAG, responseString);
+
+        if (errorCode == 0) {
+            // 解绑定成功
+        }
+        // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
+    }
+
+
 }
