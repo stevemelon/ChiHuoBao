@@ -110,12 +110,12 @@ public class FoodMenuAddNewFoodActivity extends Activity {
                     break;
                 case R.id.btn_upload:
                     //serverUtil.addFood(getData());
-                    RequestParams params = new RequestParams("http://10.6.12.56:8080/chb/shop/queryCategory.do");
-                    params.addBodyParameter("shopid","1",null);
-                    //params.addBodyParameter("categoryid", "1", null);
-                   /* params.addBodyParameter("name", "ykg23454", null);
+                    RequestParams params = new RequestParams("http://10.6.12.56:8080/chb/shop/deleteProduct.do");
+                    params.addBodyParameter("id","33");
+                    /*params.addBodyParameter("shopid","1",null);
+                    params.addBodyParameter("categoryid", "1", null);params.addBodyParameter("name", "ykg23454", null);
                     params.addBodyParameter("storenumber", "45454", null);
-                    params.addBodyParameter("price", "45", null);
+                    params.addBodyParameter("price", "13", null);
                     params.addBodyParameter("description", "12", null);
                     params.addBodyParameter("inserttime", "2016-02-21 23:23:23", null);
                     params.addBodyParameter("salescount", "0",null);
