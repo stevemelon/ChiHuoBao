@@ -17,7 +17,10 @@ import android.widget.TextView;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.FoodMenuAddNewFoodActivity;
+import com.example.dell.chihuobao.bean.Food;
+import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.util.FoodMenuRightListViewAdapter;
+import com.example.dell.chihuobao.util.ServerUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,151 +29,164 @@ import java.util.List;
 public class FoodMenuFragment extends Fragment {
 
 
-	/*String[] arr = new String[] { "套餐A", "套餐B", "套餐C", "套餐D", "套餐E", "套餐F" };*/
+    /*String[] arr = new String[] { "套餐A", "套餐B", "套餐C", "套餐D", "套餐E", "套餐F" };*/
 
-	private ListView listView;
-	private ListView listView2 ;
-	private Button mButton;
+    private ListView listView;
+    private ListView listView2 ;
+    private String stringFoodCategory;
+    private Button mButton;
+    private ServerUtil serverUtil = new ServerUtil();
+    /**
+     ** 左边listview的要使用的数组
+     **/
+    private ArrayList<FoodCategory> foodCategoryArrayList = new ArrayList<FoodCategory>();
+    private ArrayList<ArrayList<Food>> temp;
+    private ArrayList arrayAllfood;
+    private ArrayList<String> foodType = new ArrayList<String>();
+    private ArrayList<String> allFood = new ArrayList<String>();
 
-	TextView textView;
-	/**
-	 * 左边listview的要使用的数组
-	 */
+    /**
+     * * 用来记录每一个 1 2 3 4 5 6 在右边listview的位置；
+     * */
+    List<Integer> nums = new ArrayList<Integer>();
 
-	private ArrayList<String> foodType = new ArrayList<String>();
-	private ArrayList<String> allFood = new ArrayList<String>();
-	/**
-	 * 用来记录每一个 1 2 3 4 5 6 在右边listview的位置；
-	 */
-	List<Integer> nums = new ArrayList<Integer>();
 
-	private void initData(){
-		String[] arr2 = new String[] { "food11", "food12", "food13", "food14", "food15" };
-		String[] arr3 = new String[] {  "food21", "food22", "food23", "food24", "food25", "food26" };
-		String[] arr4 = new String[] {  "food31", "food32", "food33", "food34" };
-		String[] arr5 = new String[] {  "food41", "food42", "food43", "food44", "food45", "food46", "food" };
-		String[] arr6 = new String[] {  "food51", "food52", "food53" };
-		String[] arr7 = new String[] { "food61", "food62", "food63", "food64", "food65", "food66", "food67", "food68" };
+
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    //引入我们的布局
+        View foodMenuLayout =  inflater.inflate(R.layout.fragment_food_menu, container, false);
+        initData();
+        listView = (ListView)foodMenuLayout.findViewById(R.id.listView1);
+        listView2 = (ListView)foodMenuLayout.findViewById(R.id.listView2);
+        mButton= (Button) foodMenuLayout.findViewById(R.id.but);
+        mButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), FoodMenuAddNewFoodActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        initView();
+        return foodMenuLayout;
+
+    }
+
+    /**
+     * 准备所有数据，左边列表食物种类，右边列表食物种类加食物名字
+     */
+    private void initData(){
+        /*String[] arr2 = new String[] { "food11", "food12", "food13", "food14", "food15" };
+        String[] arr3 = new String[] {  "food21", "food22", "food23", "food24", "food25", "food26" };
+        String[] arr4 = new String[] {  "food31", "food32", "food33", "food34" };
+        String[] arr5 = new String[] {  "food41", "food42", "food43", "food44", "food45", "food46", "food" };
+        String[] arr6 = new String[] {  "food51", "food52", "food53" };
+        String[] arr7 = new String[] { "food61", "food62", "food63", "food64", "food65", "food66", "food67", "food68" };
 
         foodType.add("套餐A");
         foodType.add("套餐B");
         foodType.add("套餐C");
         foodType.add("套餐D");
         foodType.add("套餐E");
-        foodType.add("套餐F");
+        foodType.add("套餐F");*/
 
-		String[][] arr8 = new String[][] { arr2, arr3, arr4, arr5, arr6, arr7 };
-		for (int i = 0; i < foodType.size(); i++) {
-			allFood.add(foodType.get(i));
-			for (int j = 0; j < arr8[i].length; j++) {
-				allFood.add(arr8[i][j]);
-			}
-		}
+        stringFoodCategory = serverUtil.queryCategoryTest("http://10.6.12.69:8080/testCategory.json");
+        /**
+         * 获得食物种类的ArrayList
+         */
 
-		for (int i = 0; i < foodType.size(); i++)
-		{
-			if (i == 0)
-			{
-				nums.add(0);
-			} else if (i > 0 && i < foodType.size())
-			{
-				int num = 0;
-				for (int j = 0; j < i; j++)
-				{
-					num = num + arr8[j].length+1;
+        Log.d("test",serverUtil.parseData(stringFoodCategory,"category").size()+"");
+        foodCategoryArrayList = serverUtil.parseData(stringFoodCategory,"category");
+        for (int i = 0; i <foodCategoryArrayList.size() ; i++) {
+            temp.add(serverUtil.parseData(serverUtil.queryProductTest("http://10.6.12.69:8080/testProduct"+i+".json"),"product"));
+            foodType.add(foodCategoryArrayList.get(i).getName());
 
-				}
-				nums.add(num);
-			}
-		}
-		nums.add(1000);
-	}
+        }
+        /**
+         * allFood包括食物种类和食物名字
+         */
+        for (int i = 0; i <foodType.size() ; i++) {
+            //allFood.add(foodType.get(i));
+            arrayAllfood.add(foodCategoryArrayList.get(i));
+            for (int j = 0; j <temp.get(i).size(); j++) {
+                //allFood.add(temp.get(i).get(j).getName());
+                arrayAllfood.add(temp.get(i).get(j));
+            }
+        }
+        for (int i = 0; i < foodType.size(); i++)
+        {
+            if (i == 0)
+            {
+                nums.add(0);
+            } else if (i > 0 && i < foodType.size())
+            {
+                int num = 0;
+                for (int j = 0; j < i; j++)
+                {
+                    num = num + temp.get(j).size()+1;
 
-	/**
-	 * 用来存放 food数组
-	 */
-	/*List<String> list;*/
+                }
+                nums.add(num);
+            }
+        }
+    }
 
+    private void initView()
+    {
+        //菜品种类的listView
+        FoodMenuRightListViewAdapter myFoodListViewAdapter = new FoodMenuRightListViewAdapter(getActivity(),arrayAllfood,foodType);
+        myFoodListViewAdapter.notifyDataSetChanged();
+        myFoodListViewAdapter.notifyDataSetChanged();
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState) {
-		//引入我们的布局
-		View foodMenuLayout =  inflater.inflate(R.layout.fragment_food_menu, container, false);
-		initData();
-		listView = (ListView)foodMenuLayout.findViewById(R.id.listView1);
-		listView2 = (ListView)foodMenuLayout.findViewById(R.id.listView2);
-		mButton= (Button) foodMenuLayout.findViewById(R.id.but);
-		mButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.setClass(getActivity(), FoodMenuAddNewFoodActivity.class);
-				startActivity(intent);
+        listView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.adapter_left_food_type, foodType));
+        listView2.setAdapter(myFoodListViewAdapter);
+        /**
+         * * 下面这个函数表示点了种类表中的item中，item变色，然后右边的菜品列表跳转的当前种类置顶
+         * */
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                for (int i = 0; i < listView.getChildCount(); i++) {
+                    if (i == position) {
+                        view.setBackgroundColor(Color.rgb(100, 100, 100));
+                    } else {
+                        view.setBackgroundColor(Color.TRANSPARENT);
+                    }
+                }
 
+                listView2.setSelection(nums.get(position));
+                Log.d("position", "" + nums.get(position));
 
-			}
-		});
-		initView();
-		return foodMenuLayout;
+            }
+        });
 
-	}
-	private void initView()
-	{
-		//菜品种类的listView
-		FoodMenuRightListViewAdapter myFoodListViewAdapter = new FoodMenuRightListViewAdapter(getActivity(),allFood,foodType);
-		myFoodListViewAdapter.notifyDataSetChanged();
-		myFoodListViewAdapter.notifyDataSetChanged();
+        listView2.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-		listView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.adapter_left_food_type, foodType));
-		listView2.setAdapter(myFoodListViewAdapter);
-		/**
-		 * 下面这个函数表示点了种类表中的item中，item变色，然后右边的菜品列表跳转的当前种类置顶
-		 */
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-									long id) {
-				for (int i = 0; i < listView.getChildCount(); i++) {
-					if (i == position) {
-						view.setBackgroundColor(Color.rgb(100, 100, 100));
-					} else {
-						view.setBackgroundColor(Color.TRANSPARENT);
-					}
-				}
+            }
+            /**
+             * * 下面这个函数表示当滑到了当前类别的食物时就将左边的类别listView变色
+             * */
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (nums.contains(firstVisibleItem) && listView.getChildCount() > 0) {
 
-				listView2.setSelection(nums.get(position));
-				Log.d("position", "" + nums.get(position));
-
-			}
-		});
-
-		listView2.setOnScrollListener(new AbsListView.OnScrollListener() {
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-			}
-			/**
-			 * 下面这个函数表示当滑到了当前类别的食物时就将左边的类别listView变色
-			 */
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem,
-								 int visibleItemCount, int totalItemCount) {
-				if (nums.contains(firstVisibleItem) && listView.getChildCount() > 0) {
-
-					for (int i = 0; i < listView.getChildCount(); i++) {
-						if (i == nums.indexOf(firstVisibleItem)) {
-							listView.getChildAt(i).setBackgroundColor(
-									Color.rgb(100, 100, 100));
-						} else {
-							listView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
-						}
-					}
-				}
-			}
-		});
-
-	}
+                    for (int i = 0; i < listView.getChildCount(); i++) {
+                        if (i == nums.indexOf(firstVisibleItem)) {
+                            listView.getChildAt(i).setBackgroundColor(Color.rgb(100, 100, 100));
+                        } else {
+                            listView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                        }
+                    }
+                }
+            }
+        });
+    }
 
 
 

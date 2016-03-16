@@ -18,17 +18,23 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.FoodMenuModifyActivity;
+import com.example.dell.chihuobao.bean.Food;
+import com.example.dell.chihuobao.bean.FoodCategory;
+
+import org.xutils.x;
 
 /**
  * Created by dell on 2016/3/1.
  */
 public class FoodMenuRightListViewAdapter extends BaseAdapter {
+    public final static String URL = "";
     private ArrayList foodType;
     private ArrayList allFood;
     private Context context;
     private LayoutInflater inflater;
     final static  int ITEM_TAG = 1;
     final static int ITEM_NORMAL=0;
+    private ArrayList<FoodCategory> foodCategoryArrayList ;
     public FoodMenuRightListViewAdapter(Context context, ArrayList allFood, ArrayList arrayList){
         this.context = context;
         this.foodType = arrayList;
@@ -58,7 +64,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (foodType.contains(getItem(position))){
+        if (foodCategoryArrayList.contains(getItem(position))){
             return ITEM_TAG;
         }else {
             return ITEM_NORMAL;
@@ -125,7 +131,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
         switch(type)
         {
             case ITEM_TAG:
-                viewHolderTag.tvFoodTypeName.setText(getItem(position).toString());
+                viewHolderTag.tvFoodTypeName.setText(((FoodCategory)(getItem(position))).getName());
                 /*viewHolderTag.tvFoodTypeModify.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -159,6 +165,10 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                 break;
             case ITEM_NORMAL:
                 viewHolderNormal.tvFoodName.setText(getItem(position).toString());
+                viewHolderNormal.tvAchieveMoney.setText(((Food)(getItem(position))).getAchievemoney());
+                viewHolderNormal.tvReduceMoney.setText(((Food)(getItem(position))).getReducemoney());
+                viewHolderNormal.tvPrice.setText(((Food)(getItem(position))).getPrice());
+
                 viewHolderNormal.btnSoldOut.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -180,6 +190,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                 });
                 break;
             }
+        x.image().bind(viewHolderNormal.imageView,URL+((Food)(getItem(position))).getPhoto());
 
         return convertView;
 
