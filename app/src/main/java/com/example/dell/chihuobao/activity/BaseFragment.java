@@ -1,6 +1,7 @@
 package com.example.dell.chihuobao.activity;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,7 @@ import org.xutils.x;
  * Created by fanghao on 2016/3/3.
  * 基础Fragment类
  */
-public class BaseFragment extends android.app.Fragment {
+public class BaseFragment extends Fragment {
     private boolean injected = false;
 
     @Override
