@@ -92,4 +92,5 @@
     <dimen name="spec_line_margin_half">4.0dip</dimen>
     <dimen name="spec_header">20.0sp</dimen>
     <dimen name="spec_medium">15.0sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

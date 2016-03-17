@@ -3,5 +3,5 @@
   xmlns:android="http://schemas.android.com/apk/res/android">
     <ImageView android:id="@id/iv_1" android:layout_width="500dp"
                android:layout_height="300dp" android:layout_marginTop="65.0dip" android:src="@drawable/welcome_3" android:layout_centerHorizontal="true" />
-    <TextView android:textSize="24.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content"  android:text="实时查看餐厅信息" android:layout_below="@id/iv_1" />
+    <TextView android:layout_marginTop="10dp" android:textSize="20.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content"  android:text="实时查看餐厅信息" android:layout_below="@id/iv_1" />
 </RelativeLayout>

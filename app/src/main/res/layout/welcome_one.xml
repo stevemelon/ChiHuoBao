@@ -8,5 +8,5 @@
         android:src="@drawable/welcome2"
         android:id="@+id/view"
         />
-    <TextView android:textSize="24.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content"  android:text="简易高效的处理订单体验"  android:layout_below="@id/view"/>
+    <TextView android:layout_marginTop="20dp" android:textSize="20.0sp" android:textStyle="bold" android:textColor="@color/white" android:gravity="center_horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content"  android:text="简易高效的处理订单体验"  android:layout_below="@id/view"/>
 </RelativeLayout>

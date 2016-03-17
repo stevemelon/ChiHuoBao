@@ -38,4 +38,5 @@
         <item>套餐四</item>
         <item>套餐五</item>
     </string-array>
+    <string name="title_activity_register">RegisterActivity</string>
 </resources>
