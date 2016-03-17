@@ -45,6 +45,8 @@ import java.util.HashMap;
  * Created by dell on 2016/3/9.
  */
 public class FoodMenuAddNewFoodActivity extends Activity {
+    private final static String URL = "http://10.6.12.44:8080";
+    private final static String ADD_FOOD = "/chb/shop/addProduct.do";
     private ImageView ivFoodImage;
     private EditText etFoodName;
     private EditText etFoodPrice;
@@ -66,7 +68,6 @@ public class FoodMenuAddNewFoodActivity extends Activity {
     // 创建一个以当前系统时间为名称的文件，防止重复
     private File tempFile = new File(Environment.getExternalStorageDirectory(),
             getPhotoFileName());
-    private ServerUtil serverUtil = new ServerUtil();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         x.Ext.init(getApplication());
@@ -109,7 +110,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
                     dialog.show();
                     break;
                 case R.id.btn_upload:
-                    serverUtil.addFood(getData());
+                    addFood(getData());
                     break;
                 default:
                     break;
@@ -127,19 +128,19 @@ public class FoodMenuAddNewFoodActivity extends Activity {
         file= new File(tempFile.getPath());
         foodHashMap.put("shopid", "1");
         //foodHashMap.put("categoryid",spFoodType.getSelectedItem().toString());
-        foodHashMap.put("categoryid","1");
-        foodHashMap.put("name",etFoodName.getText().toString());
+        foodHashMap.put("categoryid","2");
+        foodHashMap.put("name",etFoodName.getText().toString()+"");
         foodHashMap.put("storenumber","100");
-        foodHashMap.put("price",etFoodPrice.getText().toString());
-        foodHashMap.put("description",etFoodDescription.getText().toString());
+        foodHashMap.put("price",etFoodPrice.getText().toString()+"");
+        foodHashMap.put("description",etFoodDescription.getText().toString()+"");
         foodHashMap.put("salescount","0");
         foodHashMap.put("status","1");
-        foodHashMap.put("achievemoney",etFoodAchieveMoney.getText().toString());
-        foodHashMap.put("reducemoney",etFoodReduceMoney.getText().toString());
+        foodHashMap.put("achievemoney",etFoodAchieveMoney.getText().toString()+"");
+        foodHashMap.put("reducemoney",etFoodReduceMoney.getText().toString()+"");
         foodHashMap.put("rank","6");
-        foodHashMap.put("photodetail",tempFile.getPath());
+        foodHashMap.put("photodetail",tempFile.getPath()+"");
         foodHashMap.put("photo",file);
-        foodHashMap.put("inserttime",new  SimpleDateFormat("yyyy-MM-dd   hh:mm:ss").format(new Date()));
+        foodHashMap.put("inserttime",new  SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date())+"");
         return foodHashMap;
 
 
@@ -147,7 +148,6 @@ public class FoodMenuAddNewFoodActivity extends Activity {
 
 
     private DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
-
         @Override
         public void onClick(DialogInterface dialog, int which) {
             switch (which) {
@@ -263,5 +263,53 @@ public class FoodMenuAddNewFoodActivity extends Activity {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void addFood(HashMap hashMap){
+        RequestParams params = new RequestParams(URL+ADD_FOOD);
+        params.addBodyParameter("shopid","1",null);
+        params.addBodyParameter("categoryid", hashMap.get("categoryid"), null);
+        params.addBodyParameter("name", hashMap.get("name"), null);
+        params.addBodyParameter("storenumber", hashMap.get("storenumber"), null);
+        params.addBodyParameter("price", hashMap.get("price"), null);
+        params.addBodyParameter("description", hashMap.get("description"), null);
+        params.addBodyParameter("inserttime", hashMap.get("inserttime"), null);
+        params.addBodyParameter("salescount", hashMap.get("salescount"),null);
+        params.addBodyParameter("status", hashMap.get("status"), null);
+        params.addBodyParameter("achievemoney", hashMap.get("achievemoney"), null);
+        params.addBodyParameter("reducemoney", hashMap.get("reducemoney"), null);
+        params.addBodyParameter("rank", hashMap.get("rank"), null);
+        params.addBodyParameter("photodetail",hashMap.get("photodetail"),null);
+        params.addBodyParameter("photo",hashMap.get("photo"),null);
+
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Intent intent = new Intent(FoodMenuAddNewFoodActivity.this, MainActivity.class);
+                startActivity(intent);
+                Log.d("result", result);
+                Toast.makeText(x.app(), "上传成功，马上去服务器看看吧！" + result, Toast.LENGTH_SHORT).show();
+                finish();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(x.app(), "上传失败，检查一下服务器地址是否正确", Toast.LENGTH_SHORT).show();
+                ex.printStackTrace();
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
     }
 }

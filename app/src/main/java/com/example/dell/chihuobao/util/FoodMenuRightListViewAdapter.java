@@ -164,8 +164,11 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                         /**
                          * 编辑菜品详细信息
                          */
+
                         Intent intent = new Intent(context, FoodMenuModifyActivity.class);
+                        intent.putExtra("id",((Food) (getItem(position))).getId());
                         context.startActivity(intent);
+
 
                     }
                 });

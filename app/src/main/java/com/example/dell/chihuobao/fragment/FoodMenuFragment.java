@@ -60,7 +60,7 @@ public class FoodMenuFragment extends Fragment {
     private ListView listView;
     private ListView listView2 ;
     private String stringFoodCategory = new String();
-    private Button mButton;
+    private Button btnAddFood;
     private ServerUtil serverUtil = new ServerUtil();
 
     private int arraySize;
@@ -98,11 +98,11 @@ public class FoodMenuFragment extends Fragment {
         temp = new ArrayList<>();
         arrayAllfood = new ArrayList();
         View foodMenuLayout =  inflater.inflate(R.layout.fragment_food_menu, container, false);
-        mButton= (Button) foodMenuLayout.findViewById(R.id.but);
+        btnAddFood= (Button) foodMenuLayout.findViewById(R.id.but);
         listView = (ListView)foodMenuLayout.findViewById(R.id.listView1);
         listView2 = (ListView)foodMenuLayout.findViewById(R.id.listView2);
-        mButton= (Button) foodMenuLayout.findViewById(R.id.but);
-        mButton.setOnClickListener(new View.OnClickListener() {
+        btnAddFood= (Button) foodMenuLayout.findViewById(R.id.but);
+        btnAddFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
