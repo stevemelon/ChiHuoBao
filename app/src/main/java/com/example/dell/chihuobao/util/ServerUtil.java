@@ -225,7 +225,7 @@ public class ServerUtil {
 
     public String queryCategoryTest(String url){
         RequestParams params  = new RequestParams(url);
-        x.http().get(params, new Callback.CommonCallback<String>() {
+        x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 resultCategory = result;
@@ -250,7 +250,7 @@ public class ServerUtil {
         return resultCategory;
     }
 
-    public ArrayList parseData(String result,String tag){
+    /*public ArrayList parseData(String result,String tag){
         Gson gson  = new Gson();
         switch (tag){
             case "category":
@@ -260,12 +260,14 @@ public class ServerUtil {
             case "product":
                 ArrayList<Food> foodArrayList = gson.fromJson(result,new TypeToken<ArrayList<Food>>() {}.getType());
                 return foodArrayList;
+            default:
+                break;
         }
-        return null;
 
 
 
-    }
+
+    }*/
 
     public String queryProductTest(String url){
         RequestParams params = new RequestParams(url);

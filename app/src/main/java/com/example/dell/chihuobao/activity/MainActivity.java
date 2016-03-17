@@ -21,11 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.fragment.BarChartFragment;
 import com.example.dell.chihuobao.fragment.FoodMenuFragment;
 import com.example.dell.chihuobao.fragment.ProcessOrderListFragment;
 import com.example.dell.chihuobao.fragment.SettingFragment;
 import com.example.dell.chihuobao.fragment.UnprocessOrderListFragment;
-import com.example.dell.chihuobao.fragment.UserFragment;
 
 import java.util.ArrayList;
 
@@ -175,7 +175,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 break;
             case 2:
                 if (tab03 == null) {
-                    tab03 = new UserFragment() ;
+                    tab03 = new BarChartFragment() ;
                     transaction.add(R.id.fragment_container, tab03);
                 }else {
                     transaction.show(tab03);

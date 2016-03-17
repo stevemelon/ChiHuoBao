@@ -29,8 +29,9 @@ android {
     sourceSets {
         main {
             jniLibs.srcDir 'libs'
+            assets.srcDirs = ['assets']
         }
- 
+
         // Move the tests to tests/java, tests/res, etc...
         instrumentTest.setRoot('tests')
 
@@ -50,6 +51,7 @@ repositories{
     flatDir{
         dirs 'libs' //就是你放aar的目录地址
     }
+    maven { url "https://jitpack.io" }
 }
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -63,4 +65,5 @@ dependencies {
     compile files('libs/jpush-sdk-release1.8.1.jar')
     compile files('libs/commons-io-2.4.jar')
     compile files('libs/pushservice-4.6.2.39.jar')
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.3'
 }

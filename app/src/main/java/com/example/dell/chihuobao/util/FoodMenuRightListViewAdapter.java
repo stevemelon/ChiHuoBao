@@ -3,6 +3,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +22,23 @@ import com.example.dell.chihuobao.activity.FoodMenuModifyActivity;
 import com.example.dell.chihuobao.bean.Food;
 import com.example.dell.chihuobao.bean.FoodCategory;
 
+import org.xutils.common.util.DensityUtil;
+import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
 /**
  * Created by dell on 2016/3/1.
  */
 public class FoodMenuRightListViewAdapter extends BaseAdapter {
-    public final static String URL = "";
+    public String URL="http://10.6.12.44:8080/";
+    ImageOptions imageOptions = new ImageOptions.Builder()
+            .setCrop(true) // 很多时候设置了合适的scaleType也不需要它.
+    // 加载中或错误图片的ScaleType
+    //.setPlaceholderScaleType(ImageView.ScaleType.MATRIX)
+    .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+    .setLoadingDrawableId(R.mipmap.ic_launcher)
+    .setFailureDrawableId(R.mipmap.ic_launcher)
+    .build();
     private ArrayList foodType;
     private ArrayList allFood;
     private Context context;
@@ -64,7 +75,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (foodCategoryArrayList.contains(getItem(position))){
+        if (getItem(position) instanceof FoodCategory){
             return ITEM_TAG;
         }else {
             return ITEM_NORMAL;
@@ -132,43 +143,13 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
         {
             case ITEM_TAG:
                 viewHolderTag.tvFoodTypeName.setText(((FoodCategory)(getItem(position))).getName());
-                /*viewHolderTag.tvFoodTypeModify.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        TableLayout foodTypeEditView = (TableLayout) inflater.inflate(R.layout.dialog_food_menu_right_type_modify, null);
-                        final EditText editText = (EditText)foodTypeEditView.findViewById(R.id.food_type_modify_edit);
-                        editText.setText(getItem(position).toString());
-
-                        new AlertDialog.Builder(context)
-                                .setTitle("修改菜品种类")
-                                .setView(foodTypeEditView).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                String editFoodType = editText.getText().toString();
-                                int index = foodType.indexOf(getItem(position));
-                                foodType.set(index,editFoodType);
-                                allFood.set(position,editFoodType);
-                            }
-                        })
-                                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-
-                                    }
-                                })
-                                .create()
-                                .show();
-
-                    }
-
-                });*/
                 break;
             case ITEM_NORMAL:
-                viewHolderNormal.tvFoodName.setText(getItem(position).toString());
-                viewHolderNormal.tvAchieveMoney.setText(((Food)(getItem(position))).getAchievemoney());
-                viewHolderNormal.tvReduceMoney.setText(((Food)(getItem(position))).getReducemoney());
-                viewHolderNormal.tvPrice.setText(((Food)(getItem(position))).getPrice());
-
+                viewHolderNormal.tvFoodName.setText(((Food)(getItem(position))).getName());
+                viewHolderNormal.tvAchieveMoney.setText(((Food) (getItem(position))).getAchievemoney());
+                viewHolderNormal.tvReduceMoney.setText(((Food) (getItem(position))).getReducemoney());
+                viewHolderNormal.tvPrice.setText(((Food) (getItem(position))).getPrice());
+                x.image().bind(viewHolderNormal.imageView,URL+((Food)(getItem(position))).getPhoto().replaceAll("\\\\", "/"),imageOptions);
                 viewHolderNormal.btnSoldOut.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -190,7 +171,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                 });
                 break;
             }
-        x.image().bind(viewHolderNormal.imageView,URL+((Food)(getItem(position))).getPhoto());
+
 
         return convertView;
 
