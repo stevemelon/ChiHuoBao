@@ -62,4 +62,5 @@ dependencies {
     compile project(':library')
     compile files('libs/jpush-sdk-release1.8.1.jar')
     compile files('libs/commons-io-2.4.jar')
+    compile files('libs/pushservice-4.6.2.39.jar')
 }

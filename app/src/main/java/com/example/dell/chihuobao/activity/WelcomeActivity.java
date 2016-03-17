@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.example.dell.chihuobao.R;
 
 import java.util.ArrayList;
@@ -27,6 +29,9 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_main);
+        PushManager.startWork(getApplicationContext(),
+                PushConstants.LOGIN_TYPE_API_KEY,
+                "ObtbZb12pIwGg7vXWLxGEwUh");
         initial();
         login= (TextView) findViewById(R.id.tv_to_login);
         viewpager= (ViewPager) findViewById(R.id.viewpager);
@@ -37,7 +42,7 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this,LoginActivity.class);
+                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
