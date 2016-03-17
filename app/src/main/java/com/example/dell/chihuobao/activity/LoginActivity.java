@@ -12,11 +12,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.bean.User;
 import com.example.dell.chihuobao.util.BaseLog;
+import com.example.dell.chihuobao.util.MyApplication;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import java.util.HashMap;
 
@@ -25,8 +32,8 @@ import java.util.HashMap;
 public class LoginActivity extends BaseActivity {
     public static final int LOGIN_SUCCESS = 1;
     public static final int LOGIN_FAILURE = 2;
-    
-    public static final String ADDRESS="http://10.6.12.70:8080/chb/fragment_user/login.do?";
+
+    public static final String ADDRESS = "http://10.6.12.70:8080/chb/fragment_user/login.do?";
     @ViewInject(R.id.toolbar)
     private Toolbar toolbar;
 
@@ -58,16 +65,18 @@ public class LoginActivity extends BaseActivity {
     private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            HashMap<String,String> data;
+            HashMap<String, String> data;
             switch (msg.what) {
 
                 case LOGIN_SUCCESS:
-                    data= (HashMap<String, String>) msg.getData().getSerializable("data");
-                    Toast.makeText(LoginActivity.this, data.get("status"),Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
                     break;
                 case LOGIN_FAILURE:
-                    data= (HashMap<String, String>) msg.getData().getSerializable("data");
-                    Toast.makeText(LoginActivity.this, data.get("status"),Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(LoginActivity.this, "验证失败", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -76,63 +85,65 @@ public class LoginActivity extends BaseActivity {
     @Event(R.id.login)
     private void onLoginClick(View view) {
         BaseLog.i("登录点击");
-        Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-        startActivity(intent);
-//
-//        String s= "";
-//        try {
-//
-//            s = HttpUtil.getURLResponse("http://www.baidu.com");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//
-//            if (etUserName.getText().toString().trim().equals("") || erUserPwd.getText().toString().trim().equals("")) {
-//                Toast.makeText(LoginActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
-//                etUserName.setText(etUserName.getText().toString().trim());
-//                erUserPwd.setText("");
-//                return;
-//
-//            }
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    try {
-//                        String username = etUserName.getText().toString().trim();
-//                        String password = erUserPwd.getText().toString().trim();
-//                        String loginData = HttpUtil.getURLResponse(ADDRESS +
-//                                "username=" + username + "&password=" + password);
-//                        HashMap<String, String> map = (HashMap<String, String>) GsonUtil.parseData(loginData);
-//                        if (map.get("status").equals("success")) {
-//                            Message msg = new Message();
-//                            msg.what = LOGIN_SUCCESS;
-//                            Bundle bundle = new Bundle();
-//                            bundle.putSerializable("data", map);
-//                            msg.setData(bundle);
-//                            handler.sendMessage(msg);
-//                        } else if (map.get("status").equals("fail")) {
-//                            Message msg = new Message();
-//                            msg.what = LOGIN_SUCCESS;
-//                            Bundle bundle = new Bundle();
-//                            bundle.putSerializable("data", map);
-//                            msg.setData(bundle);
-//                            handler.sendMessage(msg);
-//                        } else {
-//                            BaseLog.e("返回数据出错！！！");
-//                        }
-//
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }).start();
-//
-//        }
+        BaseLog.i("登录点击");
+        String username = etUserName.getText().toString().trim();
+        String password = erUserPwd.getText().toString().trim();
+        RequestParams params = new RequestParams("http://192.168.155.2:8080/login.txt");
+        params.addQueryStringParameter("username", username);
+        params.addQueryStringParameter("password", password);
+        /*if (etUserName.getText().toString().trim().equals("") || erUserPwd.getText().toString().trim().equals("")) {
+            Toast.makeText(LoginActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+            etUserName.setText(etUserName.getText().toString().trim());
+            erUserPwd.setText("");
+            return;
+        }*/
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                BaseLog.i(result);
+                Gson gson = new Gson();
+
+                User user = null;
+                user = gson.fromJson(result, new TypeToken<User>() {
+                }.getType());
+                if (user.getStatus().equals("success")) {
+                    Message msg = new Message();
+                    msg.what = LOGIN_SUCCESS;
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("data", user.getInfo());
+                    msg.setData(bundle);
+                    MyApplication.getInstance().setUser(user);
+
+                    handler.sendMessage(msg);
+                } else if (user.getStatus().equals("fail")) {
+
+                } else {
+                    BaseLog.e("返回数据出错！！！");
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
+
     }
 
     @Event(R.id.to_login_by_phone)
     private void onLoginByPhoneClick(View view) {
-        BaseLog.i("登录点击");
-
         Intent intent = new Intent(LoginActivity.this,
                 PhoneVerifyActivity.class);
         startActivity(intent);
