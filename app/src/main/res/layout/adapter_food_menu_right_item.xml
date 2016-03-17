@@ -20,8 +20,7 @@
             <ImageView
                 android:id="@+id/food_image"
                 android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:background="#000000"/>
+                android:layout_height="80dp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
@@ -129,7 +128,7 @@
             android:textSize="17sp"
             android:id="@+id/item_food_detail_modify"
             android:layout_toLeftOf="@+id/item_food_detail_soldOut"
-            android:textColor="@android:color/black"/>
+            android:textColor="#555555"/>
         <Button
             android:layout_width="70dp"
             android:layout_height="25dp"
@@ -141,7 +140,7 @@
             android:textSize="17sp"
             android:id="@+id/item_food_detail_soldOut"
             android:layout_alignParentRight="true"
-            android:textColor="@android:color/black"
+            android:textColor="#555555"
 
             />
 

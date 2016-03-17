@@ -29,11 +29,22 @@ import com.example.dell.chihuobao.util.ServerUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.apache.http.HttpHost;
+import org.apache.http.HttpRequest;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.params.HttpParams;
+import org.apache.http.protocol.HttpContext;
 import org.xutils.common.Callback;
 import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +53,17 @@ import java.util.List;
 public class FoodMenuFragment extends Fragment {
 
 
-    /*String[] arr = new String[] { "套餐A", "套餐B", "套餐C", "套餐D", "套餐E", "套餐F" };*/
 
+    public String URL="http://10.6.12.44:8080/";
+    public final static String QUERY_CATEGORY = "chb/shop/queryCategory.do";
+    public final static String QUERY_PRODUCT = "chb/shop/queryProduct.do";
     private ListView listView;
     private ListView listView2 ;
     private String stringFoodCategory = new String();
     private Button mButton;
     private ServerUtil serverUtil = new ServerUtil();
+
+    private int arraySize;
     /**
      ** 左边listview的要使用的数组
      **/
@@ -66,9 +81,12 @@ public class FoodMenuFragment extends Fragment {
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            initFoodType();
-            initData();
-            initView();
+            if (msg.what==arraySize-1){
+                initFoodType();
+                initData();
+                initView();
+            }
+
         }
     };
 
@@ -93,17 +111,18 @@ public class FoodMenuFragment extends Fragment {
 
             }
         });
-        getDataFromServer("http://10.6.12.67:8080/testCategory.json");
+        getDataFromServer(URL+QUERY_CATEGORY);
 
         return foodMenuLayout;
 
     }
     public void getDataFromServer(String url){
         RequestParams params  = new RequestParams(url);
+        //shopId
+        params.addBodyParameter("shopid","1");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Toast.makeText(x.app(),result,Toast.LENGTH_SHORT).show();
                 parseData(result);
                 getFoodData(foodCategoryArrayList);
 
@@ -126,7 +145,8 @@ public class FoodMenuFragment extends Fragment {
             }
         });
     }
-    public void initFoodType(){
+    public void
+    initFoodType(){
         for (int i = 0; i <foodCategoryArrayList.size() ; i++) {
             foodType.add(foodCategoryArrayList.get(i).getName());
 
@@ -137,30 +157,7 @@ public class FoodMenuFragment extends Fragment {
      * 准备所有数据，左边列表食物种类，右边列表食物种类加食物名字
      */
     private void initData(){
-        /*String[] arr2 = new String[] { "food11", "food12", "food13", "food14", "food15" };
-        String[] arr3 = new String[] {  "food21", "food22", "food23", "food24", "food25", "food26" };
-        String[] arr4 = new String[] {  "food31", "food32", "food33", "food34" };
-        String[] arr5 = new String[] {  "food41", "food42", "food43", "food44", "food45", "food46", "food" };
-        String[] arr6 = new String[] {  "food51", "food52", "food53" };
-        String[] arr7 = new String[] { "food61", "food62", "food63", "food64", "food65", "food66", "food67", "food68" };
 
-        foodType.add("套餐A");
-        foodType.add("套餐B");
-        foodType.add("套餐C");
-        foodType.add("套餐D");
-        foodType.add("套餐E");
-        foodType.add("套餐F");*/
-
-        //stringFoodCategory = serverUtil.queryCategoryTest("http://10.6.12.69:8080/testCategory.json");
-        /**
-         * 获得食物种类的ArrayList
-         */
-
-
-
-        /**
-         * allFood包括食物种类和食物名字
-         */
         for (int i = 0; i <foodType.size() ; i++) {
             //allFood.add(foodType.get(i));
             arrayAllfood.add(foodCategoryArrayList.get(i));
@@ -204,7 +201,9 @@ public class FoodMenuFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 for (int i = 0; i < listView.getChildCount(); i++) {
                     if (i == position) {
-                        view.setBackgroundColor(Color.rgb(100, 100, 100));
+                        view.setBackgroundColor(Color.rgb(0, 136, 255));
+                        TextView textView =(TextView) view.findViewById(R.id.food_type_text);
+                        textView.setTextColor(Color.rgb(255, 255, 255));
                     } else {
                         view.setBackgroundColor(Color.TRANSPARENT);
                     }
@@ -230,9 +229,13 @@ public class FoodMenuFragment extends Fragment {
 
                     for (int i = 0; i < listView.getChildCount(); i++) {
                         if (i == nums.indexOf(firstVisibleItem)) {
-                            listView.getChildAt(i).setBackgroundColor(Color.rgb(100, 100, 100));
+                            listView.getChildAt(i).setBackgroundColor(Color.rgb(0, 136, 255));
+                            TextView textView =(TextView) listView.getChildAt(i).findViewById(R.id.food_type_text);
+                            textView.setTextColor(Color.rgb(255, 255, 255));
                         } else {
                             listView.getChildAt(i).setBackgroundColor(Color.TRANSPARENT);
+                            TextView textView =(TextView) listView.getChildAt(i).findViewById(R.id.food_type_text);
+                            textView.setTextColor(Color.rgb(0,0,0));
                         }
                     }
                 }
@@ -253,42 +256,44 @@ public class FoodMenuFragment extends Fragment {
         return foodArrayList;
 
     }
-    public void  getFoodData(ArrayList arraylist) {
-        BaseLog.e(arraylist.size() +"");
-        for (int i = 1; i <= arraylist.size(); i++) {
-            RequestParams params = new RequestParams("http://10.6.12.67:8080/testProduct"+ i+".json");
-            try {
-                x.http().requestSync(HttpMethod.GET, params, new Callback.TypedCallback<String>() {
-                    @Override
-                    public Type getLoadType() {
-                        return null;
-                    }
+    public void  getFoodData(final ArrayList<FoodCategory> arraylist) {
+        BaseLog.e(arraylist.size() + "");
+        arraySize=arraylist.size();
+        for (int i = 0; i < arraylist.size(); i++) {
+            RequestParams params = new RequestParams(URL+QUERY_PRODUCT);
+            params.addBodyParameter("shopid","1");
+            params.addBodyParameter("categoryid",arraylist.get(i).getId());
 
-                    @Override
-                    public void onSuccess(String result) {
-                        temp.add(parseData(result, result));
-                    }
+            final int finalI = i;
+            x.http().get(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    Log.d("success", result + finalI + "j");
 
-                    @Override
-                    public void onError(Throwable ex, boolean isOnCallback) {
+                    temp.add(parseData(result, result));
+                    Message msg = new Message();
+                    msg.what=finalI;
+                    handler.sendMessage(msg);
+                }
 
-                    }
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
 
-                    @Override
-                    public void onCancelled(CancelledException cex) {
+                }
 
-                    }
+                @Override
+                public void onCancelled(CancelledException cex) {
 
-                    @Override
-                    public void onFinished() {
+                }
 
-                    }
-                });
-            } catch (Throwable throwable) {
-                throwable.printStackTrace();
-            }
+                @Override
+                public void onFinished() {
+
+
+                }
+            });
+
         }
-        handler.sendEmptyMessage(1);
 
 
     }
