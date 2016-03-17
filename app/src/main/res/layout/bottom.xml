@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="50dp"
     android:background="#f0f0f0"
     android:orientation="horizontal" >
     <LinearLayout 
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#999999"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:text="订单"/>
         <!--&lt;!&ndash;#a9a9a9&ndash;&gt;-->
             <!--android:textColor="#ffffff"-->
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#999999"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:text="菜单管理"/>
     </LinearLayout>
     <LinearLayout 
@@ -70,8 +70,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#999999"
-            android:textSize="12sp"
-            android:text="账户"/>
+            android:textSize="10sp"
+            android:text="统计"/>
     </LinearLayout>
     <LinearLayout 
         android:id="@+id/id_tab_setting"
@@ -92,7 +92,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#999999"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:text="设置"/>
     </LinearLayout>
 

@@ -202,11 +202,11 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                                             public void onSuccess(String result) {
                                                 mOrders.remove(arg0);
                                                 simpleAdapter.notifyDataSetChanged();
-                                                BaseLog.e("成功成功成功成功成功成功成功2");
+                                                BaseLog.e("无效订单成功");
                                             }
                                             @Override
                                             public void onError(Throwable ex, boolean isOnCallback) {
-                                                Toast.makeText(context,"连接服务器失败",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context,"无效订单连接服务器失败",Toast.LENGTH_SHORT).show();
                                             }
                                             @Override
                                             public void onCancelled(CancelledException cex) {
@@ -258,7 +258,49 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(context,"!!!!!!!!!",Toast.LENGTH_LONG).show();
+                new AlertDialog.Builder(context).setTitle("确认删除订单吗？")
+                        .setIcon(android.R.drawable.ic_dialog_info)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // 点击“确认”后的操作
+//                                        mOrders.remove(arg0);
+//                                        simpleAdapter.notifyDataSetChanged();
+                                RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/countPerformance.do?");
+                                params.addQueryStringParameter("shopId", "1");
+                                params.addQueryStringParameter("Orderstatus", "2");
+                                x.http().post(params, new Callback.CommonCallback<String>() {
+                                    @Override
+                                    public void onSuccess(String result) {
+                                        mOrders.remove(position);
+                                        simpleAdapter.notifyDataSetChanged();
+                                        BaseLog.e("确认订单成功");
+                                    }
+                                    @Override
+                                    public void onError(Throwable ex, boolean isOnCallback) {
+                                        Toast.makeText(context,"确认订单连接服务器失败",Toast.LENGTH_SHORT).show();
+                                    }
+                                    @Override
+                                    public void onCancelled(CancelledException cex) {
+
+                                    }
+
+                                    @Override
+                                    public void onFinished() {
+
+                                    }
+                                });
+                            }
+                        })
+                        .setNegativeButton("返回", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // 点击“返回”后的操作,这里不设置没有任何操作
+                            }
+                        }).show();
+
             }
         }
 

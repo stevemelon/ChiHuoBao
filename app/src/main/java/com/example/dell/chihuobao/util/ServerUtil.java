@@ -1,9 +1,11 @@
 package com.example.dell.chihuobao.util;
 
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.example.dell.chihuobao.activity.FoodMenuAddNewFoodActivity;
+import com.example.dell.chihuobao.activity.MainActivity;
 import com.example.dell.chihuobao.bean.Food;
 import com.example.dell.chihuobao.bean.FoodCategory;
 import com.google.gson.Gson;
@@ -26,7 +28,7 @@ public class ServerUtil {
     private final static String UPDATE_FOOD = "/chb/shop/updateProduct.do";
     private final static String QUERY_PRODUCT= "/chb/shop/queryProduct.do";
     private final static String QUERY_CATEGORY= "/chb/shop/queryCategory.do";
-    private final static String URL = "http://10.6.12.56:8080";
+    private final static String URL = "http://10.6.12.44:8080";
 
     private String resultProduct =new String();
     private String resultCategory = new String();
@@ -89,7 +91,6 @@ public class ServerUtil {
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-
                 Log.d("result", result);
                 Toast.makeText(x.app(), "上传成功，马上去服务器看看吧！" + result, Toast.LENGTH_SHORT).show();
             }

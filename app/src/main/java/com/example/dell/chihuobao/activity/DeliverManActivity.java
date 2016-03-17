@@ -14,9 +14,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.bean.DeliverMan;
+import com.example.dell.chihuobao.util.BaseLog;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +62,27 @@ public class DeliverManActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // 点击“确认”后的操作
-                                DeliverManActivity.this.finish();
+                                RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/transferOrder.do?");
+                                params.addQueryStringParameter("orderId", "1");
+                                x.http().post(params, new Callback.CommonCallback<String>() {
+                                    @Override
+                                    public void onSuccess(String result) {
+                                        BaseLog.e("配送成功");
+                                    }
+                                    @Override
+                                    public void onError(Throwable ex, boolean isOnCallback) {
+                                        Toast.makeText(DeliverManActivity.this, "配送连接服务器失败", Toast.LENGTH_SHORT).show();
+                                    }
+                                    @Override
+                                    public void onCancelled(CancelledException cex) {
+
+                                    }
+
+                                    @Override
+                                    public void onFinished() {
+
+                                    }
+                                });
 
                             }
                         })

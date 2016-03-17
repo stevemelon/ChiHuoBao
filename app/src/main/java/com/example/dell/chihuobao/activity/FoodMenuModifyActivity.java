@@ -15,16 +15,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.appwidget.XCRoundImageView;
+import com.example.dell.chihuobao.bean.Food;
+import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.util.AndroidUtil;
 import com.example.dell.chihuobao.util.ServerUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.image.ImageOptions;
+import org.xutils.x;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -32,6 +44,11 @@ import java.util.HashMap;
  * Created by dell on 2016/3/15.
  */
 public class FoodMenuModifyActivity extends BaseActivity{
+    private final static String DELETE_FOOD ="/chb/shop/deleteProduct.do";
+    private final static String UPDATE_FOOD = "/chb/shop/updateProduct.do";
+    private final static String QUERY_ONE_PRODUCT = "/chb/shop/";
+    private final static String URL = "http://10.6.12.44:8080";
+
     private ImageView ivFoodImage;
     private EditText etFoodName;
     private EditText etFoodPrice;
@@ -55,11 +72,24 @@ public class FoodMenuModifyActivity extends BaseActivity{
     private ServerUtil serverUtil = new ServerUtil();
     private Button btnModify;
     private Button btnDelete;
+    private String getId;
+    private ArrayList<Food> foodArrayList = new ArrayList<>();
+    ImageOptions imageOptions = new ImageOptions.Builder()
+            .setCrop(true) // 很多时候设置了合适的scaleType也不需要它.
+                    // 加载中或错误图片的ScaleType
+                    //.setPlaceholderScaleType(ImageView.ScaleType.MATRIX)
+            .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+            .setLoadingDrawableId(R.mipmap.ic_launcher)
+            .setFailureDrawableId(R.mipmap.ic_launcher)
+            .build();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_menu_modify);
-        initView();
+        Intent intent = getIntent();
+        getId = intent.getStringExtra("id");
+        getIdDataAndInit(getId);
+
 
     }
     public void initView(){
@@ -75,6 +105,47 @@ public class FoodMenuModifyActivity extends BaseActivity{
         btnDelete.setOnClickListener(clickListener);
         btnModify.setOnClickListener(clickListener);
         ivFoodImage.setOnClickListener(clickListener);
+    }
+    public void getIdDataAndInit(String id){
+        RequestParams params = new RequestParams(URL+QUERY_ONE_PRODUCT);
+        params.addBodyParameter("id", id);
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                parseOneData(result);
+                putDataFirst();
+                initView();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    public void parseOneData(String result){
+        Gson gson  = new Gson();
+        foodArrayList = gson.fromJson(result,new TypeToken<ArrayList<Food>>() {}.getType());
+    }
+
+    public void putDataFirst(){
+        etFoodName.setText(foodArrayList.get(0).getName());
+        etFoodPrice.setText(foodArrayList.get(0).getPrice());
+        etFoodAchieveMoney.setText(foodArrayList.get(0).getAchievemoney());
+        etFoodReduceMoney.setText(foodArrayList.get(0).getReducemoney());
+        etFoodDescription.setText(foodArrayList.get(0).getDescription());
+        x.image().bind(ivFoodImage, URL + foodArrayList.get(0).getPhoto().replaceAll("\\\\", "/"),imageOptions);
     }
 
 
@@ -97,13 +168,12 @@ public class FoodMenuModifyActivity extends BaseActivity{
                     dialog.show();
                     break;
                 case R.id.btn_modify:
-                    serverUtil.updateFood(getData());
-                    finish();
+                    updateFood(getData());
+
                     break;
 
                 case R.id.btn_delete:
-                    serverUtil.deleteFood("1");
-                    finish();
+                    deleteFood(getId);
                     break;
             }
 
@@ -112,9 +182,9 @@ public class FoodMenuModifyActivity extends BaseActivity{
 
     private HashMap getData(){
         file= new File(tempFile.getPath());
-        foodHashMap.put("id","1");
-        foodHashMap.put("shopid", "1");
-        foodHashMap.put("categoryid",spFoodType.getSelectedItem().toString());
+        foodHashMap.put("id",getId);
+        foodHashMap.put("shopid", foodArrayList.get(0).getShopid());
+        foodHashMap.put("categoryid","2");
         foodHashMap.put("name",etFoodName.getText().toString());
         foodHashMap.put("storenumber","100");
         foodHashMap.put("price",etFoodPrice.getText().toString());
@@ -124,9 +194,9 @@ public class FoodMenuModifyActivity extends BaseActivity{
         foodHashMap.put("achievemoney",etFoodAchieveMoney.getText().toString());
         foodHashMap.put("reducemoney",etFoodReduceMoney.getText().toString());
         foodHashMap.put("rank","6");
-        foodHashMap.put("photodetail","");
+        foodHashMap.put("photodetail",tempFile.getPath());
         foodHashMap.put("photo",file);
-        foodHashMap.put("inserttime",new  SimpleDateFormat("yyyy-MM-dd   hh:mm:ss").format(new Date()));
+        foodHashMap.put("inserttime",new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
         return foodHashMap;
 
 
@@ -249,5 +319,85 @@ public class FoodMenuModifyActivity extends BaseActivity{
                 e.printStackTrace();
             }
         }
+    }
+
+    public void updateFood(HashMap hashMap){
+        RequestParams params = new RequestParams(URL+UPDATE_FOOD);
+        params.addBodyParameter("id",hashMap.get("id"),null);
+        params.addBodyParameter("shopid",hashMap.get("shopid"),null);
+        params.addBodyParameter("categoryid", hashMap.get("categoryid"), null);
+        params.addBodyParameter("name", hashMap.get("name"), null);
+        params.addBodyParameter("storenumber", hashMap.get("storenumber"), null);
+        params.addBodyParameter("price", hashMap.get("price"), null);
+        params.addBodyParameter("description", hashMap.get("description"), null);
+        params.addBodyParameter("inserttime", hashMap.get("inserttime"), null);
+        params.addBodyParameter("salescount", hashMap.get("salescount"),null);
+        params.addBodyParameter("status", hashMap.get("status"), null);
+        params.addBodyParameter("achievemoney", hashMap.get("achievemoney"), null);
+        params.addBodyParameter("reducemoney", hashMap.get("reducemoney"), null);
+        params.addBodyParameter("rank", hashMap.get("rank"), null);
+        params.addBodyParameter("photodetail",hashMap.get("photodetail"),null);
+        params.addBodyParameter("photo",hashMap.get("photo"),null);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.d("result", result);
+                Toast.makeText(x.app(), "更新成功，马上去服务器看看吧！" + result, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FoodMenuModifyActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(x.app(), "更新失败，检查一下服务器地址是否正确", Toast.LENGTH_SHORT).show();
+                ex.printStackTrace();
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
+    }
+
+    public void deleteFood(String id){
+        RequestParams params = new RequestParams(URL+DELETE_FOOD);
+        params.addBodyParameter("id",id);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.d("result", result);
+                Toast.makeText(x.app(), "删除成功，马上去服务器看看吧！" + result, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(FoodMenuModifyActivity.this,MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(x.app(), "删除失败，检查一下服务器地址是否正确", Toast.LENGTH_SHORT).show();
+                ex.printStackTrace();
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+
     }
 }
