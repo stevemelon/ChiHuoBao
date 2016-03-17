@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.android.pushservice.PushMessageReceiver;
+import com.example.dell.chihuobao.activity.MainActivity;
 import com.example.dell.chihuobao.util.BaseLog;
 import com.yalantis.phoenix.util.Utils;
 
@@ -131,6 +132,10 @@ public class PushReceiver extends PushMessageReceiver{
 
         // Demo更新界面展示代码，应用请在这里加入自己的处理逻辑
         BaseLog.e("onNotificationClicked方法");
+        Intent intent = new Intent();
+        intent.setClass(context.getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        context.getApplicationContext().startActivity(intent);
     }
 
     /**

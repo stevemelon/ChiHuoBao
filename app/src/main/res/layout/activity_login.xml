@@ -65,7 +65,7 @@
             android:layout_width="fill_parent"
             android:layout_height="@dimen/cell_height"
             android:layout_marginTop="25.0dip"
-            android:background="@drawable/selector_button_blue_deep"
+            android:background="#ff427fed"
             android:singleLine="true"
             android:text="验证并登陆"
             android:textColor="@color/white"

@@ -25,6 +25,7 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
     private ImageView[] points;//保存所有点图片的链表
     private int[] dots={R.id.point1,R.id.point2,R.id.point3};//保存各个点的id
     private TextView login;
+    private TextView register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +35,7 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
                 "ObtbZb12pIwGg7vXWLxGEwUh");
         initial();
         login= (TextView) findViewById(R.id.tv_to_login);
+        register= (TextView) findViewById(R.id.tv_to_register);
         viewpager= (ViewPager) findViewById(R.id.viewpager);
         ViewAdpter viewAdpter=new ViewAdpter(view);
         viewpager.setAdapter(viewAdpter);
@@ -46,9 +48,13 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
                 startActivity(intent);
             }
         });
-
-
-
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomeActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        toolbar.setTitle("登录");
 //        setSupportActionBar(toolbar);
