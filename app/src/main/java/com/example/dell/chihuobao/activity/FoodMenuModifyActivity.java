@@ -4,9 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +27,7 @@ import com.example.dell.chihuobao.appwidget.XCRoundImageView;
 import com.example.dell.chihuobao.bean.Food;
 import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.util.AndroidUtil;
+import com.example.dell.chihuobao.util.BaseLog;
 import com.example.dell.chihuobao.util.ServerUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,6 +41,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,10 +53,10 @@ import java.util.HashMap;
  * Created by dell on 2016/3/15.
  */
 public class FoodMenuModifyActivity extends BaseActivity{
-    private final static String DELETE_FOOD ="/chb/shop/deleteProduct.do";
-    private final static String UPDATE_FOOD = "/chb/shop/updateProduct.do";
-    private final static String QUERY_ONE_PRODUCT = "/chb/shop/";
-    private final static String URL = "http://10.6.12.44:8080";
+    private final static String DELETE_FOOD ="chb/shop/deleteProduct.do";
+    private final static String UPDATE_FOOD = "chb/shop/updateProduct.do";
+    private final static String QUERY_ONE_PRODUCT = "chb/shop/selectProductById.do";
+    private final static String URL = "http://10.6.12.44:8080/";
 
     private ImageView ivFoodImage;
     private EditText etFoodName;
@@ -56,8 +65,9 @@ public class FoodMenuModifyActivity extends BaseActivity{
     private Spinner spFoodType;
     private EditText etFoodAchieveMoney;
     private EditText etFoodReduceMoney;
-    private HashMap foodHashMap;
+    private HashMap foodHashMap = new HashMap();
     private String date;
+    private Food food;
 
     private String[] items = { "拍照", "相册" };
     private String title = "选择照片";
@@ -66,6 +76,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
     private static final int PHOTO_CARMERA = 1;
     private static final int PHOTO_PICK = 2;
     private static final int PHOTO_CUT = 3;
+    private Bitmap bitmap;
     // 创建一个以当前系统时间为名称的文件，防止重复
     private File tempFile = new File(Environment.getExternalStorageDirectory(),
             getPhotoFileName());
@@ -82,6 +93,13 @@ public class FoodMenuModifyActivity extends BaseActivity{
             .setLoadingDrawableId(R.mipmap.ic_launcher)
             .setFailureDrawableId(R.mipmap.ic_launcher)
             .build();
+
+    private Handler handler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            putDataFirst();
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,9 +130,17 @@ public class FoodMenuModifyActivity extends BaseActivity{
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                parseOneData(result);
-                putDataFirst();
                 initView();
+                parseOneData(result);
+                Thread thread  = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        downloadBitmap(URL + food.getPhoto().replaceAll("\\\\", "/"));
+                    }
+                });
+                thread.start();
+
+
             }
 
             @Override
@@ -134,19 +160,51 @@ public class FoodMenuModifyActivity extends BaseActivity{
         });
     }
 
+
+
     public void parseOneData(String result){
         Gson gson  = new Gson();
-        foodArrayList = gson.fromJson(result,new TypeToken<ArrayList<Food>>() {}.getType());
+        food = gson.fromJson(result,Food.class);
+    }
+
+    public void getFirstImage(){
+        RequestParams params = new RequestParams(URL + food.getPhoto().replaceAll("\\\\", "/"));
+        x.http().get(params, new Callback.CommonCallback<InputStream>() {
+            @Override
+            public void onSuccess(InputStream result) {
+                bitmap = BitmapFactory.decodeStream(result);
+                putDataFirst();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     public void putDataFirst(){
-        etFoodName.setText(foodArrayList.get(0).getName());
-        etFoodPrice.setText(foodArrayList.get(0).getPrice());
-        etFoodAchieveMoney.setText(foodArrayList.get(0).getAchievemoney());
-        etFoodReduceMoney.setText(foodArrayList.get(0).getReducemoney());
-        etFoodDescription.setText(foodArrayList.get(0).getDescription());
-        x.image().bind(ivFoodImage, URL + foodArrayList.get(0).getPhoto().replaceAll("\\\\", "/"),imageOptions);
+        etFoodName.setText(food.getName());
+        etFoodPrice.setText(food.getPrice());
+        etFoodAchieveMoney.setText(food.getAchievemoney());
+        etFoodReduceMoney.setText(food.getReducemoney());
+        etFoodDescription.setText(food.getDescription());
+        ivFoodImage.setImageBitmap(bitmap);
+        saveCropPic(bitmap);
+        
     }
+
+
 
 
 
@@ -168,12 +226,19 @@ public class FoodMenuModifyActivity extends BaseActivity{
                     dialog.show();
                     break;
                 case R.id.btn_modify:
-                    updateFood(getData());
+                    if (tempFile.exists()){
+                        //updateFood(getData());
+                        Toast.makeText(FoodMenuModifyActivity.this,"图片存在",Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(FoodMenuModifyActivity.this,"图片不存在",Toast.LENGTH_SHORT).show();
+                    }
+
 
                     break;
 
                 case R.id.btn_delete:
                     deleteFood(getId);
+
                     break;
             }
 
@@ -182,8 +247,8 @@ public class FoodMenuModifyActivity extends BaseActivity{
 
     private HashMap getData(){
         file= new File(tempFile.getPath());
-        foodHashMap.put("id",getId);
-        foodHashMap.put("shopid", foodArrayList.get(0).getShopid());
+        foodHashMap.put("id",food.getId());
+        foodHashMap.put("shopid", food.getShopid());
         foodHashMap.put("categoryid","2");
         foodHashMap.put("name",etFoodName.getText().toString());
         foodHashMap.put("storenumber","100");
@@ -210,10 +275,12 @@ public class FoodMenuModifyActivity extends BaseActivity{
                 case 0:
                     // 调用拍照
                     startCamera(dialog);
+
                     break;
                 case 1:
                     // 调用相册
                     startPick(dialog);
+
                     break;
 
                 default:
@@ -288,10 +355,11 @@ public class FoodMenuModifyActivity extends BaseActivity{
     private void setPicToView(Intent data) {
         Bundle bundle = data.getExtras();
         if (null != bundle) {
-            final Bitmap bmp = bundle.getParcelable("data");
-            ivFoodImage.setImageBitmap(bmp);
+            bitmap= bundle.getParcelable("data");
+            ivFoodImage.setImageBitmap(bitmap);
 
-            saveCropPic(bmp);
+
+            saveCropPic(bitmap);
             Log.i("MainActivity", tempFile.getAbsolutePath());
         }
     }
@@ -398,6 +466,38 @@ public class FoodMenuModifyActivity extends BaseActivity{
 
             }
         });
+
+    }
+
+    private void downloadBitmap(String url) {
+
+        HttpURLConnection conn = null;
+        try {
+            conn = (HttpURLConnection) new URL(url).openConnection();
+
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
+            conn.setRequestMethod("GET");
+            conn.connect();
+
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                InputStream inputStream = conn.getInputStream();
+
+                //图片压缩处理
+                //BitmapFactory.Options option = new BitmapFactory.Options();
+                //option.inSampleSize = 2;//宽高都压缩为原来的二分之一, 此参数需要根据图片要展示的大小来确定
+                //option.inPreferredConfig = Bitmap.Config.RGB_565;//设置图片格式
+                bitmap = BitmapFactory.decodeStream(inputStream, null,null);
+                handler.sendEmptyMessage(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            conn.disconnect();
+
+        }
 
     }
 }

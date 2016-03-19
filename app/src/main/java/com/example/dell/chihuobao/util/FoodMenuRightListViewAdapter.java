@@ -33,12 +33,12 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
     public String URL="http://10.6.12.44:8080/";
     ImageOptions imageOptions = new ImageOptions.Builder()
             .setCrop(true) // 很多时候设置了合适的scaleType也不需要它.
-    // 加载中或错误图片的ScaleType
-    //.setPlaceholderScaleType(ImageView.ScaleType.MATRIX)
-    .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
-    .setLoadingDrawableId(R.mipmap.ic_launcher)
-    .setFailureDrawableId(R.mipmap.ic_launcher)
-    .build();
+                    // 加载中或错误图片的ScaleType
+                    //.setPlaceholderScaleType(ImageView.ScaleType.MATRIX)
+            .setImageScaleType(ImageView.ScaleType.CENTER_CROP)
+            .setLoadingDrawableId(R.mipmap.ic_launcher)
+            .setFailureDrawableId(R.mipmap.ic_launcher)
+            .build();
     private ArrayList foodType;
     private ArrayList allFood;
     private Context context;
@@ -46,9 +46,8 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
     final static  int ITEM_TAG = 1;
     final static int ITEM_NORMAL=0;
     private ArrayList<FoodCategory> foodCategoryArrayList ;
-    public FoodMenuRightListViewAdapter(Context context, ArrayList allFood, ArrayList arrayList){
+    public FoodMenuRightListViewAdapter(Context context, ArrayList allFood){
         this.context = context;
-        this.foodType = arrayList;
         this.allFood = allFood;
         inflater  = LayoutInflater.from(context);
     }
@@ -122,8 +121,8 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                     convertView.setTag(viewHolderNormal);
                     break;
 
-                }
-            }else{
+            }
+        }else{
             //有convertView，按样式，取得不用的布局
             switch(type)
             {
@@ -135,8 +134,8 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                     viewHolderNormal = (ViewHolderNormal) convertView.getTag();
                     Log.d("convertView !!!!!!= ", "NULL ITEM_NORMAL");
                     break;
-                }
             }
+        }
 
         //设置资源
         switch(type)
@@ -173,7 +172,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                     }
                 });
                 break;
-            }
+        }
 
 
         return convertView;

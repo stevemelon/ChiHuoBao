@@ -6,9 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +39,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,7 +65,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
     private Button btnUpload;
     private String[] items = { "拍照", "相册" };
     private String title = "选择照片";
-
+    private Bitmap bitmap;
     private  File file;
 
     private static final int PHOTO_CARMERA = 1;
@@ -68,6 +74,8 @@ public class FoodMenuAddNewFoodActivity extends Activity {
     // 创建一个以当前系统时间为名称的文件，防止重复
     private File tempFile = new File(Environment.getExternalStorageDirectory(),
             getPhotoFileName());
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         x.Ext.init(getApplication());
@@ -91,6 +99,8 @@ public class FoodMenuAddNewFoodActivity extends Activity {
         etFoodReduceMoney = (EditText)findViewById(R.id.et_food_add_reduce_money);
         spFoodType = (Spinner)findViewById(R.id.sp_food_add_type);
     }
+
+
 
 
     // 使用系统当前日期加以调整作为照片的名称
@@ -312,4 +322,5 @@ public class FoodMenuAddNewFoodActivity extends Activity {
         });
 
     }
+
 }
