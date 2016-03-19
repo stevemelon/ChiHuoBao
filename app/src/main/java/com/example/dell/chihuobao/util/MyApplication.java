@@ -3,6 +3,7 @@ package com.example.dell.chihuobao.util;
 import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.example.dell.chihuobao.bean.User;
 
 import org.xutils.x;
 
@@ -12,6 +13,29 @@ import org.xutils.x;
 public class MyApplication extends Application {
 
     public static final String localhost = "";
+    public static User user;
+    private static MyApplication instance;
+
+    public static MyApplication getInstance() {
+        return instance;
+    }
+
+    public static void setInstance(MyApplication instance) {
+        MyApplication.instance = instance;
+    }
+
+    public static User getUser() {
+        return user;
+    }
+
+    public static void setUser(User user) {
+        MyApplication.user = user;
+    }
+
+    public static String getLocalhost() {
+        return localhost;
+    }
+
     // 在application的onCreate中初始化
     @Override
     public void onCreate() {
