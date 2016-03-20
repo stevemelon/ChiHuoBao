@@ -1,6 +1,7 @@
 package com.example.dell.chihuobao.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -61,7 +62,7 @@ public class LoginActivity extends BaseActivity {
 
         toolbar.setTitle("登录");
         setSupportActionBar(toolbar);
-
+        noPassLogin();
 
     }
 
@@ -115,9 +116,14 @@ public class LoginActivity extends BaseActivity {
     @Event(R.id.login)
     private void onLoginClick(View view) {
         BaseLog.i("登录点击");
-        BaseLog.i("登录点击");
         String username = etUserName.getText().toString().trim();
         String password = erUserPwd.getText().toString().trim();
+        login(username, password);
+
+
+    }
+
+    private void login(String username, String password) {
         RequestParams params = new RequestParams("http://192.168.155.2:8080/login.txt");
         params.addQueryStringParameter("username", username);
         params.addQueryStringParameter("password", password);
@@ -137,6 +143,7 @@ public class LoginActivity extends BaseActivity {
                 user = gson.fromJson(result, new TypeToken<User>() {
                 }.getType());
                 if (user.getStatus().equals("success")) {
+                    saveUser(user);
                     Message msg = new Message();
                     msg.what = LOGIN_SUCCESS;
                     Bundle bundle = new Bundle();
@@ -155,7 +162,7 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-
+                BaseLog.e(ex.toString());
             }
 
             @Override
@@ -168,8 +175,6 @@ public class LoginActivity extends BaseActivity {
 
             }
         });
-
-
     }
 
     @Event(R.id.to_login_by_phone)
@@ -178,5 +183,26 @@ public class LoginActivity extends BaseActivity {
                 PhoneVerifyActivity.class);
         startActivity(intent);
 
+    }
+
+    private void saveUser(User user) {
+        SharedPreferences settings = getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("token", user.getToken());
+        editor.putString("username", user.getInfo().get("username").toString());
+        editor.putString("password", user.getInfo().get("password").toString());
+        editor.commit();
+    }
+
+    private void noPassLogin() {
+
+        SharedPreferences settings = getSharedPreferences("user", MODE_PRIVATE);
+        String token=settings.getString("token", "");
+        String username=settings.getString("username", "");
+        String password=settings.getString("password", "");
+        BaseLog.i("noPassLogin"+token+username+password);
+        if (!token.equals("")&&!token.equals("null")) {
+            login(username,password);
+        }
     }
 }
