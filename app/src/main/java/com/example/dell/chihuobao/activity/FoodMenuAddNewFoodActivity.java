@@ -23,7 +23,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.util.AndroidUtil;
+import com.example.dell.chihuobao.util.FoodCategoryChooseAdapter;
+import com.example.dell.chihuobao.util.MyApplication;
 import com.example.dell.chihuobao.util.ServerUtil;
 
 
@@ -67,7 +70,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
     private String title = "选择照片";
     private Bitmap bitmap;
     private  File file;
-
+    private String foodCategoryIdSelected;
     private static final int PHOTO_CARMERA = 1;
     private static final int PHOTO_PICK = 2;
     private static final int PHOTO_CUT = 3;
@@ -98,6 +101,20 @@ public class FoodMenuAddNewFoodActivity extends Activity {
         etFoodAchieveMoney = (EditText)findViewById(R.id.et_food_add_achieve_money);
         etFoodReduceMoney = (EditText)findViewById(R.id.et_food_add_reduce_money);
         spFoodType = (Spinner)findViewById(R.id.sp_food_add_type);
+        FoodCategoryChooseAdapter foodCategoryChooseAdapter = new FoodCategoryChooseAdapter(MyApplication.getFoodCategoryArrayList(),this);
+        spFoodType.setAdapter(foodCategoryChooseAdapter);
+        spFoodType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                foodCategoryIdSelected = ((FoodCategory)parent.getItemAtPosition(position)).getId();
+                Toast.makeText(FoodMenuAddNewFoodActivity.this,foodCategoryIdSelected,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
 
@@ -138,7 +155,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
         file= new File(tempFile.getPath());
         foodHashMap.put("shopid", "1");
         //foodHashMap.put("categoryid",spFoodType.getSelectedItem().toString());
-        foodHashMap.put("categoryid","2");
+        foodHashMap.put("categoryid",foodCategoryIdSelected);
         foodHashMap.put("name",etFoodName.getText().toString()+"");
         foodHashMap.put("storenumber","100");
         foodHashMap.put("price",etFoodPrice.getText().toString()+"");

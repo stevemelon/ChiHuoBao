@@ -15,6 +15,7 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,8 @@ import com.example.dell.chihuobao.bean.Food;
 import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.util.AndroidUtil;
 import com.example.dell.chihuobao.util.BaseLog;
+import com.example.dell.chihuobao.util.FoodCategoryChooseAdapter;
+import com.example.dell.chihuobao.util.MyApplication;
 import com.example.dell.chihuobao.util.ServerUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -84,6 +87,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
     private Button btnModify;
     private Button btnDelete;
     private String getId;
+    private String foodCategoryIdSelected;
     private ArrayList<Food> foodArrayList = new ArrayList<>();
     ImageOptions imageOptions = new ImageOptions.Builder()
             .setCrop(true) // 很多时候设置了合适的scaleType也不需要它.
@@ -120,6 +124,20 @@ public class FoodMenuModifyActivity extends BaseActivity{
         btnModify = (Button)findViewById(R.id.btn_modify);
         btnDelete = (Button)findViewById(R.id.btn_delete);
         ivFoodImage = (ImageView)findViewById(R.id.iv_food_modify);
+        FoodCategoryChooseAdapter foodCategoryChooseAdapter = new FoodCategoryChooseAdapter(MyApplication.getFoodCategoryArrayList(),this);
+        spFoodType.setAdapter(foodCategoryChooseAdapter);
+        spFoodType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                foodCategoryIdSelected = ((FoodCategory)parent.getItemAtPosition(position)).getId();
+                Toast.makeText(FoodMenuModifyActivity.this,foodCategoryIdSelected,Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         btnDelete.setOnClickListener(clickListener);
         btnModify.setOnClickListener(clickListener);
         ivFoodImage.setOnClickListener(clickListener);
@@ -167,31 +185,6 @@ public class FoodMenuModifyActivity extends BaseActivity{
         food = gson.fromJson(result,Food.class);
     }
 
-    public void getFirstImage(){
-        RequestParams params = new RequestParams(URL + food.getPhoto().replaceAll("\\\\", "/"));
-        x.http().get(params, new Callback.CommonCallback<InputStream>() {
-            @Override
-            public void onSuccess(InputStream result) {
-                bitmap = BitmapFactory.decodeStream(result);
-                putDataFirst();
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
 
     public void putDataFirst(){
         etFoodName.setText(food.getName());
@@ -229,6 +222,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
                     if (tempFile.exists()){
                         //updateFood(getData());
                         Toast.makeText(FoodMenuModifyActivity.this,"图片存在",Toast.LENGTH_SHORT).show();
+                        updateFood(getData());
                     }else {
                         Toast.makeText(FoodMenuModifyActivity.this,"图片不存在",Toast.LENGTH_SHORT).show();
                     }
@@ -249,7 +243,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
         file= new File(tempFile.getPath());
         foodHashMap.put("id",food.getId());
         foodHashMap.put("shopid", food.getShopid());
-        foodHashMap.put("categoryid","2");
+        foodHashMap.put("categoryid",foodCategoryIdSelected);
         foodHashMap.put("name",etFoodName.getText().toString());
         foodHashMap.put("storenumber","100");
         foodHashMap.put("price",etFoodPrice.getText().toString());

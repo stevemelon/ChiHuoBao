@@ -35,7 +35,6 @@
             android:id="@+id/sp_food_add_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/foodType"
             android:textDirection="firstStrong"
             android:spinnerMode="dropdown">
 

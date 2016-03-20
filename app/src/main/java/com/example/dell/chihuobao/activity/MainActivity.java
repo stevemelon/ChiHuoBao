@@ -26,6 +26,7 @@ import com.example.dell.chihuobao.fragment.FoodMenuFragment;
 import com.example.dell.chihuobao.fragment.ProcessOrderListFragment;
 import com.example.dell.chihuobao.fragment.SettingFragment;
 import com.example.dell.chihuobao.fragment.UnprocessOrderListFragment;
+import com.example.dell.chihuobao.util.MyApplication;
 
 import java.util.ArrayList;
 

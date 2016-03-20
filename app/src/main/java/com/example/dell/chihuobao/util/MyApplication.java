@@ -3,9 +3,12 @@ package com.example.dell.chihuobao.util;
 import android.app.Application;
 
 import com.baidu.mapapi.SDKInitializer;
+import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.bean.User;
 
 import org.xutils.x;
+
+import java.util.ArrayList;
 
 /**
  * Created by wyouflf on 15/10/28.
@@ -14,7 +17,17 @@ public class MyApplication extends Application {
 
     public static final String localhost = "";
     public static User user;
+    private static ArrayList<FoodCategory> foodCategoryArrayList;
     private static MyApplication instance;
+    private static String shopId;
+
+    public static String getShopId() {
+        return shopId;
+    }
+
+    public static void setShopId(String shopId) {
+        MyApplication.shopId = shopId;
+    }
 
     public static MyApplication getInstance() {
         return instance;
@@ -26,6 +39,14 @@ public class MyApplication extends Application {
 
     public static User getUser() {
         return user;
+    }
+
+    public static ArrayList<FoodCategory> getFoodCategoryArrayList() {
+        return foodCategoryArrayList;
+    }
+
+    public static void setFoodCategoryArrayList(ArrayList<FoodCategory> foodCategoryArrayList) {
+        MyApplication.foodCategoryArrayList = foodCategoryArrayList;
     }
 
     public static void setUser(User user) {

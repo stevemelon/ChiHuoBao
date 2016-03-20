@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.bean.User;
 import com.example.dell.chihuobao.util.BaseLog;
 import com.example.dell.chihuobao.util.MyApplication;
@@ -25,6 +26,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -34,6 +36,7 @@ public class LoginActivity extends BaseActivity {
     public static final int LOGIN_FAILURE = 2;
 
     public static final String ADDRESS = "http://10.6.12.70:8080/chb/fragment_user/login.do?";
+    public final static String QUERY_CATEGORY = "chb/shop/queryCategory.do";
     @ViewInject(R.id.toolbar)
     private Toolbar toolbar;
 
@@ -69,10 +72,37 @@ public class LoginActivity extends BaseActivity {
             switch (msg.what) {
 
                 case LOGIN_SUCCESS:
+                    RequestParams params = new RequestParams(MyApplication.localhost+QUERY_CATEGORY);
+                    params.addBodyParameter("shopid",MyApplication.getShopId());
+                    x.http().get(params, new org.xutils.common.Callback.CommonCallback<String>() {
+                        @Override
+                        public void onSuccess(String result) {
+                            Gson gson = new Gson();
+                            ArrayList<FoodCategory> foodCategoryArrayList;
+                            foodCategoryArrayList = gson.fromJson(result, new TypeToken<FoodCategory>() {
+                            }.getType());
+                            MyApplication.setFoodCategoryArrayList(foodCategoryArrayList);
+                            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
 
-                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
+                        @Override
+                        public void onError(Throwable ex, boolean isOnCallback) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(CancelledException cex) {
+
+                        }
+
+                        @Override
+                        public void onFinished() {
+
+                        }
+                    });
+
                     break;
                 case LOGIN_FAILURE:
 
