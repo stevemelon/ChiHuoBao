@@ -20,7 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
         mWebView= (WebView) findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new WebViewClient());
-        mWebView.loadUrl("https://www.baidu.com");
+        mWebView.loadUrl("http://10.6.12.96:8080/chb/shop/toshopJoin.do");
     }
 
 }

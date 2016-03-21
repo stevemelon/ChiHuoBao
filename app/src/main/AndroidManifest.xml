@@ -13,10 +13,10 @@
         android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="Nftl0eQxPRWEXi5tXQXUiGPA" />
+            android:value="KPGOL2psFjbB9GjHjGECt6aU" />
         <meta-data
             android:name="api_key"
-            android:value="ObtbZb12pIwGg7vXWLxGEwUh" />
+            android:value="gO1E8nGxMfNwiV7BZXoRiMPu" />
         <!-- push应用定义消息receiver声明 -->
         <receiver android:name=".service.PushReceiver" >
             <intent-filter>
@@ -91,6 +91,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+
         </activity>
         <activity android:name=".activity.FoodMenuModifyActivity" />
         <activity
@@ -112,6 +114,7 @@
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" >
+
         </activity>
         <activity
             android:name=".activity.DeliverManActivity"
