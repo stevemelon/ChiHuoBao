@@ -59,7 +59,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
     private final static String DELETE_FOOD ="chb/shop/deleteProduct.do";
     private final static String UPDATE_FOOD = "chb/shop/updateProduct.do";
     private final static String QUERY_ONE_PRODUCT = "chb/shop/selectProductById.do";
-    private final static String URL = "http://10.6.12.44:8080/";
+    private final static String URL = "http://10.6.12.88:8080/";
 
     private ImageView ivFoodImage;
     private EditText etFoodName;

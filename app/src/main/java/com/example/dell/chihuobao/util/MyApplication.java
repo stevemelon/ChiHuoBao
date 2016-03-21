@@ -17,7 +17,7 @@ public class MyApplication extends Application {
 
     public static final String localhost = "";
     public static User user;
-    private static ArrayList<FoodCategory> foodCategoryArrayList;
+    private static ArrayList<FoodCategory> foodCategoryArrayList =new ArrayList<>();
     private static MyApplication instance;
 
     public static MyApplication getInstance() {

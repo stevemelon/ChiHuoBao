@@ -54,7 +54,7 @@ import java.util.HashMap;
  * Created by dell on 2016/3/9.
  */
 public class FoodMenuAddNewFoodActivity extends Activity {
-    private final static String URL = "http://10.6.12.44:8080";
+    private final static String URL = "http://10.6.12.88:8080";
     private final static String ADD_FOOD = "/chb/shop/addProduct.do";
     private ImageView ivFoodImage;
     private EditText etFoodName;
@@ -68,7 +68,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
     private Button btnUpload;
     private String[] items = { "拍照", "相册" };
     private String title = "选择照片";
-    private Bitmap bitmap;
+    private Bitmap bitmap ;
     private  File file;
     private String foodCategoryIdSelected;
     private static final int PHOTO_CARMERA = 1;
@@ -93,6 +93,9 @@ public class FoodMenuAddNewFoodActivity extends Activity {
 
     public void initView(){
         ivFoodImage = (ImageView)findViewById(R.id.iv_food_add);
+        BitmapDrawable bd = (BitmapDrawable) ivFoodImage.getDrawable();
+        bitmap = bd.getBitmap();
+        saveCropPic(bitmap);
         etFoodName = (EditText)findViewById(R.id.et_food_add_name);
         etFoodPrice=(EditText)findViewById(R.id.et_food_add_price);
         etFoodDescription = (EditText)findViewById(R.id.et_food_add_price);
@@ -137,7 +140,13 @@ public class FoodMenuAddNewFoodActivity extends Activity {
                     dialog.show();
                     break;
                 case R.id.btn_upload:
-                    addFood(getData());
+                    if (tempFile.exists()){
+                        Toast.makeText(FoodMenuAddNewFoodActivity.this, "success", Toast.LENGTH_SHORT).show();
+                        addFood(getData());
+                    }else {
+                        Toast.makeText(FoodMenuAddNewFoodActivity.this, "fail", Toast.LENGTH_SHORT).show();
+                    }
+
                     break;
                 default:
                     break;
@@ -259,7 +268,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
     private void setPicToView(Intent data) {
         Bundle bundle = data.getExtras();
         if (null != bundle) {
-            final Bitmap bmp = bundle.getParcelable("data");
+             final Bitmap bmp = bundle.getParcelable("data");
             ivFoodImage.setImageBitmap(bmp);
 
             saveCropPic(bmp);
