@@ -24,6 +24,7 @@ import com.example.dell.chihuobao.activity.FeedBackActivity;
 import com.example.dell.chihuobao.activity.HelpActivity;
 import com.example.dell.chihuobao.activity.LocationActivity;
 import com.example.dell.chihuobao.activity.LoginActivity;
+import com.example.dell.chihuobao.activity.PhoneVerifyActivity;
 import com.example.dell.chihuobao.activity.ShopMessageModifyctivity;
 import com.example.dell.chihuobao.activity.UserModifyActivity;
 import com.example.dell.chihuobao.util.MyApplication;
@@ -80,6 +81,15 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), HelpActivity.class);
+                startActivity(intent);
+            }
+        });
+        RelativeLayout app_password_layout = (RelativeLayout) view.findViewById(R.id.app_password_layout);
+        app_password_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getActivity(), PhoneVerifyActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,6 +1,8 @@
 package com.example.dell.chihuobao.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,8 +19,12 @@ import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.util.BaseLog;
+import com.example.dell.chihuobao.util.MyApplication;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
+import org.xutils.x;
 
 import java.util.HashMap;
 
@@ -30,6 +36,11 @@ import cn.smssdk.SMSSDK;
  */
 @ContentView(R.layout.activity_phone_verify)
 public class PhoneVerifyActivity extends BaseActivity implements View.OnClickListener{
+    public static final String URL = "http://10.6.12.88:8080/chb/shop/updatePwd.do";
+    // 用户名输入框
+    private EditText login_username;
+
+    private EditText login_password;
 
     // 手机号输入框
     private EditText inputPhoneEt;
@@ -58,6 +69,8 @@ public class PhoneVerifyActivity extends BaseActivity implements View.OnClickLis
      * 初始化控件
      */
     private void init() {
+        login_username= (EditText) findViewById(R.id.login_username);
+        login_password=(EditText) findViewById(R.id.login_password);
         inputPhoneEt = (EditText) findViewById(R.id.login_input_phone_et);
         inputCodeEt = (EditText) findViewById(R.id.login_input_code_et);
         requestCodeBtn = (Button) findViewById(R.id.login_request_code_btn);
@@ -76,19 +89,21 @@ public class PhoneVerifyActivity extends BaseActivity implements View.OnClickLis
                     //回调完成
                     if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         BaseLog.i("提交验证码成功");
-                        Looper.prepare();
-                        Toast.makeText(PhoneVerifyActivity.this, "提交验证码成功！", Toast.LENGTH_SHORT);
+                        //Looper.prepare();
+                        //oast.makeText(PhoneVerifyActivity.this, "提交验证码成功！", Toast.LENGTH_SHORT);
 
                         HashMap<String,Object> phoneMap = (HashMap<String, Object>) data;
                         String country = (String) phoneMap.get("country");
                         String phone = (String) phoneMap.get("phone");
-
-                        Intent intent = new Intent(PhoneVerifyActivity.this,
+                        updateUser(login_username.getText().toString(),login_password.getText().toString());
+                     /*    Intent intent = new Intent(PhoneVerifyActivity.this,
                                 WelcomeActivity.class);
+                       intent.putExtra("username", login_username.getText().toString().trim());
+
                         intent.putExtra("country", country);
                         intent.putExtra("phone", phone);
-                        startActivity(intent);
-                        Looper.loop();
+                        startActivity(intent);*/
+                        //Looper.loop();
                     }else if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE){
                         BaseLog.i("获取验证码成功");
 
@@ -256,5 +271,50 @@ public class PhoneVerifyActivity extends BaseActivity implements View.OnClickLis
     protected void onDestroy() {
         SMSSDK.unregisterAllEventHandler();
         super.onDestroy();
+    }
+
+    public void updateUser(String username, String password) {
+        RequestParams params = new RequestParams(URL);
+        params.addBodyParameter("username",username);
+        params.addBodyParameter("password", password, null);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.d("result", result);
+
+                clearUser();
+                MyApplication.getInstance().setUser(null);
+                Toast.makeText(x.app(), "更新成功，重新登录！" + result, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(PhoneVerifyActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(x.app(), "更新失败，检查一下服务器地址是否正确", Toast.LENGTH_SHORT).show();
+                ex.printStackTrace();
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+    private void clearUser() {
+        MyApplication.getInstance().setUser(null);
+        SharedPreferences settings = getSharedPreferences("user", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("token", "");
+        editor.putString("username", "");
+        editor.putString("password", "");
+        editor.commit();
     }
 }
