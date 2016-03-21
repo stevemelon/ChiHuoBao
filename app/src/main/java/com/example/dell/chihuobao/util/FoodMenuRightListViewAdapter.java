@@ -30,7 +30,7 @@ import org.xutils.x;
  * Created by dell on 2016/3/1.
  */
 public class FoodMenuRightListViewAdapter extends BaseAdapter {
-    public String URL="http://10.6.12.44:8080/";
+    public String URL="http://10.6.12.88:8080/";
     ImageOptions imageOptions = new ImageOptions.Builder()
             .setCrop(true) // 很多时候设置了合适的scaleType也不需要它.
                     // 加载中或错误图片的ScaleType
@@ -165,7 +165,7 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                          */
 
                         Intent intent = new Intent(context, FoodMenuModifyActivity.class);
-                        intent.putExtra("id",((Food) (getItem(position))).getId());
+                        intent.putExtra("id",((Food)getItem(position)).getId());
                         context.startActivity(intent);
 
 
