@@ -19,15 +19,6 @@ public class MyApplication extends Application {
     public static User user;
     private static ArrayList<FoodCategory> foodCategoryArrayList;
     private static MyApplication instance;
-    private static String shopId;
-
-    public static String getShopId() {
-        return shopId;
-    }
-
-    public static void setShopId(String shopId) {
-        MyApplication.shopId = shopId;
-    }
 
     public static MyApplication getInstance() {
         return instance;

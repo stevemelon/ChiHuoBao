@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class User {
     String token;
     String status;
-    HashMap<String,Object> user;
+    HashMap  user;
 
     public String getToken() {
         return token;
@@ -18,19 +18,19 @@ public class User {
         this.token = token;
     }
 
+    public HashMap getUser() {
+        return user;
+    }
+
+    public void setUser(HashMap user) {
+        this.user = user;
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public HashMap<String, Object> getInfo() {
-        return user;
-    }
-
-    public void setInfo(HashMap<String, Object> info) {
-        this.user = info;
     }
 }

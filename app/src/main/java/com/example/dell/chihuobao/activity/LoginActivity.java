@@ -13,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
-import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.bean.User;
 import com.example.dell.chihuobao.util.BaseLog;
 import com.example.dell.chihuobao.util.MyApplication;
@@ -27,7 +26,6 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -53,6 +51,7 @@ public class LoginActivity extends BaseActivity {
     @ViewInject(R.id.to_login_by_phone)
     private TextView TVLoginByPhone;
 
+    User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +62,7 @@ public class LoginActivity extends BaseActivity {
         toolbar.setTitle("登录");
         setSupportActionBar(toolbar);
         noPassLogin();
-
+        user=MyApplication.getUser();
     }
 
     private Handler handler = new Handler() {
@@ -73,19 +72,19 @@ public class LoginActivity extends BaseActivity {
             switch (msg.what) {
 
                 case LOGIN_SUCCESS:
-                    RequestParams params = new RequestParams(MyApplication.localhost+QUERY_CATEGORY);
-                    params.addBodyParameter("shopid",MyApplication.getShopId());
+                   /* RequestParams params = new RequestParams(MyApplication.localhost+QUERY_CATEGORY);
+                    //TODO
+                    params.addBodyParameter("shopid", user.getUser().get("id").toString());
                     x.http().get(params, new org.xutils.common.Callback.CommonCallback<String>() {
                         @Override
                         public void onSuccess(String result) {
                             Gson gson = new Gson();
+                            //TODO
                             ArrayList<FoodCategory> foodCategoryArrayList;
                             foodCategoryArrayList = gson.fromJson(result, new TypeToken<FoodCategory>() {
                             }.getType());
                             MyApplication.setFoodCategoryArrayList(foodCategoryArrayList);
-                            Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                            startActivity(intent);
+
                         }
 
                         @Override
@@ -102,8 +101,10 @@ public class LoginActivity extends BaseActivity {
                         public void onFinished() {
 
                         }
-                    });
-
+                    });*/
+                    Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(intent);
                     break;
                 case LOGIN_FAILURE:
 
@@ -124,7 +125,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login(String username, String password) {
-        RequestParams params = new RequestParams("http://192.168.155.2:8080/login.txt");
+        RequestParams params = new RequestParams("http://10.6.12.88:8080/chb/shop/login.do?");
         params.addQueryStringParameter("username", username);
         params.addQueryStringParameter("password", password);
         /*if (etUserName.getText().toString().trim().equals("") || erUserPwd.getText().toString().trim().equals("")) {
@@ -147,7 +148,7 @@ public class LoginActivity extends BaseActivity {
                     Message msg = new Message();
                     msg.what = LOGIN_SUCCESS;
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("data", user.getInfo());
+                    //bundle.putSerializable("data", user.getInfo());
                     msg.setData(bundle);
                     MyApplication.getInstance().setUser(user);
 
@@ -189,8 +190,8 @@ public class LoginActivity extends BaseActivity {
         SharedPreferences settings = getSharedPreferences("user", MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
         editor.putString("token", user.getToken());
-        editor.putString("username", user.getInfo().get("username").toString());
-        editor.putString("password", user.getInfo().get("password").toString());
+        editor.putString("username", user.getUser().get("username").toString());
+        editor.putString("password", user.getUser().get("password").toString());
         editor.commit();
     }
 
