@@ -1,5 +1,6 @@
 package com.example.dell.chihuobao.bean;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 /**
@@ -8,6 +9,15 @@ import java.util.Objects;
 public class FoodCategory extends Object {
     private String id;
     private String name;
+    private ArrayList<Food> goodsList;
+
+    public ArrayList<Food> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(ArrayList<Food> goodsList) {
+        this.goodsList = goodsList;
+    }
 
     public String getId() {
         return id;

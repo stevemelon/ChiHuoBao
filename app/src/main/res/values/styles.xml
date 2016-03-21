@@ -8,11 +8,14 @@
         <item name="colorAccent">#ff427fed</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="Widget.EditText.Ele" parent="@android:style/Widget.EditText">
         <item name="android:layout_height">@dimen/edit_text_height</item>
     </style>
+
     <style name="setting_text_style">
         <item name="android:textSize">16.0dip</item>
         <item name="android:textColor">@color/black</item>
@@ -20,6 +23,7 @@
         <item name="android:paddingTop">12dip</item>
         <item name="android:paddingBottom">12dip</item>
     </style>
+
     <style name="title_bar_style">
         <item name="android:background">@color/napos_dark_sky_blue</item>
         <item name="android:paddingLeft">0.0dip</item>
@@ -38,6 +42,7 @@
         <item name="android:textSize">20.0dip</item>
         <item name="android:textColor">@color/dark_theme_text</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

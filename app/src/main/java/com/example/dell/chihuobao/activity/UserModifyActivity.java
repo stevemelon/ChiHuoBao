@@ -1,12 +1,11 @@
 package com.example.dell.chihuobao.activity;
 
 import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -15,25 +14,18 @@ import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.dell.chihuobao.R;
-import com.example.dell.chihuobao.appwidget.XCRoundImageView;
-import com.example.dell.chihuobao.bean.Food;
-import com.example.dell.chihuobao.bean.FoodCategory;
+import com.example.dell.chihuobao.bean.User;
 import com.example.dell.chihuobao.util.AndroidUtil;
-import com.example.dell.chihuobao.util.BaseLog;
-import com.example.dell.chihuobao.util.FoodCategoryChooseAdapter;
 import com.example.dell.chihuobao.util.MyApplication;
 import com.example.dell.chihuobao.util.ServerUtil;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -48,29 +40,28 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
 /**
  * Created by dell on 2016/3/15.
  */
-public class FoodMenuModifyActivity extends BaseActivity{
-    private final static String DELETE_FOOD ="chb/shop/deleteProduct.do";
-    private final static String UPDATE_FOOD = "chb/shop/updateProduct.do";
-    private final static String QUERY_ONE_PRODUCT = "chb/shop/selectProductById.do";
-    private final static String URL = "http://10.6.12.88:8080/";
+public class UserModifyActivity extends BaseActivity{
+    public final static String UPDATE_USER = "chb/shop/updateShop.do?";
+    public final static String URL = "http://10.6.12.88:8080/";
+    private User user;
+    private HashMap hashMap ;
+    private ImageView shopphoto;
+    private EditText phone;
+    private EditText shoptype;
 
-    private ImageView ivFoodImage;
-    private EditText etFoodName;
-    private EditText etFoodPrice;
-    private EditText etFoodDescription;
-    private Spinner spFoodType;
-    private EditText etFoodAchieveMoney;
-    private EditText etFoodReduceMoney;
-    private HashMap foodHashMap = new HashMap();
-    private String date;
-    private Food food;
+    private EditText minconsume;
+    private EditText sendexpense;
+    private EditText email;
+    private EditText name;
+    private EditText businessstarttime;
+    private EditText businessendtime;
 
     private String[] items = { "拍照", "相册" };
     private String title = "选择照片";
@@ -85,10 +76,9 @@ public class FoodMenuModifyActivity extends BaseActivity{
             getPhotoFileName());
     private ServerUtil serverUtil = new ServerUtil();
     private Button btnModify;
-    private Button btnDelete;
-    private String getId;
-    private String foodCategoryIdSelected;
-    private ArrayList<Food> foodArrayList = new ArrayList<>();
+    private Button btnReturn;
+    private ToggleButton isServing;
+
     ImageOptions imageOptions = new ImageOptions.Builder()
             .setCrop(true) // 很多时候设置了合适的scaleType也不需要它.
                     // 加载中或错误图片的ScaleType
@@ -101,100 +91,127 @@ public class FoodMenuModifyActivity extends BaseActivity{
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            putDataFirst();
+
+            shopphoto.setImageBitmap(bitmap);
+            saveCropPic(bitmap);
         }
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_menu_modify);
-        Intent intent = getIntent();
-        getId = intent.getStringExtra("id");
-        getIdDataAndInit(getId);
-
+        setContentView(R.layout.activity_user_modify);
+        initView();
 
     }
     public void initView(){
-        etFoodName = (EditText)findViewById(R.id.et_food_modify_name);
-        etFoodPrice = (EditText)findViewById(R.id.et_food_modify_price);
-        spFoodType = (Spinner)findViewById(R.id.sp_food_modify_type);
-        etFoodDescription = (EditText)findViewById(R.id.et_food_description);
-        etFoodAchieveMoney = (EditText)findViewById(R.id.et_food_modify_achieve_money);
-        etFoodReduceMoney =(EditText)findViewById(R.id.et_food_modify_reduce_money);
-        btnModify = (Button)findViewById(R.id.btn_modify);
-        btnDelete = (Button)findViewById(R.id.btn_delete);
-        ivFoodImage = (ImageView)findViewById(R.id.iv_food_modify);
-        FoodCategoryChooseAdapter foodCategoryChooseAdapter = new FoodCategoryChooseAdapter(MyApplication.getFoodCategoryArrayList(),this);
-        spFoodType.setAdapter(foodCategoryChooseAdapter);
-        spFoodType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                foodCategoryIdSelected = ((FoodCategory)parent.getItemAtPosition(position)).getId();
-                Toast.makeText(FoodMenuModifyActivity.this,foodCategoryIdSelected,Toast.LENGTH_SHORT).show();
-            }
+        user= MyApplication.getInstance().getUser();
+        hashMap = user.getUser();
+        phone = (EditText)findViewById(R.id.phone);
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
-        btnDelete.setOnClickListener(clickListener);
-        btnModify.setOnClickListener(clickListener);
-        ivFoodImage.setOnClickListener(clickListener);
-    }
-    public void getIdDataAndInit(String id){
-        RequestParams params = new RequestParams(URL+QUERY_ONE_PRODUCT);
-        params.addBodyParameter("id", id);
-        x.http().get(params, new Callback.CommonCallback<String>() {
+        minconsume = (EditText)findViewById(R.id.minconsume);
+        sendexpense =(EditText)findViewById(R.id.sendexpense);
+
+        email=(EditText)findViewById(R.id.email);
+        name=(EditText)findViewById(R.id.name);
+        businessstarttime=(EditText)findViewById(R.id.businessstarttime);
+        businessendtime=(EditText)findViewById(R.id.businessendtime);
+        isServing= (ToggleButton) findViewById(R.id.serving);
+        Calendar c;
+        c = Calendar.getInstance();
+        final int hour = c.get(Calendar.HOUR_OF_DAY);
+        final int minute = c.get(Calendar.MINUTE);
+        businessstarttime.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(String result) {
-                initView();
-                parseOneData(result);
-                Thread thread  = new Thread(new Runnable() {
+            public void onClick(View v) {
+                new TimePickerDialog(UserModifyActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
-                    public void run() {
-                        downloadBitmap(URL + food.getPhoto().replaceAll("\\\\", "/"));
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                        businessstarttime.setText(new StringBuilder()
+                                .append(hourOfDay < 10 ? "0" + hourOfDay : hourOfDay).append(":")
+                                .append(minute < 10 ? "0" + minute : minute));
                     }
-                });
-                thread.start();
-
-
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
+                },hour,minute,true).show();
             }
         });
+        businessendtime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new TimePickerDialog(UserModifyActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+
+                        businessendtime.setText(new StringBuilder()
+                                .append(hourOfDay < 10 ? "0" + hourOfDay : hourOfDay).append(":")
+                                .append(minute < 10 ? "0" + minute : minute));
+                    }
+                }, hour, minute, true).show();
+            }
+        });
+     /*   isServing.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked)
+                    hashMap.put("isServing", "1");
+                else
+                    hashMap.put("isServing", "0");
+            }
+        });*/
+        btnModify = (Button)findViewById(R.id.btn_modify);
+        btnReturn = (Button)findViewById(R.id.btn_return);
+        shopphoto = (ImageView)findViewById(R.id.shopphoto);
+
+        btnReturn.setOnClickListener(clickListener);
+        btnModify.setOnClickListener(clickListener);
+        shopphoto.setOnClickListener(clickListener);
+
+        putDataFirst();
     }
 
 
+    public void putDataFirst() {
+        if (user.getUser().get("phone") != null) {
+            phone.setText(user.getUser().get("phone").toString());
+        }
+        if (user.getUser().get("minconsume") != null) {
+            minconsume.setText(user.getUser().get("minconsume").toString());
+        }
+        if (user.getUser().get("sendexpense") != null) {
+            sendexpense.setText(user.getUser().get("sendexpense").toString());
+        }
 
-    public void parseOneData(String result){
-        Gson gson  = new Gson();
-        food = gson.fromJson(result,Food.class);
-    }
+        if (user.getUser().get("email") != null) {
+            email.setText(user.getUser().get("email").toString());
+        }
+        if (user.getUser().get("name") != null) {
+            name.setText(user.getUser().get("name").toString());
+        }
+        if (user.getUser().get("businessstarttime") != null) {
+            businessstarttime.setText(user.getUser().get("businessstarttime").toString());
+        }
+        if (user.getUser().get("businessendtime") != null) {
+            businessendtime.setText(user.getUser().get("businessendtime").toString());
+        }
+        if (user.getUser().get("isServing") != null) {
+            if ((int)Double.parseDouble(user.getUser().get("isServing").toString())==1) {
+                isServing.setChecked(true);
+            }else {
+                isServing.setChecked(false);
+            }
+        }else {
+            isServing.setChecked(false);
+        }
+
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                downloadBitmap(URL + user.getUser().get("shopphoto").toString().replaceAll("\\\\", "/"));
+            }
+        });
+        thread.start();
 
 
-    public void putDataFirst(){
-        etFoodName.setText(food.getName());
-        etFoodPrice.setText(food.getPrice());
-        etFoodAchieveMoney.setText(food.getAchievemoney());
-        etFoodReduceMoney.setText(food.getReducemoney());
-        etFoodDescription.setText(food.getDescription());
-        ivFoodImage.setImageBitmap(bitmap);
-        saveCropPic(bitmap);
-        
     }
 
 
@@ -213,25 +230,24 @@ public class FoodMenuModifyActivity extends BaseActivity{
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
-                case R.id.iv_food_modify:
+                case R.id.shopphoto:
                     AlertDialog.Builder dialog = AndroidUtil.getListDialogBuilder(
-                            FoodMenuModifyActivity.this, items, title, dialogListener);
+                            UserModifyActivity.this, items, title, dialogListener);
                     dialog.show();
                     break;
                 case R.id.btn_modify:
                     if (tempFile.exists()){
-                        //updateFood(getData());
-                        Toast.makeText(FoodMenuModifyActivity.this,"图片存在",Toast.LENGTH_SHORT).show();
-                        updateFood(getData());
+                        updateUser(getData());
+                        Toast.makeText(UserModifyActivity.this,"图片存在",Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(FoodMenuModifyActivity.this,"图片不存在",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserModifyActivity.this,"图片不存在",Toast.LENGTH_SHORT).show();
                     }
 
 
                     break;
 
-                case R.id.btn_delete:
-                    deleteFood(getId);
+                case R.id.btn_return:
+                   //TODO
 
                     break;
             }
@@ -239,27 +255,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
         }
     };
 
-    private HashMap getData(){
-        file= new File(tempFile.getPath());
-        foodHashMap.put("id",food.getId());
-        foodHashMap.put("shopid", food.getShopid());
-        foodHashMap.put("categoryid",foodCategoryIdSelected);
-        foodHashMap.put("name",etFoodName.getText().toString());
-        foodHashMap.put("storenumber","100");
-        foodHashMap.put("price",etFoodPrice.getText().toString());
-        foodHashMap.put("description",etFoodDescription.getText().toString());
-        foodHashMap.put("salescount","0");
-        foodHashMap.put("status","1");
-        foodHashMap.put("achievemoney",etFoodAchieveMoney.getText().toString());
-        foodHashMap.put("reducemoney",etFoodReduceMoney.getText().toString());
-        foodHashMap.put("rank","6");
-        foodHashMap.put("photodetail",tempFile.getPath());
-        foodHashMap.put("photo",file);
-        foodHashMap.put("inserttime",new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
-        return foodHashMap;
 
-
-    }
 
     private DialogInterface.OnClickListener dialogListener = new DialogInterface.OnClickListener() {
 
@@ -350,7 +346,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
         Bundle bundle = data.getExtras();
         if (null != bundle) {
             bitmap= bundle.getParcelable("data");
-            ivFoodImage.setImageBitmap(bitmap);
+            shopphoto.setImageBitmap(bitmap);
 
 
             saveCropPic(bitmap);
@@ -383,29 +379,47 @@ public class FoodMenuModifyActivity extends BaseActivity{
         }
     }
 
-    public void updateFood(HashMap hashMap){
-        RequestParams params = new RequestParams(URL+UPDATE_FOOD);
-        params.addBodyParameter("id",hashMap.get("id"),null);
-        params.addBodyParameter("shopid",hashMap.get("shopid"),null);
-        params.addBodyParameter("categoryid", hashMap.get("categoryid"), null);
+    public void updateUser(final HashMap hashMap){
+        RequestParams params = new RequestParams(URL+UPDATE_USER);
+        params.addBodyParameter("id",(int)(Double.parseDouble(hashMap.get("id").toString())),null);
+        params.addBodyParameter("username",hashMap.get("username").toString(),null);
+        params.addBodyParameter("password", hashMap.get("password").toString(), null);
+        params.addBodyParameter("phone", hashMap.get("phone"), null);
+        params.addBodyParameter("address", hashMap.get("address"), null);
+        params.addBodyParameter("shopphoto", hashMap.get("shopphoto"), null);
+        final String name=getPhotoFileName();
+        params.addBodyParameter("shopphotodetail",name, null);
+        params.addBodyParameter("registertime", hashMap.get("registertime"), null);
+        params.addBodyParameter("updatetime", hashMap.get("updatetime").toString(), null);
+        params.addBodyParameter("shoptype", (int)(Double.parseDouble(hashMap.get("shoptype").toString())), null);
+        params.addBodyParameter("minconsume", Double.parseDouble(hashMap.get("minconsume").toString()), null);
+        params.addBodyParameter("sendexpense", Double.parseDouble(hashMap.get("sendexpense").toString()), null);
+        params.addBodyParameter("email", hashMap.get("email").toString(), null);
+        params.addBodyParameter("qrcode", hashMap.get("qrcode"), null);
+        params.addBodyParameter("shopmessage", hashMap.get("shopmessage"), null);
+        params.addBodyParameter("telephone", hashMap.get("telephone"), null);
+        params.addBodyParameter("identify", hashMap.get("identify"), null);
+        params.addBodyParameter("license", hashMap.get("license"), null);
         params.addBodyParameter("name", hashMap.get("name"), null);
-        params.addBodyParameter("storenumber", hashMap.get("storenumber"), null);
-        params.addBodyParameter("price", hashMap.get("price"), null);
-        params.addBodyParameter("description", hashMap.get("description"), null);
-        params.addBodyParameter("inserttime", hashMap.get("inserttime"), null);
-        params.addBodyParameter("salescount", hashMap.get("salescount"),null);
-        params.addBodyParameter("status", hashMap.get("status"), null);
-        params.addBodyParameter("achievemoney", hashMap.get("achievemoney"), null);
-        params.addBodyParameter("reducemoney", hashMap.get("reducemoney"), null);
-        params.addBodyParameter("rank", hashMap.get("rank"), null);
-        params.addBodyParameter("photodetail",hashMap.get("photodetail"),null);
-        params.addBodyParameter("photo",hashMap.get("photo"),null);
+        params.addBodyParameter("businessstarttime", hashMap.get("businessstarttime").toString(), null);
+        params.addBodyParameter("businessendtime", hashMap.get("businessendtime").toString(), null);
+        params.addBodyParameter("isServing", (int)(Double.parseDouble(hashMap.get("isServing").toString())), null);
+        params.addBodyParameter("axisX", hashMap.get("axisX"), null);
+        params.addBodyParameter("axisY", hashMap.get("axisY"), null);
+        if(hashMap.get("rank")!=null) {
+            params.addBodyParameter("rank", (int) (Double.parseDouble(hashMap.get("rank").toString())), null);
+        }else{
+            params.addBodyParameter("rank", "0", null);
+        }
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Log.d("result", result);
+
+                user.setUser(hashMap);
+                MyApplication.getInstance().setUser(user);
                 Toast.makeText(x.app(), "更新成功，马上去服务器看看吧！" + result, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(FoodMenuModifyActivity.this,MainActivity.class);
+                Intent intent = new Intent(UserModifyActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -430,38 +444,8 @@ public class FoodMenuModifyActivity extends BaseActivity{
 
     }
 
-    public void deleteFood(String id){
-        RequestParams params = new RequestParams(URL+DELETE_FOOD);
-        params.addBodyParameter("id",id);
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Log.d("result", result);
-                Toast.makeText(x.app(), "删除成功，马上去服务器看看吧！" + result, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(FoodMenuModifyActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
-            }
 
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(x.app(), "删除失败，检查一下服务器地址是否正确", Toast.LENGTH_SHORT).show();
-                ex.printStackTrace();
 
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-
-    }
 
     private void downloadBitmap(String url) {
 
@@ -494,4 +478,34 @@ public class FoodMenuModifyActivity extends BaseActivity{
         }
 
     }
+    private HashMap getData(){
+        file= new File(tempFile.getPath());
+
+        hashMap.put("phone", phone.getText().toString());
+        hashMap.put("minconsume", minconsume.getText().toString());
+        hashMap.put("sendexpense", sendexpense.getText().toString());
+       /* hashMap.put("shoptype", shoptype.getText().toString());*/
+        hashMap.put("email", email.getText().toString());
+        hashMap.put("name", name.getText().toString());
+        hashMap.put("businessstarttime", businessstarttime.getText().toString());
+        hashMap.put("businessendtime", businessendtime.getText().toString());
+
+        hashMap.put("shopphoto", file);
+
+        hashMap.put("updatetime", new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
+        if (isServing.isChecked()) {
+            hashMap.put("isServing", 1);
+        }
+        else {
+            hashMap.put("isServing", 2);
+        }
+
+        return hashMap;
+
+
+    }
+
+
+
+
 }

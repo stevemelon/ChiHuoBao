@@ -21,10 +21,12 @@ import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.FoodMenuAddNewFoodActivity;
+import com.example.dell.chihuobao.bean.AllFood;
 import com.example.dell.chihuobao.bean.Food;
 import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.util.BaseLog;
 import com.example.dell.chihuobao.util.FoodMenuRightListViewAdapter;
+import com.example.dell.chihuobao.util.MyApplication;
 import com.example.dell.chihuobao.util.ServerUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -54,55 +56,38 @@ public class FoodMenuFragment extends Fragment {
 
 
 
-    public String URL="http://10.6.12.44:8080/";
+    public String URL="http://10.6.12.88:8080/";
     public final static String QUERY_CATEGORY = "chb/shop/queryCategory.do";
-    public final static String QUERY_PRODUCT = "chb/shop/queryProduct.do";
+    public final static String QUERY_PRODUCT = "chb/shopCategory/getGoodsListSeparatedByGoodscategory.do";
     private ListView listView;
     private ListView listView2 ;
-    private String stringFoodCategory = new String();
-    private Button mButton;
-    private ServerUtil serverUtil = new ServerUtil();
-
-    private int arraySize;
+    private Button btnAddFood;
     /**
      ** 左边listview的要使用的数组
      **/
     private ArrayList<FoodCategory> foodCategoryArrayList = new ArrayList<FoodCategory>();
-    private ArrayList<ArrayList<Food>> temp;
-    private ArrayList<Food> foodArrayList;
-    private ArrayList arrayAllfood;
+    private ArrayList arrayAllFood;
     private ArrayList<String> foodType = new ArrayList<String>();
-    private ArrayList<String> allFood = new ArrayList<String>();
+    private ArrayList<AllFood> allFoodArrayList;
+    private ArrayList<FoodCategory> newFoodCategoryList;
 
     /**
      * * 用来记录每一个 1 2 3 4 5 6 在右边listview的位置；
      * */
     List<Integer> nums = new ArrayList<Integer>();
-    private Handler handler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what==arraySize-1){
-                initFoodType();
-                initData();
-                initView();
-            }
-
-        }
-    };
 
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-    //引入我们的布局
-        temp = new ArrayList<>();
-        arrayAllfood = new ArrayList();
+        //引入我们的布局
+        arrayAllFood = new ArrayList();
         View foodMenuLayout =  inflater.inflate(R.layout.fragment_food_menu, container, false);
-        mButton= (Button) foodMenuLayout.findViewById(R.id.but);
+        btnAddFood= (Button) foodMenuLayout.findViewById(R.id.but);
         listView = (ListView)foodMenuLayout.findViewById(R.id.listView1);
         listView2 = (ListView)foodMenuLayout.findViewById(R.id.listView2);
-        mButton= (Button) foodMenuLayout.findViewById(R.id.but);
-        mButton.setOnClickListener(new View.OnClickListener() {
+        btnAddFood= (Button) foodMenuLayout.findViewById(R.id.but);
+        btnAddFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -111,24 +96,23 @@ public class FoodMenuFragment extends Fragment {
 
             }
         });
-        getDataFromServer(URL+QUERY_CATEGORY);
-
+        getDataFromServer(URL + QUERY_PRODUCT);
         return foodMenuLayout;
 
     }
     public void getDataFromServer(String url){
         RequestParams params  = new RequestParams(url);
         //shopId
-        params.addBodyParameter("shopid","1");
+        params.addBodyParameter("shopid", "1");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 parseData(result);
-                getFoodData(foodCategoryArrayList);
-
-
+                dataPrepare(newFoodCategoryList);
+                initFoodType();
+                initData();
+                initView();
             }
-
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 BaseLog.e(ex.toString());
@@ -145,10 +129,9 @@ public class FoodMenuFragment extends Fragment {
             }
         });
     }
-    public void
-    initFoodType(){
-        for (int i = 0; i <foodCategoryArrayList.size() ; i++) {
-            foodType.add(foodCategoryArrayList.get(i).getName());
+    public void initFoodType(){
+        for (int i = 0; i <newFoodCategoryList.size() ; i++) {
+            foodType.add(newFoodCategoryList.get(i).getName());
 
         }
     }
@@ -158,25 +141,25 @@ public class FoodMenuFragment extends Fragment {
      */
     private void initData(){
 
-        for (int i = 0; i <foodType.size() ; i++) {
+        for (int i = 0; i <newFoodCategoryList.size() ; i++) {
             //allFood.add(foodType.get(i));
-            arrayAllfood.add(foodCategoryArrayList.get(i));
-            for (int j = 0; j <temp.get(i).size(); j++) {
+            arrayAllFood.add(newFoodCategoryList.get(i));
+            for (int j = 0; j <newFoodCategoryList.get(i).getGoodsList().size(); j++) {
                 //allFood.add(temp.get(i).get(j).getName());
-                arrayAllfood.add(temp.get(i).get(j));
+                arrayAllFood.add(newFoodCategoryList.get(i).getGoodsList().get(j));
             }
         }
-        for (int i = 0; i < foodType.size(); i++)
+        for (int i = 0; i < newFoodCategoryList.size(); i++)
         {
             if (i == 0)
             {
                 nums.add(0);
-            } else if (i > 0 && i < foodType.size())
+            } else if (i > 0 && i < newFoodCategoryList.size())
             {
                 int num = 0;
                 for (int j = 0; j < i; j++)
                 {
-                    num = num + temp.get(j).size()+1;
+                    num = num + newFoodCategoryList.get(j).getGoodsList().size()+1;
 
                 }
                 nums.add(num);
@@ -184,10 +167,9 @@ public class FoodMenuFragment extends Fragment {
         }
     }
 
-    private void initView()
-    {
+    private void initView() {
         //菜品种类的listView
-        FoodMenuRightListViewAdapter myFoodListViewAdapter = new FoodMenuRightListViewAdapter(getActivity(),arrayAllfood,foodType);
+        FoodMenuRightListViewAdapter myFoodListViewAdapter = new FoodMenuRightListViewAdapter(getActivity(),arrayAllFood);
         myFoodListViewAdapter.notifyDataSetChanged();
         myFoodListViewAdapter.notifyDataSetChanged();
 
@@ -208,7 +190,6 @@ public class FoodMenuFragment extends Fragment {
                         view.setBackgroundColor(Color.TRANSPARENT);
                     }
                 }
-
                 listView2.setSelection(nums.get(position));
                 Log.d("position", "" + nums.get(position));
 
@@ -246,57 +227,18 @@ public class FoodMenuFragment extends Fragment {
 
     public void parseData(String result){
         Gson gson  = new Gson();
-        foodCategoryArrayList = gson.fromJson(result,new TypeToken<ArrayList<FoodCategory>>() {}.getType());
+        //allFoodArrayList = gson.fromJson(result,new TypeToken<ArrayList<AllFood>>() {}.getType());
+        newFoodCategoryList = gson.fromJson(result,new TypeToken<ArrayList<FoodCategory>>() {}.getType());
 
     }
 
-    public ArrayList<Food> parseData(String result,String type){
-        Gson gson  = new Gson();
-        foodArrayList = gson.fromJson(result,new TypeToken<ArrayList<Food>>() {}.getType());
-        return foodArrayList;
-
-    }
-    public void  getFoodData(final ArrayList<FoodCategory> arraylist) {
-        BaseLog.e(arraylist.size() + "");
-        arraySize=arraylist.size();
-        for (int i = 0; i < arraylist.size(); i++) {
-            RequestParams params = new RequestParams(URL+QUERY_PRODUCT);
-            params.addBodyParameter("shopid","1");
-            params.addBodyParameter("categoryid",arraylist.get(i).getId());
-
-            final int finalI = i;
-            x.http().get(params, new Callback.CommonCallback<String>() {
-                @Override
-                public void onSuccess(String result) {
-                    Log.d("success", result + finalI + "j");
-
-                    temp.add(parseData(result, result));
-                    Message msg = new Message();
-                    msg.what=finalI;
-                    handler.sendMessage(msg);
-                }
-
-                @Override
-                public void onError(Throwable ex, boolean isOnCallback) {
-
-                }
-
-                @Override
-                public void onCancelled(CancelledException cex) {
-
-                }
-
-                @Override
-                public void onFinished() {
-
-
-                }
-            });
-
+    public void dataPrepare(ArrayList<FoodCategory> arrayList){
+        for (int i = 0; i < arrayList.size(); i++) {
+            //foodCategoryArrayList.add(arrayList.get(i).getFoodCategory());
+            MyApplication.getFoodCategoryArrayList().add(newFoodCategoryList.get(i));
         }
-
-
     }
+
 
 
 

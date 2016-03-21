@@ -1,7 +1,9 @@
 package com.example.dell.chihuobao.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,13 +29,22 @@ import com.baidu.mapapi.map.MyLocationConfiguration.LocationMode;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.bean.User;
+import com.example.dell.chihuobao.util.BaseLog;
+import com.example.dell.chihuobao.util.MyApplication;
 
-import java.util.ArrayList;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.util.HashMap;
 
 /**
  * 此demo用来展示如何结合定位SDK实现定位，并使用MyLocationOverlay绘制定位位置 同时展示如何使用自定义图标绘制并点击时弹出泡泡
  */
 public class LocationActivity extends Activity {
+    User user;
+    HashMap hashMap;
     BitmapDescriptor bdA;
     BitmapDescriptor bdGround;
     private Marker mMarkerA;
@@ -51,13 +62,17 @@ public class LocationActivity extends Activity {
 
 
     Button requestLocButton;
+    Button save;
     boolean isFirstLoc = true; // 是否首次定位
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+        user=MyApplication.getUser();
+        hashMap = user.getUser();
         requestLocButton = (Button) findViewById(R.id.button1);
+        save = (Button) findViewById(R.id.save);
         bdA = BitmapDescriptorFactory
                 .fromResource(R.drawable.icon_gcoding);
         bdGround = BitmapDescriptorFactory
@@ -95,13 +110,27 @@ public class LocationActivity extends Activity {
         };
         requestLocButton.setOnClickListener(btnClickListener);
 
+        save.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hashMap.put("axisX",currentPt.longitude);
+                hashMap.put("axisY",currentPt.latitude);
+                BaseLog.d("axisX", currentPt.longitude + "");
+                BaseLog.d("axisY",currentPt.latitude+"");
+                updateUser(hashMap);
 
+            }
+        });
 
         // 地图初始化
         mMapView = (MapView) findViewById(R.id.bmapView);
         mBaiduMap = mMapView.getMap();
         // 开启定位图层
         mBaiduMap.setMyLocationEnabled(true);
+        if(hashMap.get("axisX")!=null && (hashMap.get("axisY")!=null)) {
+            currentPt=new LatLng(Double.parseDouble(hashMap.get("axisY").toString()), Double.parseDouble(hashMap.get("axisX").toString()));
+            initOverlay();
+        }
         // 定位初始化
         mLocClient = new LocationClient(this);
         mLocClient.registerLocationListener(myListener);
@@ -111,6 +140,10 @@ public class LocationActivity extends Activity {
         option.setScanSpan(1000);
         mLocClient.setLocOption(option);
         mLocClient.start();
+
+
+
+
 
     }
 
@@ -210,6 +243,9 @@ public class LocationActivity extends Activity {
         mMapView.onDestroy();
         mMapView = null;
         super.onDestroy();
+        // 回收 bitmap 资源
+        bdA.recycle();
+        bdGround.recycle();
     }
     public void initOverlay() {
         // add marker overlay
@@ -222,8 +258,8 @@ public class LocationActivity extends Activity {
         mMarkerA = (Marker) (mBaiduMap.addOverlay(ooA));
 
 
-        ArrayList<BitmapDescriptor> giflist = new ArrayList<>();
-        giflist.add(bdA);
+        /*ArrayList<BitmapDescriptor> giflist = new ArrayList<>();
+        giflist.add(bdA);*/
 
 
 
@@ -266,6 +302,68 @@ public class LocationActivity extends Activity {
     public void clearOverlay(View view) {
         mBaiduMap.clear();
         mMarkerA = null;
+
+    }
+    public void updateUser(final HashMap hashMap){
+        RequestParams params = new RequestParams(UserModifyActivity.URL+UserModifyActivity.UPDATE_USER);
+        params.addBodyParameter("id",(int)(Double.parseDouble(hashMap.get("id").toString())),null);
+        params.addBodyParameter("username",hashMap.get("username").toString(),null);
+        params.addBodyParameter("password", hashMap.get("password").toString(), null);
+        params.addBodyParameter("phone", hashMap.get("phone"), null);
+        params.addBodyParameter("address", hashMap.get("address"), null);
+      /*  params.addBodyParameter("shopphoto", hashMap.get("shopphoto"), null);
+        params.addBodyParameter("shopphotodetail",hashMap.get("shopphotodetail"), null);*/
+        params.addBodyParameter("registertime", hashMap.get("registertime"), null);
+        params.addBodyParameter("updatetime", hashMap.get("updatetime").toString(), null);
+        params.addBodyParameter("shoptype", (int)(Double.parseDouble(hashMap.get("shoptype").toString())), null);
+        params.addBodyParameter("minconsume", Double.parseDouble(hashMap.get("minconsume").toString()), null);
+        params.addBodyParameter("sendexpense", Double.parseDouble(hashMap.get("sendexpense").toString()), null);
+        params.addBodyParameter("email", hashMap.get("email").toString(), null);
+        params.addBodyParameter("qrcode", hashMap.get("qrcode"), null);
+        params.addBodyParameter("shopmessage", hashMap.get("shopmessage"), null);
+        params.addBodyParameter("telephone", hashMap.get("telephone"), null);
+        params.addBodyParameter("identify", hashMap.get("identify"), null);
+        params.addBodyParameter("license", hashMap.get("license"), null);
+        params.addBodyParameter("name", hashMap.get("name"), null);
+        params.addBodyParameter("businessstarttime", hashMap.get("businessstarttime").toString(), null);
+        params.addBodyParameter("businessendtime", hashMap.get("businessendtime").toString(), null);
+        params.addBodyParameter("isServing", (int)(Double.parseDouble(hashMap.get("isServing").toString())), null);
+        params.addBodyParameter("axisX", hashMap.get("axisX"), null);
+        params.addBodyParameter("axisY", hashMap.get("axisY"), null);
+        if(hashMap.get("rank")!=null) {
+            params.addBodyParameter("rank", (int) (Double.parseDouble(hashMap.get("rank").toString())), null);
+        }else{
+            params.addBodyParameter("rank", "0", null);
+        }
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.d("result", result);
+                user.setUser(hashMap);
+                MyApplication.getInstance().setUser(user);
+                Toast.makeText(x.app(), "map更新成功！" + result, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LocationActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(x.app(), "map更新失败", Toast.LENGTH_SHORT).show();
+                ex.printStackTrace();
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
 
     }
 }

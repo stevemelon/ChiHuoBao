@@ -17,7 +17,8 @@
         android:background="#D000"
         android:minWidth="100dip"
         android:orientation="vertical"
-        android:padding="2dp" >
+        android:padding="2dp"
+        android:id="@+id/linearLayout">
 
 
     </LinearLayout>
@@ -26,9 +27,17 @@
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
         android:layout_marginRight="25dp"
-        android:layout_marginTop="10dip" />
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/linearLayout" />
+
+    <Button
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="保存"
+        android:id="@+id/save"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
