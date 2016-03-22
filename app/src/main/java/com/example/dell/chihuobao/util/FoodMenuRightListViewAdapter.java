@@ -39,13 +39,12 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
             .setLoadingDrawableId(R.mipmap.ic_launcher)
             .setFailureDrawableId(R.mipmap.ic_launcher)
             .build();
-    private ArrayList foodType;
     private ArrayList allFood;
     private Context context;
     private LayoutInflater inflater;
     final static  int ITEM_TAG = 1;
     final static int ITEM_NORMAL=0;
-    private ArrayList<FoodCategory> foodCategoryArrayList ;
+
     public FoodMenuRightListViewAdapter(Context context, ArrayList allFood){
         this.context = context;
         this.allFood = allFood;
@@ -93,7 +92,6 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
         //无convertView，需要new出各个控件
         if(convertView == null)
         {
-            Log.d("convertView = ", " NULL1");
 
             //按当前所需的样式，确定new的布局
             switch(type)
@@ -103,7 +101,6 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                     viewHolderTag = new ViewHolderTag();
                     viewHolderTag.tvFoodTypeName = (TextView)convertView.findViewById(R.id.group_list_item_text);
                     //viewHolderTag.tvFoodTypeModify = (TextView)convertView.findViewById(R.id.tv_food_type_modify);
-                    Log.d("convertView = ", "ITEM_TAG");
                     convertView.setTag(viewHolderTag);
                     break;
                 case ITEM_NORMAL:
@@ -113,11 +110,9 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                     viewHolderNormal.imageView = (ImageView)convertView.findViewById(R.id.food_image);
                     viewHolderNormal.tvPrice = (TextView)convertView.findViewById(R.id.group_list_item_price);
                     viewHolderNormal.btnModify = (Button)convertView.findViewById(R.id.item_food_detail_modify);
-                    viewHolderNormal.btnSoldOut = (Button)convertView.findViewById(R.id.item_food_detail_soldOut);
                     viewHolderNormal.tvAchieveMoney=(TextView)convertView.findViewById(R.id.item_food_achieve_money);
                     viewHolderNormal.tvReduceMoney = (TextView)convertView.findViewById(R.id.item_food_reduce_money);
 
-                    Log.d("convertView = ", "NULL ITEM_NORMAL");
                     convertView.setTag(viewHolderNormal);
                     break;
 
@@ -128,11 +123,9 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
             {
                 case ITEM_TAG:
                     viewHolderTag = (ViewHolderTag) convertView.getTag();
-                    Log.d("convertView !!!!!!= ", "NULL ITEM_TAG");
                     break;
                 case ITEM_NORMAL:
                     viewHolderNormal = (ViewHolderNormal) convertView.getTag();
-                    Log.d("convertView !!!!!!= ", "NULL ITEM_NORMAL");
                     break;
             }
         }
@@ -149,14 +142,6 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                 viewHolderNormal.tvReduceMoney.setText(((Food) (getItem(position))).getReducemoney());
                 viewHolderNormal.tvPrice.setText(((Food) (getItem(position))).getPrice());
                 x.image().bind(viewHolderNormal.imageView,URL+((Food)(getItem(position))).getPhoto().replaceAll("\\\\", "/"),imageOptions);
-                viewHolderNormal.btnSoldOut.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        /**
-                         * 菜品售罄
-                         */
-                    }
-                });
                 viewHolderNormal.btnModify.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -188,7 +173,6 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
 
     class ViewHolderTag{
         TextView tvFoodTypeName;
-        //TextView tvFoodTypeModify;
 
     }
 
@@ -197,7 +181,6 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
         TextView tvFoodName;
         TextView tvPrice;
         Button btnModify;
-        Button btnSoldOut;
         TextView tvAchieveMoney;
         TextView tvReduceMoney;
     }

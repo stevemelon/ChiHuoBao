@@ -110,7 +110,6 @@ public class FoodMenuAddNewFoodActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 foodCategoryIdSelected = ((FoodCategory)parent.getItemAtPosition(position)).getId();
-                Toast.makeText(FoodMenuAddNewFoodActivity.this,foodCategoryIdSelected,Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -141,7 +140,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
                     break;
                 case R.id.btn_upload:
                     if (tempFile.exists()){
-                        Toast.makeText(FoodMenuAddNewFoodActivity.this, "success", Toast.LENGTH_SHORT).show();
+
                         addFood(getData());
                     }else {
                         Toast.makeText(FoodMenuAddNewFoodActivity.this, "fail", Toast.LENGTH_SHORT).show();
@@ -163,7 +162,6 @@ public class FoodMenuAddNewFoodActivity extends Activity {
     private HashMap getData(){
         file= new File(tempFile.getPath());
         foodHashMap.put("shopid", "1");
-        //foodHashMap.put("categoryid",spFoodType.getSelectedItem().toString());
         foodHashMap.put("categoryid",foodCategoryIdSelected);
         foodHashMap.put("name",etFoodName.getText().toString()+"");
         foodHashMap.put("storenumber","100");

@@ -220,7 +220,6 @@ public class FoodMenuModifyActivity extends BaseActivity{
                     break;
                 case R.id.btn_modify:
                     if (tempFile.exists()){
-                        //updateFood(getData());
                         Toast.makeText(FoodMenuModifyActivity.this,"图片存在",Toast.LENGTH_SHORT).show();
                         updateFood(getData());
                     }else {
@@ -351,10 +350,8 @@ public class FoodMenuModifyActivity extends BaseActivity{
         if (null != bundle) {
             bitmap= bundle.getParcelable("data");
             ivFoodImage.setImageBitmap(bitmap);
-
-
             saveCropPic(bitmap);
-            Log.i("MainActivity", tempFile.getAbsolutePath());
+
         }
     }
 
@@ -404,7 +401,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
             @Override
             public void onSuccess(String result) {
                 Log.d("result", result);
-                Toast.makeText(x.app(), "更新成功，马上去服务器看看吧！" + result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(x.app(), "更新成功，马上去服务器看看吧！", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(FoodMenuModifyActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -437,7 +434,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
             @Override
             public void onSuccess(String result) {
                 Log.d("result", result);
-                Toast.makeText(x.app(), "删除成功，马上去服务器看看吧！" + result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(x.app(), "删除成功，马上去服务器看看吧！", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(FoodMenuModifyActivity.this,MainActivity.class);
                 startActivity(intent);
                 finish();
