@@ -164,10 +164,11 @@
             android:label="@string/title_activity_shop_message_modifyctivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.HelpActivity" />
-        <activity
-            android:name=".activity.OrderQueryActivity"
-            android:label="@string/title_activity_order_query"
-            android:theme="@style/AppTheme.NoActionBar" >
+        <activity android:name=".activity.OrderSelectActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

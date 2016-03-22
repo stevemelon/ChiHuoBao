@@ -4,6 +4,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="loaction">店铺位置</string>
     <string name="contact_service">餐厅公告</string>
+    <string name="password">密码</string>
     <string name="help">帮助与反馈</string>
     <string name="version">系统版本</string>
     <string name="logout">退出登录</string>

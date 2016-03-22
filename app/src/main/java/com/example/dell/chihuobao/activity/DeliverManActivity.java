@@ -2,6 +2,7 @@ package com.example.dell.chihuobao.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -49,13 +50,12 @@ public class DeliverManActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliver_man);
         mListView= (ListView) findViewById(R.id.list_view);
+        Intent intent=getIntent();
+        orderId=intent.getStringExtra("orderId");
         getDataFromServe();
-        //String result="{\"deliverman\":[{\"id\":1,\"name\":\"张三\",\"phone\":\"123454568\"}]}";
-//        Intent intent=getIntent();
-//        orderId=intent.getStringExtra("orderId");
     }
     public void getDataFromServe(){
-        RequestParams params = new RequestParams("http://10.6.12.58:8080/zhbj/common.json");
+        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/getSendPersonByStatus.do");
         //RequestParams params = new RequestParams("http://10.6.11.19:8080/chb/shop/getSendPersonByStatus.do");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
@@ -90,11 +90,6 @@ public class DeliverManActivity extends AppCompatActivity {
         }.getType();
         BaseLog.e(result);
         DeliverManJson deliverManJson = gson.fromJson(result, type);
-        BaseLog.e(""+deliverManJson.getDeliverMans().size());
-//        for (int i = 0; i < orderBean.getRows().size(); i++) {
-//            list.add(orderBean.getRows().get(i));
-//        }
-        BaseLog.e("!!!!!!"+mListView);
         mDeliverManAdapter = new DeliverManAdapter(deliverManJson.getDeliverMans(), R.layout.deliver_item_layout,this);
         mListView.setAdapter(mDeliverManAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -107,13 +102,13 @@ public class DeliverManActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // 点击“确认”后的操作
-
-                                RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/transferOrder.do?");
+                                BaseLog.e("！！！！！！！！！"+orderId);
+                                RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/ignoreOrder.do?");
                                 params.addQueryStringParameter("orderId", orderId);
+                                params.addQueryStringParameter("transferOrder", "1");
                                 x.http().post(params, new Callback.CommonCallback<String>() {
                                     @Override
                                     public void onSuccess(String result) {
-
                                         Toast.makeText(DeliverManActivity.this, "配送成功", Toast.LENGTH_SHORT).show();
                                         //getDataFromServe();
                                         BaseLog.e("配送成功");
