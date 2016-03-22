@@ -27,6 +27,7 @@ import com.example.dell.chihuobao.activity.LoginActivity;
 import com.example.dell.chihuobao.activity.PhoneVerifyActivity;
 import com.example.dell.chihuobao.activity.ShopMessageModifyctivity;
 import com.example.dell.chihuobao.activity.UserModifyActivity;
+import com.example.dell.chihuobao.activity.UserUpdateActivity;
 import com.example.dell.chihuobao.util.MyApplication;
 
 import java.io.InputStream;
@@ -118,7 +119,8 @@ public class SettingFragment extends Fragment {
         restaurant_info_container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), UserModifyActivity.class));
+                /*startActivity(new Intent(getActivity(), UserModifyActivity.class));*/
+                startActivity(new Intent(getActivity(), UserUpdateActivity.class));
             }
         });
 

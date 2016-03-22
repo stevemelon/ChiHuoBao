@@ -164,7 +164,8 @@
             android:label="@string/title_activity_shop_message_modifyctivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".activity.HelpActivity" />
-        <activity android:name=".activity.OrderSelectActivity"></activity>
+        <activity android:name=".activity.OrderSelectActivity" />
+        <activity android:name=".activity.UserUpdateActivity"></activity>
     </application>
 
 </manifest>
