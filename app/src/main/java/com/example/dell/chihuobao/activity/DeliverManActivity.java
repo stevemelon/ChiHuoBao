@@ -2,6 +2,7 @@ package com.example.dell.chihuobao.activity;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -18,20 +19,21 @@ import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.bean.DeliverMan;
+import com.example.dell.chihuobao.bean.DeliverManJson;
 import com.example.dell.chihuobao.util.BaseLog;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DeliverManActivity extends AppCompatActivity {
-    private List<DeliverMan> mDeliverMans;
     private ListView mListView;
-    private String[] name=new String[]{"张三","李四","王五"};
-    private String[] telephone=new String[]{"123456","545646546546","9999999"};
+    private String orderId;
+    private DeliverManAdapter mDeliverManAdapter;
     private int[] imageId=new int[]{R.drawable.anastasia,
             R.drawable.andriy,
             R.drawable.dmitriy,
@@ -47,14 +49,52 @@ public class DeliverManActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_deliver_man);
-        mDeliverMans=new ArrayList<DeliverMan>();
         mListView= (ListView) findViewById(R.id.list_view);
-        initData();
-        DeliverManAdapter manAdapter=new DeliverManAdapter(mDeliverMans,R.layout.deliver_item_layout,this);
-        mListView.setAdapter(manAdapter);
+        Intent intent=getIntent();
+        orderId=intent.getStringExtra("orderId");
+        getDataFromServe();
+    }
+    public void getDataFromServe(){
+        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/getSendPersonByStatus.do");
+        //RequestParams params = new RequestParams("http://10.6.11.19:8080/chb/shop/getSendPersonByStatus.do");
+        x.http().get(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                parseData(result);
+                BaseLog.e("成功配送");
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
+                BaseLog.e("失败配送");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+                BaseLog.e("取消取消取消取消取消取消取消取消取消取消取消1");
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+    /*
+    将从服务器端获取的数据解析，传给listview的适配器
+     */
+    public void parseData(String result){
+        Gson gson = new Gson();
+        java.lang.reflect.Type type = new TypeToken<DeliverManJson>() {
+        }.getType();
+        BaseLog.e(result);
+        DeliverManJson deliverManJson = gson.fromJson(result, type);
+        mDeliverManAdapter = new DeliverManAdapter(deliverManJson.getDeliverMans(), R.layout.deliver_item_layout,this);
+        mListView.setAdapter(mDeliverManAdapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {
                 new AlertDialog.Builder(DeliverManActivity.this).setTitle("确认配送吗？")
                         .setIcon(android.R.drawable.ic_dialog_info)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -62,17 +102,22 @@ public class DeliverManActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 // 点击“确认”后的操作
-                                RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/transferOrder.do?");
-                                params.addQueryStringParameter("orderId", "1");
+                                BaseLog.e("！！！！！！！！！"+orderId);
+                                RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/ignoreOrder.do?");
+                                params.addQueryStringParameter("orderId", orderId);
+                                params.addQueryStringParameter("transferOrder", "1");
                                 x.http().post(params, new Callback.CommonCallback<String>() {
                                     @Override
                                     public void onSuccess(String result) {
+                                        Toast.makeText(DeliverManActivity.this, "配送成功", Toast.LENGTH_SHORT).show();
+                                        //getDataFromServe();
                                         BaseLog.e("配送成功");
                                     }
                                     @Override
                                     public void onError(Throwable ex, boolean isOnCallback) {
                                         Toast.makeText(DeliverManActivity.this, "配送连接服务器失败", Toast.LENGTH_SHORT).show();
                                     }
+
                                     @Override
                                     public void onCancelled(CancelledException cex) {
 
@@ -96,18 +141,6 @@ public class DeliverManActivity extends AppCompatActivity {
 
             }
         });
-
-
-
-    }
-    public void initData(){
-        for (int i=0;i<3;i++){
-            DeliverMan deliverMan=new DeliverMan();
-            deliverMan.setImageId(imageId[i]);
-            deliverMan.setName(name[i]);
-            deliverMan.setTelephone(telephone[i]);
-            mDeliverMans.add(deliverMan);
-        }
 
     }
     public class DeliverManAdapter extends BaseAdapter {
@@ -152,10 +185,11 @@ public class DeliverManActivity extends AppCompatActivity {
             }
             DeliverMan deliverMan=getItem(position);
             if (deliverMan!=null){
+                int i = deliverMan.getId()% imageId.length;
                 Log.i("22",""+viewHolder);
                 viewHolder.name.setText(deliverMan.getName());
-                viewHolder.photo.setImageResource(deliverMan.getImageId());
-                viewHolder.telephone.setText(deliverMan.getTelephone());
+                viewHolder.photo.setImageResource(imageId[i]);
+                viewHolder.telephone.setText(deliverMan.getPhone());
             }
             return convertView;
         }

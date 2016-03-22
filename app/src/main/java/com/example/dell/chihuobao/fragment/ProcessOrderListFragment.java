@@ -71,17 +71,20 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
     }
     //    从服务器获取数据
     public void getDataFromServe(){
-        RequestParams params = new RequestParams("http://10.6.12.91:8080/zhbj/common.json");
+        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/queryOrderByStatus.do?");
+        params.addQueryStringParameter("shopId", "1");
+        params.addQueryStringParameter("orderStatus", "1");
+        params.addQueryStringParameter("sendStatus", "0");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 parseData(result);
-                BaseLog.e("成功成功成功成功成功成功成功1");
+                BaseLog.e("成功已处理");
             }
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
-                BaseLog.e("失败失败失败失败失败失败1");
+                BaseLog.e("失败已处理");
             }
 
             @Override
@@ -143,7 +146,7 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
         }
 
         @Override
-        public View getView(int arg0, View arg1, ViewGroup arg2) {
+        public View getView(final int arg0, View arg1, ViewGroup arg2) {
             ViewHolder viewHolder=null;
             List<Item> mItems=new ArrayList<Item>();
 
@@ -165,8 +168,7 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
             }else {
                 viewHolder = (ViewHolder) arg1.getTag();
             }
-            Order order=getItem(arg0);
-
+            final Order order=getItem(arg0);
             if (order!=null){
                 viewHolder.telephone.setText(order.getTelephone());
                 viewHolder.time.setText(order.getOrdertime());
@@ -175,9 +177,19 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
                 mItems=order.getOrderdelist();
                 OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);
                 viewHolder.food.setAdapter(orderFoodAdapter);
-                viewHolder.notice.setText(order.getRequest());
+                viewHolder.notice.setText("备注："+order.getRequest());
                 viewHolder.item_id.setText(order.getId());
-                viewHolder.accept.setOnClickListener(new lvButtonListener(arg0));
+                viewHolder.accept.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mOrders.remove(arg0);
+                        mProcessOrderAdapter.notifyDataSetChanged();
+                        String a=order.getOrderId();
+                        Intent intent = new Intent(context, DeliverManActivity.class);
+                        intent.putExtra("orderId",order.getOrderId());
+                        context.startActivity(intent);
+                    }
+                });
             }
 
 
@@ -197,21 +209,6 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
             return arg1;
 
         }
-        class lvButtonListener implements View.OnClickListener {
-            private int position;
-
-            lvButtonListener(int pos) {
-                position = pos;
-            }
-
-            @Override
-            public void onClick(View v) {
-                int vid = v.getId();
-                Toast.makeText(context, position + "", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(context, DeliverManActivity.class);
-                context.startActivity(intent);
-            }
-        }
 
         private  class ViewHolder
         {
@@ -223,7 +220,6 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
             TextView notice;
             TextView item_id;
             TextView accept;
-
         }
     }
 

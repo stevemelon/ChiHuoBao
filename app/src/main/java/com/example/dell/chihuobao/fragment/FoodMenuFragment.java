@@ -57,7 +57,6 @@ public class FoodMenuFragment extends Fragment {
 
 
     public String URL="http://10.6.12.88:8080/";
-    public final static String QUERY_CATEGORY = "chb/shop/queryCategory.do";
     public final static String QUERY_PRODUCT = "chb/shopCategory/getGoodsListSeparatedByGoodscategory.do";
     private ListView listView;
     private ListView listView2 ;
@@ -65,10 +64,8 @@ public class FoodMenuFragment extends Fragment {
     /**
      ** 左边listview的要使用的数组
      **/
-    private ArrayList<FoodCategory> foodCategoryArrayList = new ArrayList<FoodCategory>();
     private ArrayList arrayAllFood;
     private ArrayList<String> foodType = new ArrayList<String>();
-    private ArrayList<AllFood> allFoodArrayList;
     private ArrayList<FoodCategory> newFoodCategoryList;
 
     /**
@@ -142,10 +139,8 @@ public class FoodMenuFragment extends Fragment {
     private void initData(){
 
         for (int i = 0; i <newFoodCategoryList.size() ; i++) {
-            //allFood.add(foodType.get(i));
             arrayAllFood.add(newFoodCategoryList.get(i));
             for (int j = 0; j <newFoodCategoryList.get(i).getGoodsList().size(); j++) {
-                //allFood.add(temp.get(i).get(j).getName());
                 arrayAllFood.add(newFoodCategoryList.get(i).getGoodsList().get(j));
             }
         }
@@ -172,7 +167,6 @@ public class FoodMenuFragment extends Fragment {
         FoodMenuRightListViewAdapter myFoodListViewAdapter = new FoodMenuRightListViewAdapter(getActivity(),arrayAllFood);
         myFoodListViewAdapter.notifyDataSetChanged();
         myFoodListViewAdapter.notifyDataSetChanged();
-
         listView.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.adapter_left_food_type, foodType));
         listView2.setAdapter(myFoodListViewAdapter);
         /**
@@ -227,14 +221,12 @@ public class FoodMenuFragment extends Fragment {
 
     public void parseData(String result){
         Gson gson  = new Gson();
-        //allFoodArrayList = gson.fromJson(result,new TypeToken<ArrayList<AllFood>>() {}.getType());
         newFoodCategoryList = gson.fromJson(result,new TypeToken<ArrayList<FoodCategory>>() {}.getType());
 
     }
 
     public void dataPrepare(ArrayList<FoodCategory> arrayList){
         for (int i = 0; i < arrayList.size(); i++) {
-            //foodCategoryArrayList.add(arrayList.get(i).getFoodCategory());
             MyApplication.getFoodCategoryArrayList().add(newFoodCategoryList.get(i));
         }
     }

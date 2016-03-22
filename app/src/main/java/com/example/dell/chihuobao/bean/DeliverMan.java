@@ -4,28 +4,28 @@ package com.example.dell.chihuobao.bean;
  * Created by dell on 2016/3/2.
  */
 public class DeliverMan {
-    private String telephone;
-    private int ImageId;
+    private String phone;
+    private int id;
     private String name;
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public int getImageId() {
-        return ImageId;
-    }
 
     public String getName() {
         return name;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setImageId(int imageId) {
-        ImageId = imageId;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setName(String name) {

@@ -37,6 +37,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
     private PullToRefreshView mPullToRefreshView;
     public List<Order> list;
     private  ListView mListView;
+    private String shopId;
     private OrderAdapter simpleAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,17 +74,22 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
     }
 //    从服务器获取数据
     public void getDataFromServe(){
-        RequestParams params = new RequestParams("http://10.6.12.91:8080/zhbj/common.json");
-        x.http().get(params, new Callback.CommonCallback<String>() {
+        //shopId= (String) MyApplication.getInstance().getUser().getUser().get("shopId");
+        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/queryOrderByStatus.do?");
+        params.addQueryStringParameter("shopId", "1");
+        params.addQueryStringParameter("orderStatus", "0");
+        x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                BaseLog.e(result);
                 parseData(result);
-                BaseLog.e("成功成功成功成功成功成功成功1");
+                BaseLog.e("成功未处理");
             }
+
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
-                BaseLog.e("失败失败失败失败失败失败1");
+                BaseLog.e("失败未处理");
             }
 
             @Override
@@ -101,14 +107,10 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
     将从服务器端获取的数据解析，传给listview的适配器
      */
     public void parseData(String result){
-        list=new ArrayList<Order>();
         Gson gson = new Gson();
         java.lang.reflect.Type type = new TypeToken<OrderJson>() {
         }.getType();
         OrderJson orderBean = gson.fromJson(result, type);
-//        for (int i = 0; i < orderBean.getRows().size(); i++) {
-//            list.add(orderBean.getRows().get(i));
-//        }
         simpleAdapter = new OrderAdapter(orderBean.getRows(), R.layout.order_unprocessing_item, getActivity());
         mListView.setAdapter(simpleAdapter);
     }
@@ -170,7 +172,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
             }else {
                 viewHolder = (ViewHolder) arg1.getTag();
             }
-            Order order=mOrders.get(arg0);
+            final Order order=mOrders.get(arg0);
             if (order!=null){
                 viewHolder.telephone.setText(order.getTelephone());
                 viewHolder.time.setText(order.getOrdertime());
@@ -179,9 +181,56 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                 mItems=order.getOrderdelist();
                 OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);//嵌套listvie的适配器
                 viewHolder.food.setAdapter(orderFoodAdapter);
-                viewHolder.notice.setText(order.getRequest());
+                viewHolder.notice.setText("备注：" + order.getRequest());
                 viewHolder.item_id.setText(order.getId());
-                viewHolder.accept.setOnClickListener(new lvButtonListener(arg0));
+                viewHolder.accept.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new AlertDialog.Builder(context).setTitle("确认订单吗？")
+                                .setIcon(android.R.drawable.ic_dialog_info)
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // 点击“确认”后的操作
+//                                        mOrders.remove(arg0);
+//                                        simpleAdapter.notifyDataSetChanged();
+                                        String orderId=order.getOrderId();
+                                        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/ignoreOrder.do?");
+                                        params.addQueryStringParameter("orderId", orderId);
+                                        params.addQueryStringParameter("orderStatus", "1");
+                                        x.http().post(params, new Callback.CommonCallback<String>() {
+                                            @Override
+                                            public void onSuccess(String result) {
+                                                mOrders.remove(arg0);
+                                                simpleAdapter.notifyDataSetChanged();
+                                                BaseLog.e("确认订单成功");
+                                            }
+                                            @Override
+                                            public void onError(Throwable ex, boolean isOnCallback) {
+                                                Toast.makeText(context,"确认订单连接服务器失败",Toast.LENGTH_SHORT).show();
+                                            }
+                                            @Override
+                                            public void onCancelled(CancelledException cex) {
+
+                                            }
+
+                                            @Override
+                                            public void onFinished() {
+
+                                            }
+                                        });
+                                    }
+                                })
+                                .setNegativeButton("返回", new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // 点击“返回”后的操作,这里不设置没有任何操作
+                                    }
+                                }).show();
+                    }
+                });
                 viewHolder.reject.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -194,9 +243,12 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                                         // 点击“确认”后的操作
 //                                        mOrders.remove(arg0);
 //                                        simpleAdapter.notifyDataSetChanged();
-                                        RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/countPerformance.do?");
-                                        params.addQueryStringParameter("shopId", "232");
-                                        params.addQueryStringParameter("Orderstatus", "1");
+
+                                        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/ignoreOrder.do?");
+                                        String orderId=order.getId();
+                                        String Orderstatus=order.getOrderstatus()+"";
+                                        params.addQueryStringParameter("orderId", orderId);
+                                        params.addQueryStringParameter("orderStatus","2");
                                         x.http().post(params, new Callback.CommonCallback<String>() {
                                             @Override
                                             public void onSuccess(String result) {
@@ -231,77 +283,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                     }
                 });
             }
-
-
-//        final Order order = mOrders.get(arg0);
-//        TextView telphone= (TextView) arg1.findViewById(R.id.order_search_result_item_telphone);
-//        TextView time= (TextView) arg1.findViewById(R.id.order_search_result_item_time);
-//        TextView address= (TextView) arg1.findViewById(R.id.order_search_result_item_address);
-//        TextView orderId= (TextView) arg1.findViewById(R.id.order_search_result_item_orderId);
-//        TextView price= (TextView) arg1.findViewById(R.id.order_item_price);
-//        TextView count= (TextView) arg1.findViewById(R.id.order_item_count);
-//        TextView name= (TextView) arg1.findViewById(R.id.order_item_name);
-//        TextView notice= (TextView) arg1.findViewById(R.id.order_notice);
-//        TextView receipt= (TextView) arg1.findViewById(R.id.order_receipt);
-//        TextView item_id= (TextView) arg1.findViewById(R.id.order_search_result_item_id);
-//        TextView accept= (TextView) arg1.findViewById(R.id.accept_order);
-
             return arg1;
-
-        }
-        class lvButtonListener implements View.OnClickListener {
-            private int position;
-
-            lvButtonListener(int pos) {
-                position = pos;
-            }
-
-            @Override
-            public void onClick(View v) {
-                new AlertDialog.Builder(context).setTitle("确认删除订单吗？")
-                        .setIcon(android.R.drawable.ic_dialog_info)
-                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // 点击“确认”后的操作
-//                                        mOrders.remove(arg0);
-//                                        simpleAdapter.notifyDataSetChanged();
-                                RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/countPerformance.do?");
-                                params.addQueryStringParameter("shopId", "1");
-                                params.addQueryStringParameter("Orderstatus", "2");
-                                x.http().post(params, new Callback.CommonCallback<String>() {
-                                    @Override
-                                    public void onSuccess(String result) {
-                                        mOrders.remove(position);
-                                        simpleAdapter.notifyDataSetChanged();
-                                        BaseLog.e("确认订单成功");
-                                    }
-                                    @Override
-                                    public void onError(Throwable ex, boolean isOnCallback) {
-                                        Toast.makeText(context,"确认订单连接服务器失败",Toast.LENGTH_SHORT).show();
-                                    }
-                                    @Override
-                                    public void onCancelled(CancelledException cex) {
-
-                                    }
-
-                                    @Override
-                                    public void onFinished() {
-
-                                    }
-                                });
-                            }
-                        })
-                        .setNegativeButton("返回", new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                // 点击“返回”后的操作,这里不设置没有任何操作
-                            }
-                        }).show();
-
-            }
         }
 
         private  class ViewHolder

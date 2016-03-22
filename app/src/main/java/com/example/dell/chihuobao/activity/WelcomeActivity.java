@@ -32,7 +32,10 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
         setContentView(R.layout.welcome_main);
         PushManager.startWork(getApplicationContext(),
                 PushConstants.LOGIN_TYPE_API_KEY,
-                "ObtbZb12pIwGg7vXWLxGEwUh");
+                "gO1E8nGxMfNwiV7BZXoRiMPu");
+        List<String> list=new ArrayList<String>();
+        list.add("110");
+        PushManager.setTags(getApplicationContext(), list);
         initial();
         login= (TextView) findViewById(R.id.tv_to_login);
         register= (TextView) findViewById(R.id.tv_to_register);
