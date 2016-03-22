@@ -35,8 +35,7 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.VIBRATE" />
-
-    <android:uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".util.MyApplication"
@@ -45,7 +44,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="KPGOL2psFjbB9GjHjGECt6aU" />
@@ -53,7 +52,7 @@
             android:name="api_key"
             android:value="gO1E8nGxMfNwiV7BZXoRiMPu" />
         <!-- push应用定义消息receiver声明 -->
-        <receiver android:name=".service.PushReceiver">
+        <receiver android:name=".service.PushReceiver" >
             <intent-filter>
 
                 <!-- 接收push消息 -->
@@ -66,7 +65,7 @@
         <!-- push必须的receviver和service声明 -->
         <receiver
             android:name="com.baidu.android.pushservice.PushServiceReceiver"
-            android:process=":bdservice_v1">
+            android:process=":bdservice_v1" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
@@ -81,7 +80,7 @@
         </receiver>
         <receiver
             android:name="com.baidu.android.pushservice.RegistrationReceiver"
-            android:process=":bdservice_v1">
+            android:process=":bdservice_v1" >
             <intent-filter>
                 <action android:name="com.baidu.android.pushservice.action.METHOD" />
                 <action android:name="com.baidu.android.pushservice.action.BIND_SYNC" />
@@ -96,7 +95,7 @@
         <service
             android:name="com.baidu.android.pushservice.PushService"
             android:exported="true"
-            android:process=":bdservice_v1">
+            android:process=":bdservice_v1" >
             <intent-filter>
                 <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE" />
             </intent-filter>
@@ -111,7 +110,6 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!-- push结束 -->
-
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
@@ -120,14 +118,12 @@
         <activity
             android:name=".activity.WelcomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
         </activity>
         <activity android:name=".activity.FoodMenuModifyActivity" />
         <activity
@@ -146,14 +142,9 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
-<<<<<<< HEAD
-            android:theme="@style/AppTheme.NoActionBar" >
-
-        </activity>
-=======
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.NoActionBar" />
->>>>>>> 539494f90c37c7b2ae7b1833b120cb61b58588c5
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
         <activity
             android:name=".activity.DeliverManActivity"
             android:label="@string/app_name"
@@ -172,7 +163,12 @@
             android:name=".activity.ShopMessageModifyctivity"
             android:label="@string/title_activity_shop_message_modifyctivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.HelpActivity"></activity>
+        <activity android:name=".activity.HelpActivity" />
+        <activity
+            android:name=".activity.OrderQueryActivity"
+            android:label="@string/title_activity_order_query"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
