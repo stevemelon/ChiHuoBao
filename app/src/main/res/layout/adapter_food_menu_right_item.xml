@@ -117,7 +117,7 @@
                 android:textSize="15sp"
                 android:textColor="@android:color/holo_orange_dark"/>
         </LinearLayout>
-        <Button
+        <!--<Button
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:layout_marginTop="25dp"
@@ -128,17 +128,17 @@
             android:textSize="17sp"
             android:id="@+id/item_food_detail_modify"
             android:layout_toLeftOf="@+id/item_food_detail_soldOut"
-            android:textColor="#555555"/>
+            android:textColor="#555555"/>-->
         <Button
             android:layout_width="70dp"
             android:layout_height="25dp"
             android:layout_marginTop ="25dp"
             android:layout_marginRight="20dp"
             android:background="#66666666"
-            android:text="停售"
+            android:text="编辑"
             android:gravity="center"
             android:textSize="17sp"
-            android:id="@+id/item_food_detail_soldOut"
+            android:id="@+id/item_food_detail_modify"
             android:layout_alignParentRight="true"
             android:textColor="#555555"
 
