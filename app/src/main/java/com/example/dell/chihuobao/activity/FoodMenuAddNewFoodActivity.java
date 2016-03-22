@@ -13,8 +13,10 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -83,6 +85,9 @@ public class FoodMenuAddNewFoodActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         x.Ext.init(getApplication());
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        getWindow().setExitTransition(new Fade());
+
         setContentView(R.layout.activity_food_menu_add_new_food);
         initView();
         btnUpload.setOnClickListener(clickListener);

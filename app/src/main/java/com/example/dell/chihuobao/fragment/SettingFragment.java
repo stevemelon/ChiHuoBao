@@ -159,9 +159,7 @@ public class SettingFragment extends Fragment {
                 downloadBitmap(UserModifyActivity.URL + MyApplication.getUser().getUser().get("shopphoto").toString().replaceAll("\\\\", "/"));
 
             }
-        }
-
-        );
+        });
         thread.start();
         if (MyApplication.getUser().getUser().get("name") != null) {
             tv_restaurant_name.setText(MyApplication.getUser().getUser().get("name").toString());
