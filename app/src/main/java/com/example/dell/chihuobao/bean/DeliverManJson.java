@@ -6,11 +6,11 @@ import java.util.List;
  * Created by dell on 2016/3/18.
  */
 public class DeliverManJson {
-    private List<DeliverMan> deliverman;
+    private List<DeliverMan> deliverMan;
     public List<DeliverMan> getDeliverMans() {
-        return deliverman;
+        return deliverMan;
     }
     public void setDeliverMans(List<DeliverMan> deliverMans) {
-        deliverman = deliverMans;
+        deliverMan = deliverMans;
     }
 }

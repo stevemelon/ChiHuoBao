@@ -37,6 +37,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
     private PullToRefreshView mPullToRefreshView;
     public List<Order> list;
     private  ListView mListView;
+    private String shopId;
     private OrderAdapter simpleAdapter;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +74,8 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
     }
 //    从服务器获取数据
     public void getDataFromServe(){
-        RequestParams params = new RequestParams("http://10.6.11.19:8080/chb/shop/queryOrderByStatus.do?");
+        //shopId= (String) MyApplication.getInstance().getUser().getUser().get("shopId");
+        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/queryOrderByStatus.do?");
         params.addQueryStringParameter("shopId", "1");
         params.addQueryStringParameter("orderStatus", "0");
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -109,9 +111,6 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
         java.lang.reflect.Type type = new TypeToken<OrderJson>() {
         }.getType();
         OrderJson orderBean = gson.fromJson(result, type);
-//        for (int i = 0; i < orderBean.getRows().size(); i++) {
-//            list.add(orderBean.getRows().get(i));
-//        }
         simpleAdapter = new OrderAdapter(orderBean.getRows(), R.layout.order_unprocessing_item, getActivity());
         mListView.setAdapter(simpleAdapter);
     }
@@ -182,7 +181,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                 mItems=order.getOrderdelist();
                 OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);//嵌套listvie的适配器
                 viewHolder.food.setAdapter(orderFoodAdapter);
-                viewHolder.notice.setText(order.getRequest());
+                viewHolder.notice.setText("备注：" + order.getRequest());
                 viewHolder.item_id.setText(order.getId());
                 viewHolder.accept.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -196,10 +195,10 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                                         // 点击“确认”后的操作
 //                                        mOrders.remove(arg0);
 //                                        simpleAdapter.notifyDataSetChanged();
-                                        String orderId=order.getId();
-                                        RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/countPerformance.do?");
-                                        params.addQueryStringParameter("shopId", orderId);
-                                        params.addQueryStringParameter("Orderstatus", "1");
+                                        String orderId=order.getOrderId();
+                                        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/ignoreOrder.do?");
+                                        params.addQueryStringParameter("orderId", orderId);
+                                        params.addQueryStringParameter("orderStatus", "1");
                                         x.http().post(params, new Callback.CommonCallback<String>() {
                                             @Override
                                             public void onSuccess(String result) {
@@ -245,11 +244,11 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
 //                                        mOrders.remove(arg0);
 //                                        simpleAdapter.notifyDataSetChanged();
 
-                                        RequestParams params = new RequestParams("http://10.6.12.136:8080/chb/shop/countPerformance.do?");
+                                        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/ignoreOrder.do?");
                                         String orderId=order.getId();
                                         String Orderstatus=order.getOrderstatus()+"";
                                         params.addQueryStringParameter("orderId", orderId);
-                                        params.addQueryStringParameter("Orderstatus","2");
+                                        params.addQueryStringParameter("orderStatus","2");
                                         x.http().post(params, new Callback.CommonCallback<String>() {
                                             @Override
                                             public void onSuccess(String result) {
@@ -284,23 +283,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                     }
                 });
             }
-
-
-//        final Order order = mOrders.get(arg0);
-//        TextView telphone= (TextView) arg1.findViewById(R.id.order_search_result_item_telphone);
-//        TextView time= (TextView) arg1.findViewById(R.id.order_search_result_item_time);
-//        TextView address= (TextView) arg1.findViewById(R.id.order_search_result_item_address);
-//        TextView orderId= (TextView) arg1.findViewById(R.id.order_search_result_item_orderId);
-//        TextView price= (TextView) arg1.findViewById(R.id.order_item_price);
-//        TextView count= (TextView) arg1.findViewById(R.id.order_item_count);
-//        TextView name= (TextView) arg1.findViewById(R.id.order_item_name);
-//        TextView notice= (TextView) arg1.findViewById(R.id.order_notice);
-//        TextView receipt= (TextView) arg1.findViewById(R.id.order_receipt);
-//        TextView item_id= (TextView) arg1.findViewById(R.id.order_search_result_item_id);
-//        TextView accept= (TextView) arg1.findViewById(R.id.accept_order);
-
             return arg1;
-
         }
 
         private  class ViewHolder

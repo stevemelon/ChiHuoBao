@@ -7,6 +7,16 @@ import java.util.List;
  */
 public class OrderJson {
     private List<Order> result;
+    private int flag;
+
+    public int getFlag() {
+        return flag;
+    }
+
+    public void setFlag(int flag) {
+        this.flag = flag;
+    }
+
     public List<Order> getRows() {
         return result;
     }
