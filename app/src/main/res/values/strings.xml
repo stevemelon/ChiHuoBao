@@ -41,4 +41,5 @@
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_shop_message_modifyctivity">ShopMessageModifyctivity</string>
     <string name="content_message_hint" >请输入你的商家信息</string>
+    <string name="title_activity_order_query">OrderQueryActivity</string>
 </resources>

@@ -134,6 +134,30 @@
                 android:layout_height="1dip"
                 android:background="@color/app_bg" />
 
+            <RelativeLayout
+                android:id="@+id/app_password_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/password"
+                    style="@style/setting_text_style"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/password" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="15dip"
+                    android:src="@drawable/setting_arrow" />
+            </RelativeLayout>
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:background="@color/app_bg" />
 
             <RelativeLayout
                 android:id="@+id/about_us_layout"

@@ -7,14 +7,20 @@ import java.util.List;
 public class Order {
     private String id;//左上角订单标志号
     private String telephone;
+    private String deliverManTelephone;
     private String address;
     private String orderId;//订单号
     private List<Item> orderdelist;//商品项目
     private String request;//备注
 //    private String receipt;
     private String ordertime;
+//    private String receivetime;
     private int orderstatus;
+    private int sendstatus;
     private int totalprice;
+    private shop shop;
+
+
 
 
     public static class shop{
@@ -22,6 +28,30 @@ public class Order {
         public String username;
 
 
+    }
+
+    public String getDeliverManTelephone() {
+        return deliverManTelephone;
+    }
+
+    public void setDeliverManTelephone(String deliverManTelephone) {
+        this.deliverManTelephone = deliverManTelephone;
+    }
+
+//    public String getReceivetime() {
+//        return receivetime;
+//    }
+//
+//    public void setReceivetime(String receivetime) {
+//        this.receivetime = receivetime;
+//    }
+
+    public int getSendstatus() {
+        return sendstatus;
+    }
+
+    public void setSendstatus(int sendstatus) {
+        this.sendstatus = sendstatus;
     }
 
     public String getId() {

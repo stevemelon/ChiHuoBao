@@ -1,5 +1,6 @@
 package com.example.dell.chihuobao.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,7 +28,6 @@ import com.example.dell.chihuobao.fragment.FoodMenuFragment;
 import com.example.dell.chihuobao.fragment.ProcessOrderListFragment;
 import com.example.dell.chihuobao.fragment.SettingFragment;
 import com.example.dell.chihuobao.fragment.UnprocessOrderListFragment;
-import com.example.dell.chihuobao.util.MyApplication;
 
 import java.util.ArrayList;
 
@@ -208,7 +209,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         private int currIndex;
         private int screenW;
         private ArrayList<Fragment> fragmentListView;
-
+        private EditText etSearch;
         /*   通过此方法创建Fragment并且向其传达参数*/
         public  final static FragmentParent newInstance(int position) {
             FragmentParent f = new FragmentParent();
@@ -225,6 +226,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
             ViewPager pager = (ViewPager) convertView.findViewById(R.id.pager);
             textView1 = (TextView)convertView.findViewById(R.id.tv_have_handle);
             textView2 = (TextView)convertView.findViewById(R.id.tv_not_handle);
+            etSearch = (EditText) convertView.findViewById(R.id.etSearch);
+            etSearch.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(), OrderSelectActivity.class));
+                }
+            });
             DisplayMetrics metric = new DisplayMetrics();
             getActivity().getWindowManager().getDefaultDisplay().getMetrics(metric);
             screenW = metric.widthPixels;

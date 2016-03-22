@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.BaseFragment;
 import com.example.dell.chihuobao.appwidget.MyMarkerView;
+import com.example.dell.chihuobao.bean.User;
+import com.example.dell.chihuobao.util.MyApplication;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -34,12 +36,15 @@ import org.xutils.http.RequestParams;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 
 
 public class BarChartFragment extends BaseFragment implements OnChartGestureListener {
-    public static final String BARCHART_URL="http://192.168.155.2:8080/order.json";
+    public static final String BARCHART_URL="http://10.6.11.19:8080/chb/shop/getStatisticeByDay.do";
+    User user = MyApplication.getInstance().getUser();
+    HashMap hashMap = user.getUser();
     ArrayList<Map<String, String>> oderList=null;
     View v;
     public static Fragment newInstance() {
@@ -56,9 +61,11 @@ public class BarChartFragment extends BaseFragment implements OnChartGestureList
 
                 ArrayList<String> xVals = new ArrayList<String>();
                 ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
-                for (int i = 0; i < oderList.size(); i++) {
-                    xVals.add(oderList.get(i).get("day"));
-                    yVals1.add(new BarEntry(Float.parseFloat(oderList.get(i).get("dailySales")), i));
+                if (oderList!=null) {
+                    for (int i = 0; i < oderList.size(); i++) {
+                        xVals.add(oderList.get(i).get("day"));
+                        yVals1.add(new BarEntry(Float.parseFloat(oderList.get(i).get("dailySales")), i));
+                    }
                 }
 
 
@@ -178,7 +185,8 @@ public class BarChartFragment extends BaseFragment implements OnChartGestureList
     private void setData() {
 
         RequestParams params = new RequestParams(BARCHART_URL);
-        x.http().get(params, new Callback.CommonCallback<String>() {
+        params.addBodyParameter("shopId",(int)Double.parseDouble(hashMap.get("id").toString()),null);
+        x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
 

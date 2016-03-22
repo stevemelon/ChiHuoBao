@@ -52,5 +52,4 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
         tools:text="Lorem ipsum dolor sit amet, consectetur adipisicing elit." />
-
 </RelativeLayout>
