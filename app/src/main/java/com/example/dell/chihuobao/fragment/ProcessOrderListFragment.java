@@ -71,10 +71,9 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
     }
     //    从服务器获取数据
     public void getDataFromServe(){
-        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/queryOrderByStatus.do?");
+        RequestParams params = new RequestParams("http://10.6.12.110:8080/chb/shop/queryOrderByStatus.do?");
         params.addQueryStringParameter("shopId", "1");
-        params.addQueryStringParameter("orderStatus", "1");
-        params.addQueryStringParameter("sendStatus", "0");
+        params.addQueryStringParameter("sendStatus", "1");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

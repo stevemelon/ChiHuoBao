@@ -57,7 +57,7 @@ public class OrderSelectActivity extends AppCompatActivity {
 
     }
     public void getDataFromServe(String orderId){
-        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/queryOrderByStatus.do?");
+        RequestParams params = new RequestParams("http://10.6.12.110:8080/chb/shop/queryOrderByStatus.do?");
         params.addQueryStringParameter("orderId",orderId);
         //RequestParams params = new RequestParams("http://10.6.11.19:8080/chb/shop/getSendPersonByStatus.do");
         x.http().get(params, new Callback.CommonCallback<String>() {
@@ -172,16 +172,16 @@ public class OrderSelectActivity extends AppCompatActivity {
                 viewHolder.food.setAdapter(orderFoodAdapter);
                 viewHolder.notice.setText(order.getRequest());
                 viewHolder.item_id.setText(order.getId());
-                if (order.getSendstatus()==1){
-                    viewHolder.receipt.setText("订单状态：已配送");
+                if (order.getOrderstatus()==3){
+                    viewHolder.receipt.setText("订单状态：商家已取消订单");
                 }else if (order.getSendstatus()==2){
-                    viewHolder.receipt.setText("订单状态：商品已到达");
-                }else if (order.getOrderstatus()==0){
+                    viewHolder.receipt.setText("订单状态：商品派送中");
+                }else if (order.getSendstatus()==3){
+                    viewHolder.receipt.setText("订单状态：商品已送达");
+                }else if (order.getSendstatus()==0){
                     viewHolder.receipt.setText("订单状态：未处理");
-                }else if (order.getOrderstatus()==1){
-                    viewHolder.receipt.setText("订单状态：已处理");
-                }else if (order.getOrderstatus()==2){
-                    viewHolder.receipt.setText("订单状态：商家已经取消订单");
+                }else if (order.getSendstatus()==1){
+                    viewHolder.receipt.setText("订单状态：商家已接单");
                 }
             }
 

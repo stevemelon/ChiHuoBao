@@ -20,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.fragment.BarChartFragment;
@@ -314,13 +313,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void onPageScrollStateChanged(int arg0) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
@@ -332,8 +329,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 animation.setFillAfter(true);//动画终止时停留在最后一帧，不然会回到没有执行前的状态
                 animation.setDuration(200);//动画持续时间0.2秒
             /*image.startAnimation(animation);//是用ImageView来显示动画的*/
-                int i = currIndex + 1;
-                Toast.makeText(getActivity(), "您选择了第" + i + "个页卡", Toast.LENGTH_SHORT).show();
             }
         }
 

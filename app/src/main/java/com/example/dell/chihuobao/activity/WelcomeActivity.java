@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.util.MyApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,8 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
                 PushConstants.LOGIN_TYPE_API_KEY,
                 "gO1E8nGxMfNwiV7BZXoRiMPu");
         List<String> list=new ArrayList<String>();
-        list.add("110");
+        String shopId= (String) MyApplication.getInstance().getUser().getUser().get("shopId");
+        list.add(shopId);
         PushManager.setTags(getApplicationContext(), list);
         initial();
         login= (TextView) findViewById(R.id.tv_to_login);
