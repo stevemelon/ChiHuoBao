@@ -146,7 +146,7 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 final EditText editText = new EditText(getActivity());
                 editText.setText(hashMap.get("shopmessage").toString());
-                new AlertDialog.Builder(getActivity()).setTitle("修改最低消费").setView(editText)
+                new AlertDialog.Builder(getActivity()).setTitle("修改餐厅公告").setView(editText)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
