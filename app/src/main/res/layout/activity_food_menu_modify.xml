@@ -35,7 +35,6 @@
             android:id="@+id/sp_food_modify_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:entries="@array/foodType"
             android:textDirection="firstStrong"
             android:spinnerMode="dropdown">
 
@@ -81,6 +80,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/et_food_modify_price"
             android:hint="元"
+            android:inputType="number"
             android:textSize="20sp"/>
 
     </LinearLayout>
@@ -107,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/et_food_modify_achieve_money"
                 android:hint="元"
+                android:inputType="number"
                 android:textSize="20sp"/>
 
         </LinearLayout>
@@ -129,6 +130,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/et_food_modify_reduce_money"
                 android:hint="元"
+                android:inputType="number"
                 android:textSize="20sp"/>
 
         </LinearLayout>

@@ -11,8 +11,6 @@
     <string name="content_edit_hint">请输入你的建议，谢谢！</string>
     <string name="mobile_number">电话</string>
     <string name="mobile_number_hint">请输入电话</string>
-    <string name="password">密码</string>
-
     <string-array name="array_names">
         <item>"Anastasia Druzhinina"</item>
         <item>"Andriy Hristyan"</item>
@@ -33,13 +31,7 @@
 
 
     <string name="notification_vibration">提示振动</string>
-    <string-array name="foodType">
-        <item>套餐一</item>
-        <item>套餐二</item>
-        <item>套餐三</item>
-        <item>套餐四</item>
-        <item>套餐五</item>
-    </string-array>
+
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_shop_message_modifyctivity">ShopMessageModifyctivity</string>
     <string name="content_message_hint" >请输入你的商家信息</string>

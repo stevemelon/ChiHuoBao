@@ -80,6 +80,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/et_food_add_price"
             android:hint="元"
+            android:inputType="number"
             android:textSize="20sp"/>
 
     </LinearLayout>
@@ -106,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/et_food_add_achieve_money"
                 android:hint="元"
+                android:inputType="number"
                 android:textSize="20sp"/>
 
         </LinearLayout>
@@ -128,6 +130,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/et_food_add_reduce_money"
                 android:hint="元"
+                android:inputType="number"
                 android:textSize="20sp"/>
 
         </LinearLayout>

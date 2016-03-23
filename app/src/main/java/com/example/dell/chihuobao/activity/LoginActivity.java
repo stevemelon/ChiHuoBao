@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.baidu.android.pushservice.PushConstants;
+import com.baidu.android.pushservice.PushManager;
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.bean.User;
 import com.example.dell.chihuobao.util.BaseLog;
@@ -58,11 +60,20 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         //setContentView(R.layout.activity_login);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         toolbar.setTitle("登录");
         setSupportActionBar(toolbar);
         noPassLogin();
         user=MyApplication.getUser();
+        /*
+        绑定推送
+        */
+        PushManager.startWork(getApplicationContext(),
+                PushConstants.LOGIN_TYPE_API_KEY,
+                "gO1E8nGxMfNwiV7BZXoRiMPu");
+       /* List<String> list=new ArrayList<String>();
+        String shopId= (String) MyApplication.getInstance().getUser().getUser().get("shopId");
+        list.add(shopId);
+        PushManager.setTags(getApplicationContext(), list);*/
     }
 
     private Handler handler = new Handler() {
