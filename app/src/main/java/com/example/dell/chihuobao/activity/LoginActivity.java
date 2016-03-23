@@ -28,7 +28,9 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 @ContentView(R.layout.activity_login)
@@ -63,17 +65,9 @@ public class LoginActivity extends BaseActivity {
         toolbar.setTitle("登录");
         setSupportActionBar(toolbar);
         noPassLogin();
-        user=MyApplication.getUser();
-        /*
-        绑定推送
-        */
-        PushManager.startWork(getApplicationContext(),
-                PushConstants.LOGIN_TYPE_API_KEY,
-                "gO1E8nGxMfNwiV7BZXoRiMPu");
-       /* List<String> list=new ArrayList<String>();
-        String shopId= (String) MyApplication.getInstance().getUser().getUser().get("shopId");
-        list.add(shopId);
-        PushManager.setTags(getApplicationContext(), list);*/
+        user = MyApplication.getUser();
+
+
     }
 
     private Handler handler = new Handler() {
@@ -162,7 +156,16 @@ public class LoginActivity extends BaseActivity {
                     //bundle.putSerializable("data", user.getInfo());
                     msg.setData(bundle);
                     MyApplication.getInstance().setUser(user);
-
+                   /*
+                        绑定推送
+                        */
+                    PushManager.startWork(getApplicationContext(),
+                            PushConstants.LOGIN_TYPE_API_KEY,
+                            "gO1E8nGxMfNwiV7BZXoRiMPu");
+                    List<String> list = new ArrayList<>();
+                    String shopId = (String) MyApplication.getInstance().getUser().getUser().get("shopId");
+                    list.add(shopId);
+                    PushManager.setTags(getApplicationContext(), list);
                     handler.sendMessage(msg);
                 } else if (user.getStatus().equals("fail")) {
 
@@ -209,12 +212,12 @@ public class LoginActivity extends BaseActivity {
     private void noPassLogin() {
 
         SharedPreferences settings = getSharedPreferences("user", MODE_PRIVATE);
-        String token=settings.getString("token", "");
-        String username=settings.getString("username", "");
-        String password=settings.getString("password", "");
-        BaseLog.i("noPassLogin"+token+username+password);
-        if (!token.equals("")&&!token.equals("null")) {
-            login(username,password);
+        String token = settings.getString("token", "");
+        String username = settings.getString("username", "");
+        String password = settings.getString("password", "");
+        BaseLog.i("noPassLogin" + token + username + password);
+        if (!token.equals("") && !token.equals("null")) {
+            login(username, password);
         }
     }
 }
