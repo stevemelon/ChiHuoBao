@@ -1,67 +1,43 @@
 package com.example.dell.chihuobao.fragment;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.JavascriptInterface;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.FoodMenuAddNewFoodActivity;
-import com.example.dell.chihuobao.activity.MainActivity;
-import com.example.dell.chihuobao.bean.AllFood;
-import com.example.dell.chihuobao.bean.Food;
 import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.util.BaseLog;
 import com.example.dell.chihuobao.util.FoodMenuRightListViewAdapter;
 import com.example.dell.chihuobao.util.MyApplication;
-import com.example.dell.chihuobao.util.ServerUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import org.apache.http.HttpHost;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.HttpContext;
 import org.xutils.common.Callback;
-import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.smssdk.statistics.NewAppReceiver;
 
 
 public class FoodMenuFragment extends Fragment {
 
 
 
-    public String URL="http://10.6.12.88:8080/";
+    public String URL="http://10.6.12.110:8080/";
     public final static String QUERY_PRODUCT = "chb/shopCategory/getGoodsListSeparatedByGoodscategory.do";
     private ListView listView;
     private ListView listView2 ;

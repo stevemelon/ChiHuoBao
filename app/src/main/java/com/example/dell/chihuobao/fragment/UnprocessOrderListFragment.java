@@ -18,6 +18,7 @@ import com.example.dell.chihuobao.bean.Item;
 import com.example.dell.chihuobao.bean.Order;
 import com.example.dell.chihuobao.bean.OrderJson;
 import com.example.dell.chihuobao.util.BaseLog;
+import com.example.dell.chihuobao.util.MyApplication;
 import com.example.dell.chihuobao.util.OrderFoodAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -74,9 +75,9 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
     }
 //    从服务器获取数据
     public void getDataFromServe(){
-        //shopId= (String) MyApplication.getInstance().getUser().getUser().get("shopId");
+        String shopId=(int)Double.parseDouble(MyApplication.getInstance().getUser().getUser().get("id").toString())+"";
         RequestParams params = new RequestParams("http://10.6.12.110:8080/chb/shop/queryOrderByStatus.do?");
-        params.addQueryStringParameter("shopId", "1");
+        params.addQueryStringParameter("shopId", shopId);
         params.addQueryStringParameter("sendStatus", "0");
         params.addQueryStringParameter("orderStatus", "2");
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -178,13 +179,13 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                 viewHolder.time.setText(order.getOrdertime());
                 viewHolder.address.setText(order.getAddress());
                 final String a=order.getOrderId();
-                BaseLog.e("!!!!"+a);
+                BaseLog.e("!!!!" + a);
                 viewHolder.orderId.setText(order.getOrderId());
                 mItems=order.getOrderdelist();
                 OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);//嵌套listvie的适配器
                 viewHolder.food.setAdapter(orderFoodAdapter);
                 viewHolder.notice.setText("备注：" + order.getRequest());
-                viewHolder.item_id.setText(order.getId());
+                viewHolder.item_id.setText(""+(arg0+1));
                 viewHolder.accept.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -207,10 +208,12 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                                                 simpleAdapter.notifyDataSetChanged();
                                                 BaseLog.e("确认订单成功");
                                             }
+
                                             @Override
                                             public void onError(Throwable ex, boolean isOnCallback) {
-                                                Toast.makeText(context,"确认订单连接服务器失败",Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(context, "确认订单连接服务器失败", Toast.LENGTH_SHORT).show();
                                             }
+
                                             @Override
                                             public void onCancelled(CancelledException cex) {
 

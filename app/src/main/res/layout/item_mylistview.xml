@@ -4,8 +4,8 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:background="@color/napos_gray_deep">
-        <TextView android:textSize="16.0sp" android:textColor="#ff333333" android:gravity="right" android:id="@+id/order_item_price" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="25.0dip" android:minWidth="60.0dip" android:text="$50" android:layout_alignParentRight="true" />
-        <TextView android:textSize="16.0sp" android:textColor="#ff333333" android:gravity="right" android:id="@+id/order_item_count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="30.0dip" android:minWidth="40.0dip" android:text="x1" android:layout_toLeftOf="@id/order_item_price" />
-        <TextView android:textSize="16.0sp" android:textColor="#ff333333" android:id="@+id/order_item_name" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="70.0dip" android:text="宫保鸡丁" android:layout_toLeftOf="@id/order_item_count" />
+        <TextView android:textSize="12.0sp" android:textColor="#ff333333" android:gravity="right" android:id="@+id/order_item_price" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="30.0dip" android:minWidth="60.0dip" android:text="$50" android:layout_alignParentRight="true" />
+        <TextView android:textSize="12.0sp" android:textColor="#ff333333" android:gravity="right" android:id="@+id/order_item_count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="28.0dip" android:minWidth="40.0dip" android:text="x1" android:layout_toLeftOf="@id/order_item_price" />
+        <TextView android:textSize="12.0sp" android:textColor="#ff333333" android:id="@+id/order_item_name" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="70.0dip" android:text="宫保鸡丁" android:layout_toLeftOf="@id/order_item_count" />
         <View android:layout_width="fill_parent" android:layout_height="15.0dip" android:layout_below="@+id/order_item_name" />
 </LinearLayout>

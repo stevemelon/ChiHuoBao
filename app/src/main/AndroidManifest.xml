@@ -48,7 +48,7 @@
             android:value="Nftl0eQxPRWEXi5tXQXUiGPA" />
         <meta-data
             android:name="api_key"
-            android:value="gO1E8nGxMfNwiV7BZXoRiMPu" />
+            android:value="pF1ZHTsnWuUZNlcnWAdQPEwA" />
         <!-- push应用定义消息receiver声明 -->
         <receiver android:name=".service.PushReceiver" >
             <intent-filter>

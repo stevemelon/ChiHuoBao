@@ -24,7 +24,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:paddingLeft="32dp"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 android:editable="false"
                 android:hint="请输入订单号"/>
 
