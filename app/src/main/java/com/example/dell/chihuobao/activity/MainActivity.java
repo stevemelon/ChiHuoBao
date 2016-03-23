@@ -1,5 +1,6 @@
 package com.example.dell.chihuobao.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -37,7 +38,7 @@ import java.util.ArrayList;
  * //@see http://www.cnblogs.com/over140/archive/2013/01/02/2842227.html
  *
  */
-public class MainActivity extends FragmentActivity implements OnClickListener {
+public class MainActivity extends BaseActivity implements OnClickListener {
 
     private LinearLayout mTabWeixin;
     private LinearLayout mTabFrd;

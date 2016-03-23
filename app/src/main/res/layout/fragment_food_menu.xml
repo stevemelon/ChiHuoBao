@@ -36,7 +36,7 @@
 
         >
         <Button
-            android:id="@+id/but"
+            android:id="@+id/btn_add_food"
             android:layout_width="253dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -46,7 +46,9 @@
             android:textSize="15sp"
             android:gravity="center"
             android:background="#0088ff"
-            android:textColor="#ffffff" />
+            android:textColor="#ffffff"
+            android:transitionName="btnShare"
+            />
 
     </LinearLayout>
 

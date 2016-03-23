@@ -11,6 +11,7 @@
     <string name="content_edit_hint">请输入你的建议，谢谢！</string>
     <string name="mobile_number">电话</string>
     <string name="mobile_number_hint">请输入电话</string>
+    <string name="password">密码</string>
 
     <string-array name="array_names">
         <item>"Anastasia Druzhinina"</item>
