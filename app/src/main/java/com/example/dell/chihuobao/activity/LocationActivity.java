@@ -329,7 +329,7 @@ public class LocationActivity extends Activity {
         params.addBodyParameter("businessendtime", hashMap.get("businessendtime").toString(), null);
         params.addBodyParameter("isServing", (int)(Double.parseDouble(hashMap.get("isServing").toString())), null);
         params.addBodyParameter("axisX", hashMap.get("axisX"), null);
-        params.addBodyParameter("axisY", hashMap.get("axisY"), null);
+                params.addBodyParameter("axisY", hashMap.get("axisY"), null);
         if(hashMap.get("rank")!=null) {
             params.addBodyParameter("rank", (int) (Double.parseDouble(hashMap.get("rank").toString())), null);
         }else{
