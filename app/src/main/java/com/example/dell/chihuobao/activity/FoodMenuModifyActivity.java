@@ -123,20 +123,20 @@ public class FoodMenuModifyActivity extends BaseActivity{
     public void initView(){
         etFoodName = (EditText)findViewById(R.id.et_food_modify_name);
         etFoodPrice = (EditText)findViewById(R.id.et_food_modify_price);
-        spFoodType = (Spinner)findViewById(R.id.sp_food_modify_type);
+
         etFoodDescription = (EditText)findViewById(R.id.et_food_description);
         etFoodAchieveMoney = (EditText)findViewById(R.id.et_food_modify_achieve_money);
         etFoodReduceMoney =(EditText)findViewById(R.id.et_food_modify_reduce_money);
         btnModify = (Button)findViewById(R.id.btn_modify);
         btnDelete = (Button)findViewById(R.id.btn_delete);
         ivFoodImage = (ImageView)findViewById(R.id.iv_food_modify);
+        spFoodType = (Spinner)findViewById(R.id.sp_food_modify_type);
         FoodCategoryChooseAdapter foodCategoryChooseAdapter = new FoodCategoryChooseAdapter(MyApplication.getFoodCategoryArrayList(),this);
         spFoodType.setAdapter(foodCategoryChooseAdapter);
         spFoodType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 foodCategoryIdSelected = ((FoodCategory)parent.getItemAtPosition(position)).getId();
-
             }
 
             @Override
