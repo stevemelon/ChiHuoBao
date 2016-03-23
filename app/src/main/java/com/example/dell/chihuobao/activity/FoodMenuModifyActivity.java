@@ -13,8 +13,10 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -106,8 +108,12 @@ public class FoodMenuModifyActivity extends BaseActivity{
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        x.Ext.init(getApplication());
         super.onCreate(savedInstanceState);
+
+        //getWindow().setEnterTransition(new Fade());
         setContentView(R.layout.activity_food_menu_modify);
+
         Intent intent = getIntent();
         getId = intent.getStringExtra("id");
         getIdDataAndInit(getId);
@@ -130,7 +136,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 foodCategoryIdSelected = ((FoodCategory)parent.getItemAtPosition(position)).getId();
-                Toast.makeText(FoodMenuModifyActivity.this,foodCategoryIdSelected,Toast.LENGTH_SHORT).show();
+
             }
 
             @Override

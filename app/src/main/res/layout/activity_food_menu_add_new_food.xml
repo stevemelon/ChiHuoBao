@@ -158,6 +158,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="上传"
-        android:id="@+id/btn_upload"/>
+        android:id="@+id/btn_upload"
+        android:background="#0088ff"
+        android:textColor="#fff"
+        android:layout_gravity="center_horizontal"
+        android:transitionName="btnShare"
+
+        />
 
 </LinearLayout>

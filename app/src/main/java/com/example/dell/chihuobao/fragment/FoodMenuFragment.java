@@ -1,5 +1,7 @@
 package com.example.dell.chihuobao.fragment;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.FoodMenuAddNewFoodActivity;
+import com.example.dell.chihuobao.activity.MainActivity;
 import com.example.dell.chihuobao.bean.AllFood;
 import com.example.dell.chihuobao.bean.Food;
 import com.example.dell.chihuobao.bean.FoodCategory;
@@ -51,6 +54,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.smssdk.statistics.NewAppReceiver;
+
 
 public class FoodMenuFragment extends Fragment {
 
@@ -64,9 +69,9 @@ public class FoodMenuFragment extends Fragment {
     /**
      ** 左边listview的要使用的数组
      **/
-    private ArrayList arrayAllFood;
+    private ArrayList arrayAllFood = new ArrayList();
     private ArrayList<String> foodType = new ArrayList<String>();
-    private ArrayList<FoodCategory> newFoodCategoryList;
+    private ArrayList<FoodCategory> newFoodCategoryList = new ArrayList<>();
 
     /**
      * * 用来记录每一个 1 2 3 4 5 6 在右边listview的位置；
@@ -78,25 +83,45 @@ public class FoodMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //引入我们的布局
-        arrayAllFood = new ArrayList();
+        //arrayAllFood = new ArrayList();
         View foodMenuLayout =  inflater.inflate(R.layout.fragment_food_menu, container, false);
-        btnAddFood= (Button) foodMenuLayout.findViewById(R.id.but);
         listView = (ListView)foodMenuLayout.findViewById(R.id.listView1);
         listView2 = (ListView)foodMenuLayout.findViewById(R.id.listView2);
-        btnAddFood= (Button) foodMenuLayout.findViewById(R.id.but);
+        btnAddFood = (Button)foodMenuLayout.findViewById(R.id.btn_add_food);
         btnAddFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), FoodMenuAddNewFoodActivity.class);
-                startActivity(intent);
+                intent.putExtra("flag", 0);
+                getContext().startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(getActivity(), btnAddFood, "btnShare").toBundle());
 
             }
         });
-        getDataFromServer(URL + QUERY_PRODUCT);
+
         return foodMenuLayout;
 
     }
+
+    @Override
+    public void onStart() {
+        clearAll();
+        listView = (ListView)getActivity().findViewById(R.id.listView1);
+        listView2 = (ListView)getActivity().findViewById(R.id.listView2);
+        btnAddFood = (Button)getActivity().findViewById(R.id.btn_add_food);
+        getDataFromServer(URL + QUERY_PRODUCT);
+        super.onStart();
+    }
+
+    public void clearAll(){
+        arrayAllFood.clear();
+        foodType.clear();
+        newFoodCategoryList.clear();
+        nums.clear();
+        MyApplication.getFoodCategoryArrayList().clear();
+
+    }
+
     public void getDataFromServer(String url){
         RequestParams params  = new RequestParams(url);
         //shopId

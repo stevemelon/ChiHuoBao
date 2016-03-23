@@ -1,9 +1,12 @@
 package com.example.dell.chihuobao.util;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.FoodMenuModifyActivity;
+import com.example.dell.chihuobao.activity.MainActivity;
 import com.example.dell.chihuobao.bean.Food;
 import com.example.dell.chihuobao.bean.FoodCategory;
 
@@ -40,12 +44,12 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
             .setFailureDrawableId(R.mipmap.ic_launcher)
             .build();
     private ArrayList allFood;
-    private Context context;
+    private FragmentActivity context;
     private LayoutInflater inflater;
     final static  int ITEM_TAG = 1;
     final static int ITEM_NORMAL=0;
 
-    public FoodMenuRightListViewAdapter(Context context, ArrayList allFood){
+    public FoodMenuRightListViewAdapter(FragmentActivity context, ArrayList allFood){
         this.context = context;
         this.allFood = allFood;
         inflater  = LayoutInflater.from(context);
@@ -137,10 +141,12 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                 viewHolderTag.tvFoodTypeName.setText(((FoodCategory)(getItem(position))).getName());
                 break;
             case ITEM_NORMAL:
+
+
                 viewHolderNormal.tvFoodName.setText(((Food)(getItem(position))).getName());
                 viewHolderNormal.tvAchieveMoney.setText(((Food) (getItem(position))).getAchievemoney());
                 viewHolderNormal.tvReduceMoney.setText(((Food) (getItem(position))).getReducemoney());
-                viewHolderNormal.tvPrice.setText(((Food) (getItem(position))).getPrice());
+                viewHolderNormal.tvPrice.setText((int)Double.parseDouble(((Food) (getItem(position))).getPrice())+"元");
                 x.image().bind(viewHolderNormal.imageView,URL+((Food)(getItem(position))).getPhoto().replaceAll("\\\\", "/"),imageOptions);
                 viewHolderNormal.btnModify.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -150,8 +156,10 @@ public class FoodMenuRightListViewAdapter extends BaseAdapter {
                          */
 
                         Intent intent = new Intent(context, FoodMenuModifyActivity.class);
-                        intent.putExtra("id",((Food)getItem(position)).getId());
+                        intent.putExtra("id", ((Food) getItem(position)).getId());
+
                         context.startActivity(intent);
+
 
 
                     }

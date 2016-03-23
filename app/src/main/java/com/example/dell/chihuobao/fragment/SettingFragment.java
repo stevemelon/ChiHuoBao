@@ -191,9 +191,7 @@ public class SettingFragment extends Fragment {
                 downloadBitmap(UserModifyActivity.URL + MyApplication.getUser().getUser().get("shopphoto").toString().replaceAll("\\\\", "/"));
 
             }
-        }
-
-        );
+        });
         thread.start();
         if (hashMap.get("shopmessage") != null) {
             shopmessage.setText(MyApplication.getUser().getUser().get("shopmessage").toString());

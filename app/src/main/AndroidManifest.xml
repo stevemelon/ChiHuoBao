@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dell.chihuobao">
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="23"/>
+    <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="23"/>
 
-    <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="23" />
+
     <!-- Push service 运行需要的权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -124,6 +122,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity android:name=".activity.FoodMenuModifyActivity" />
         <activity
@@ -144,6 +143,7 @@
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" >
+
         </activity>
         <activity
             android:name=".activity.DeliverManActivity"
