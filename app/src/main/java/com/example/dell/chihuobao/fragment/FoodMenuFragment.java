@@ -66,6 +66,7 @@ public class FoodMenuFragment extends Fragment {
     private ListView listView;
     private ListView listView2 ;
     private Button btnAddFood;
+    private String shopId = (int)Double.parseDouble(MyApplication.getInstance().getUser().getUser().get("id").toString())+"";
     /**
      ** 左边listview的要使用的数组
      **/
@@ -125,7 +126,7 @@ public class FoodMenuFragment extends Fragment {
     public void getDataFromServer(String url){
         RequestParams params  = new RequestParams(url);
         //shopId
-        params.addBodyParameter("shopid", "1");
+        params.addBodyParameter("shopid", shopId);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
