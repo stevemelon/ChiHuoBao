@@ -75,9 +75,10 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
 //    从服务器获取数据
     public void getDataFromServe(){
         //shopId= (String) MyApplication.getInstance().getUser().getUser().get("shopId");
-        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/queryOrderByStatus.do?");
+        RequestParams params = new RequestParams("http://10.6.12.110:8080/chb/shop/queryOrderByStatus.do?");
         params.addQueryStringParameter("shopId", "1");
-        params.addQueryStringParameter("orderStatus", "0");
+        params.addQueryStringParameter("sendStatus", "0");
+        params.addQueryStringParameter("orderStatus", "2");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -88,7 +89,6 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
                 BaseLog.e("失败未处理");
             }
 
@@ -177,6 +177,8 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                 viewHolder.telephone.setText(order.getTelephone());
                 viewHolder.time.setText(order.getOrdertime());
                 viewHolder.address.setText(order.getAddress());
+                final String a=order.getOrderId();
+                BaseLog.e("!!!!"+a);
                 viewHolder.orderId.setText(order.getOrderId());
                 mItems=order.getOrderdelist();
                 OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);//嵌套listvie的适配器
@@ -195,10 +197,9 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                                         // 点击“确认”后的操作
 //                                        mOrders.remove(arg0);
 //                                        simpleAdapter.notifyDataSetChanged();
-                                        String orderId=order.getOrderId();
-                                        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/ignoreOrder.do?");
-                                        params.addQueryStringParameter("orderId", orderId);
-                                        params.addQueryStringParameter("orderStatus", "1");
+                                        RequestParams params = new RequestParams("http://10.6.12.110:8080/chb/shop/ignoreOrder.do?");
+                                        params.addQueryStringParameter("orderId", a);
+                                        params.addQueryStringParameter("sendStatus", "1");
                                         x.http().post(params, new Callback.CommonCallback<String>() {
                                             @Override
                                             public void onSuccess(String result) {
@@ -244,11 +245,11 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
 //                                        mOrders.remove(arg0);
 //                                        simpleAdapter.notifyDataSetChanged();
 
-                                        RequestParams params = new RequestParams("http://10.6.12.70:8080/chb/shop/ignoreOrder.do?");
+                                        RequestParams params = new RequestParams("http://10.6.12.110:8080/chb/shop/ignoreOrder.do?");
                                         String orderId=order.getId();
                                         String Orderstatus=order.getOrderstatus()+"";
-                                        params.addQueryStringParameter("orderId", orderId);
-                                        params.addQueryStringParameter("orderStatus","2");
+                                        params.addQueryStringParameter("orderId", a);
+                                        params.addQueryStringParameter("orderStatus","3");
                                         x.http().post(params, new Callback.CommonCallback<String>() {
                                             @Override
                                             public void onSuccess(String result) {
