@@ -55,7 +55,7 @@
             android:gravity="center"/>
         <TextView
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:text="已处理"
             android:background="@android:color/white"
             android:id="@+id/tv_not_handle"

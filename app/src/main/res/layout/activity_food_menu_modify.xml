@@ -80,8 +80,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/et_food_modify_price"
             android:hint="元"
-            android:inputType="number"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:inputType="number"/>
 
     </LinearLayout>
     <LinearLayout
@@ -107,8 +107,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/et_food_modify_achieve_money"
                 android:hint="元"
-                android:inputType="number"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:inputType="number"/>
 
         </LinearLayout>
         <LinearLayout
@@ -130,8 +130,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/et_food_modify_reduce_money"
                 android:hint="元"
-                android:inputType="number"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:inputType="number"/>
 
         </LinearLayout>
     </LinearLayout>

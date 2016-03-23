@@ -45,6 +45,7 @@ import java.util.HashMap;
 public class FoodMenuAddNewFoodActivity extends Activity {
     private final static String URL = "http://10.6.12.110:8080";
     private final static String ADD_FOOD = "/chb/shop/addProduct.do";
+    private String shopId = (int)Double.parseDouble(MyApplication.getInstance().getUser().getUser().get("id").toString())+"";
     private ImageView ivFoodImage;
     private EditText etFoodName;
     private EditText etFoodPrice;
@@ -153,7 +154,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
 
     private HashMap getData(){
         file= new File(tempFile.getPath());
-        foodHashMap.put("shopid", "1");
+        foodHashMap.put("shopid", shopId);
         foodHashMap.put("categoryid",foodCategoryIdSelected);
         foodHashMap.put("name",etFoodName.getText().toString()+"");
         foodHashMap.put("storenumber","100");
@@ -293,7 +294,7 @@ public class FoodMenuAddNewFoodActivity extends Activity {
 
     public void addFood(HashMap hashMap){
         RequestParams params = new RequestParams(URL+ADD_FOOD);
-        params.addBodyParameter("shopid","1",null);
+        params.addBodyParameter("shopid",hashMap.get("shopid"),null);
         params.addBodyParameter("categoryid", hashMap.get("categoryid"), null);
         params.addBodyParameter("name", hashMap.get("name"), null);
         params.addBodyParameter("storenumber", hashMap.get("storenumber"), null);
