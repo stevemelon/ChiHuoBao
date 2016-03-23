@@ -5,20 +5,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
-import android.transition.Fade;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,16 +21,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
-import com.example.dell.chihuobao.appwidget.XCRoundImageView;
 import com.example.dell.chihuobao.bean.Food;
 import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.util.AndroidUtil;
-import com.example.dell.chihuobao.util.BaseLog;
 import com.example.dell.chihuobao.util.FoodCategoryChooseAdapter;
 import com.example.dell.chihuobao.util.MyApplication;
 import com.example.dell.chihuobao.util.ServerUtil;
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -61,7 +53,7 @@ public class FoodMenuModifyActivity extends BaseActivity{
     private final static String DELETE_FOOD ="chb/shop/deleteProduct.do";
     private final static String UPDATE_FOOD = "chb/shop/updateProduct.do";
     private final static String QUERY_ONE_PRODUCT = "chb/shop/selectProductById.do";
-    private final static String URL = "http://10.6.12.88:8080/";
+    private final static String URL = "http://10.6.12.110:8080/";
 
     private ImageView ivFoodImage;
     private EditText etFoodName;

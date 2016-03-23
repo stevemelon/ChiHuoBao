@@ -28,7 +28,9 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 @ContentView(R.layout.activity_login)
@@ -64,16 +66,6 @@ public class LoginActivity extends BaseActivity {
         setSupportActionBar(toolbar);
         noPassLogin();
         user=MyApplication.getUser();
-        /*
-        绑定推送
-        */
-        PushManager.startWork(getApplicationContext(),
-                PushConstants.LOGIN_TYPE_API_KEY,
-                "gO1E8nGxMfNwiV7BZXoRiMPu");
-       /* List<String> list=new ArrayList<String>();
-        String shopId= (String) MyApplication.getInstance().getUser().getUser().get("shopId");
-        list.add(shopId);
-        PushManager.setTags(getApplicationContext(), list);*/
     }
 
     private Handler handler = new Handler() {
@@ -150,7 +142,6 @@ public class LoginActivity extends BaseActivity {
             public void onSuccess(String result) {
                 BaseLog.i(result);
                 Gson gson = new Gson();
-
                 User user = null;
                 user = gson.fromJson(result, new TypeToken<User>() {
                 }.getType());
@@ -163,6 +154,13 @@ public class LoginActivity extends BaseActivity {
                     msg.setData(bundle);
                     MyApplication.getInstance().setUser(user);
 
+                    PushManager.startWork(getApplicationContext(),
+                            PushConstants.LOGIN_TYPE_API_KEY,
+                            "pF1ZHTsnWuUZNlcnWAdQPEwA");
+                    List<String> list=new ArrayList<String>();
+                    String shopId=(int)Double.parseDouble(MyApplication.getInstance().getUser().getUser().get("id").toString())+"";
+                    list.add("" + shopId);
+                    PushManager.setTags(getApplicationContext(), list);
                     handler.sendMessage(msg);
                 } else if (user.getStatus().equals("fail")) {
 

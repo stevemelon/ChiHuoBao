@@ -171,7 +171,7 @@ public class OrderSelectActivity extends AppCompatActivity {
                 OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);//嵌套listvie的适配器
                 viewHolder.food.setAdapter(orderFoodAdapter);
                 viewHolder.notice.setText(order.getRequest());
-                viewHolder.item_id.setText(order.getId());
+                viewHolder.item_id.setText(""+(arg0+1));
                 if (order.getOrderstatus()==3){
                     viewHolder.receipt.setText("订单状态：商家已取消订单");
                 }else if (order.getSendstatus()==2){

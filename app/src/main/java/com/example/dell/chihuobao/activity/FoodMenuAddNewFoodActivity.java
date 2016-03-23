@@ -5,13 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
 import android.provider.MediaStore;
 import android.transition.Fade;
 import android.util.Log;
@@ -29,25 +26,15 @@ import com.example.dell.chihuobao.bean.FoodCategory;
 import com.example.dell.chihuobao.util.AndroidUtil;
 import com.example.dell.chihuobao.util.FoodCategoryChooseAdapter;
 import com.example.dell.chihuobao.util.MyApplication;
-import com.example.dell.chihuobao.util.ServerUtil;
-
 
 import org.xutils.common.Callback;
-import org.xutils.common.util.IOUtil;
 import org.xutils.http.RequestParams;
-import org.xutils.http.request.HttpRequest;
 import org.xutils.x;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -56,7 +43,7 @@ import java.util.HashMap;
  * Created by dell on 2016/3/9.
  */
 public class FoodMenuAddNewFoodActivity extends Activity {
-    private final static String URL = "http://10.6.12.88:8080";
+    private final static String URL = "http://10.6.12.110:8080";
     private final static String ADD_FOOD = "/chb/shop/addProduct.do";
     private ImageView ivFoodImage;
     private EditText etFoodName;

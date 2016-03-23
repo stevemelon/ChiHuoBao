@@ -24,7 +24,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:paddingLeft="32dp"
-                android:textSize="18sp"
+                android:textSize="12sp"
                 android:editable="false"
                 android:hint="请输入订单号"/>
 
@@ -51,7 +51,7 @@
             android:id="@+id/tv_have_handle"
             android:textColor="@android:color/white"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:gravity="center"/>
         <TextView
             android:layout_width="0dp"
@@ -61,7 +61,7 @@
             android:id="@+id/tv_not_handle"
             android:textColor="#0088ff"
             android:layout_weight="1"
-            android:textSize="20sp"
+            android:textSize="17sp"
             android:gravity="center"
             />
     </LinearLayout>

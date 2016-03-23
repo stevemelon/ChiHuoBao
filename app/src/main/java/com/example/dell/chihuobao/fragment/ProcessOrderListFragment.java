@@ -18,6 +18,7 @@ import com.example.dell.chihuobao.bean.Item;
 import com.example.dell.chihuobao.bean.Order;
 import com.example.dell.chihuobao.bean.OrderJson;
 import com.example.dell.chihuobao.util.BaseLog;
+import com.example.dell.chihuobao.util.MyApplication;
 import com.example.dell.chihuobao.util.OrderFoodAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -71,8 +72,9 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
     }
     //    从服务器获取数据
     public void getDataFromServe(){
+        String shopId=(int)Double.parseDouble(MyApplication.getInstance().getUser().getUser().get("id").toString())+"";
         RequestParams params = new RequestParams("http://10.6.12.110:8080/chb/shop/queryOrderByStatus.do?");
-        params.addQueryStringParameter("shopId", "1");
+        params.addQueryStringParameter("shopId", shopId);
         params.addQueryStringParameter("sendStatus", "1");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
@@ -176,16 +178,16 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
                 mItems=order.getOrderdelist();
                 OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);
                 viewHolder.food.setAdapter(orderFoodAdapter);
-                viewHolder.notice.setText("备注："+order.getRequest());
-                viewHolder.item_id.setText(order.getId());
+                viewHolder.notice.setText("备注：" + order.getRequest());
+                viewHolder.item_id.setText(""+(arg0+1));
                 viewHolder.accept.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         mOrders.remove(arg0);
                         mProcessOrderAdapter.notifyDataSetChanged();
-                        String a=order.getOrderId();
+                        String a = order.getOrderId();
                         Intent intent = new Intent(context, DeliverManActivity.class);
-                        intent.putExtra("orderId",order.getOrderId());
+                        intent.putExtra("orderId", order.getOrderId());
                         context.startActivity(intent);
                     }
                 });
