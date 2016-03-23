@@ -1,7 +1,6 @@
 package com.example.dell.chihuobao.activity;
 
 import android.app.AlertDialog;
-import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,17 +14,13 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.bean.User;
 import com.example.dell.chihuobao.util.AndroidUtil;
 import com.example.dell.chihuobao.util.MyApplication;
-import com.example.dell.chihuobao.util.ServerUtil;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -40,7 +35,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -53,7 +47,7 @@ public class UserModifyActivity extends BaseActivity{
     private User user;
     private HashMap hashMap ;
     private ImageView shopphoto;
-    private EditText phone;
+    /*private EditText phone;
     private EditText shoptype;
 
     private EditText minconsume;
@@ -61,7 +55,7 @@ public class UserModifyActivity extends BaseActivity{
     private EditText email;
     private EditText name;
     private EditText businessstarttime;
-    private EditText businessendtime;
+    private EditText businessendtime;*/
 
     private String[] items = { "拍照", "相册" };
     private String title = "选择照片";
@@ -74,10 +68,10 @@ public class UserModifyActivity extends BaseActivity{
     // 创建一个以当前系统时间为名称的文件，防止重复
     private File tempFile = new File(Environment.getExternalStorageDirectory(),
             getPhotoFileName());
-    private ServerUtil serverUtil = new ServerUtil();
+    /*private ServerUtil serverUtil = new ServerUtil();*/
     private Button btnModify;
     private Button btnReturn;
-    private ToggleButton isServing;
+    /*private ToggleButton isServing;*/
 
     ImageOptions imageOptions = new ImageOptions.Builder()
             .setCrop(true) // 很多时候设置了合适的scaleType也不需要它.
@@ -106,7 +100,7 @@ public class UserModifyActivity extends BaseActivity{
     public void initView(){
         user= MyApplication.getInstance().getUser();
         hashMap = user.getUser();
-        phone = (EditText)findViewById(R.id.phone);
+        /*phone = (EditText)findViewById(R.id.phone);
 
 
         minconsume = (EditText)findViewById(R.id.minconsume);
@@ -148,7 +142,7 @@ public class UserModifyActivity extends BaseActivity{
                     }
                 }, hour, minute, true).show();
             }
-        });
+        });*/
      /*   isServing.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -171,7 +165,7 @@ public class UserModifyActivity extends BaseActivity{
 
 
     public void putDataFirst() {
-        if (user.getUser().get("phone") != null) {
+       /* if (user.getUser().get("phone") != null) {
             phone.setText(user.getUser().get("phone").toString());
         }
         if (user.getUser().get("minconsume") != null) {
@@ -201,7 +195,7 @@ public class UserModifyActivity extends BaseActivity{
             }
         }else {
             isServing.setChecked(false);
-        }
+        }*/
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -238,17 +232,14 @@ public class UserModifyActivity extends BaseActivity{
                 case R.id.btn_modify:
                     if (tempFile.exists()){
                         updateUser(getData());
-                        Toast.makeText(UserModifyActivity.this,"图片存在",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(UserModifyActivity.this,"图片存在",Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(UserModifyActivity.this,"图片不存在",Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(UserModifyActivity.this,"图片不存在",Toast.LENGTH_SHORT).show();
                     }
-
-
                     break;
 
                 case R.id.btn_return:
-                   //TODO
-
+                    finish();
                     break;
             }
 
@@ -383,15 +374,15 @@ public class UserModifyActivity extends BaseActivity{
         RequestParams params = new RequestParams(URL+UPDATE_USER);
         params.addBodyParameter("id",(int)(Double.parseDouble(hashMap.get("id").toString())),null);
         params.addBodyParameter("username",hashMap.get("username").toString(),null);
-        params.addBodyParameter("password", hashMap.get("password").toString(), null);
+/*        params.addBodyParameter("password", hashMap.get("password").toString(), null);
         params.addBodyParameter("phone", hashMap.get("phone"), null);
-        params.addBodyParameter("address", hashMap.get("address"), null);
+        params.addBodyParameter("address", hashMap.get("address"), null);*/
         params.addBodyParameter("shopphoto", hashMap.get("shopphoto"), null);
         final String name=getPhotoFileName();
         params.addBodyParameter("shopphotodetail",name, null);
-        params.addBodyParameter("registertime", hashMap.get("registertime"), null);
+      /*  params.addBodyParameter("registertime", hashMap.get("registertime"), null);*/
         params.addBodyParameter("updatetime", hashMap.get("updatetime").toString(), null);
-        params.addBodyParameter("shoptype", (int)(Double.parseDouble(hashMap.get("shoptype").toString())), null);
+/*        params.addBodyParameter("shoptype", (int)(Double.parseDouble(hashMap.get("shoptype").toString())), null);
         params.addBodyParameter("minconsume", Double.parseDouble(hashMap.get("minconsume").toString()), null);
         params.addBodyParameter("sendexpense", Double.parseDouble(hashMap.get("sendexpense").toString()), null);
         params.addBodyParameter("email", hashMap.get("email").toString(), null);
@@ -402,10 +393,10 @@ public class UserModifyActivity extends BaseActivity{
         params.addBodyParameter("license", hashMap.get("license"), null);
         params.addBodyParameter("name", hashMap.get("name"), null);
         params.addBodyParameter("businessstarttime", hashMap.get("businessstarttime").toString(), null);
-        params.addBodyParameter("businessendtime", hashMap.get("businessendtime").toString(), null);
+        params.addBodyParameter("businessendtime", hashMap.get("businessendtime").toString(), null);*/
         params.addBodyParameter("isServing", (int)(Double.parseDouble(hashMap.get("isServing").toString())), null);
-        params.addBodyParameter("axisX", hashMap.get("axisX"), null);
-        params.addBodyParameter("axisY", hashMap.get("axisY"), null);
+/*        params.addBodyParameter("axisX", hashMap.get("axisX"), null);
+        params.addBodyParameter("axisY", hashMap.get("axisY"), null);*/
         if(hashMap.get("rank")!=null) {
             params.addBodyParameter("rank", (int) (Double.parseDouble(hashMap.get("rank").toString())), null);
         }else{
@@ -418,7 +409,7 @@ public class UserModifyActivity extends BaseActivity{
 
                 user.setUser(hashMap);
                 MyApplication.getInstance().setUser(user);
-                Toast.makeText(x.app(), "更新成功，马上去服务器看看吧！" + result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(x.app(), "更新成功，马上去服务器看看吧！" , Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(UserModifyActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
@@ -481,24 +472,24 @@ public class UserModifyActivity extends BaseActivity{
     private HashMap getData(){
         file= new File(tempFile.getPath());
 
-        hashMap.put("phone", phone.getText().toString());
+      /*  hashMap.put("phone", phone.getText().toString());
         hashMap.put("minconsume", minconsume.getText().toString());
         hashMap.put("sendexpense", sendexpense.getText().toString());
-       /* hashMap.put("shoptype", shoptype.getText().toString());*/
+        hashMap.put("shoptype", shoptype.getText().toString());
         hashMap.put("email", email.getText().toString());
         hashMap.put("name", name.getText().toString());
         hashMap.put("businessstarttime", businessstarttime.getText().toString());
-        hashMap.put("businessendtime", businessendtime.getText().toString());
+        hashMap.put("businessendtime", businessendtime.getText().toString());*/
 
         hashMap.put("shopphoto", file);
 
         hashMap.put("updatetime", new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date()));
-        if (isServing.isChecked()) {
+       /* if (isServing.isChecked()) {
             hashMap.put("isServing", 1);
         }
         else {
             hashMap.put("isServing", 2);
-        }
+        }*/
 
         return hashMap;
 

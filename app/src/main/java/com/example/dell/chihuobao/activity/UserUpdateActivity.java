@@ -3,6 +3,7 @@ package com.example.dell.chihuobao.activity;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -36,6 +37,8 @@ public class UserUpdateActivity extends BaseActivity {
     private Context context=UserUpdateActivity.this;
     private User user = MyApplication.getInstance().getUser();
     private HashMap map = user.getUser();
+
+
     @ViewInject(R.id.phone)
     private TextView phone;
 
@@ -93,7 +96,10 @@ public class UserUpdateActivity extends BaseActivity {
 
     }
 
-
+    @Event(R.id.layout_photo)
+    private void OnPhotoClick(View view) {
+        startActivity(new Intent(context,UserModifyActivity.class));
+    }
     @Event(R.id.layout_phone)
     private void OnPhoneClick(View view) {
         final EditText editText = new EditText(context);
@@ -279,7 +285,7 @@ public class UserUpdateActivity extends BaseActivity {
 
                 user.setUser(hashMap);
                 MyApplication.getInstance().setUser(user);
-                Toast.makeText(x.app(), "更新成功" + result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(x.app(), "更新成功" , Toast.LENGTH_SHORT).show();
 
             }
 

@@ -108,8 +108,8 @@
             android:orientation="vertical">
 
 
-            <RelativeLayout
-                android:id="@+id/feedback_layout"
+            <LinearLayout
+                android:id="@+id/shopmessage_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
@@ -118,16 +118,29 @@
                     style="@style/setting_text_style"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/contact_service" />
-
-                <ImageView
+                    android:text="@string/contact_service"
+                    android:layout_marginRight="20dp"/>
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="15dip"
-                    android:src="@drawable/setting_arrow" />
-            </RelativeLayout>
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_centerVertical="true"
+                        android:id="@+id/shopmessage"
+                        android:layout_width="200dp"
+
+                        android:singleLine="true"
+                        android:layout_height="match_parent" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="15dip"
+                        android:src="@drawable/setting_arrow" />
+                </RelativeLayout>
+
+            </LinearLayout>
 
             <View
                 android:layout_width="fill_parent"
