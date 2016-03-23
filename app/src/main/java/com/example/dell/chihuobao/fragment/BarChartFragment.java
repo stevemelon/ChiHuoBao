@@ -42,7 +42,7 @@ import java.util.Map;
 
 
 public class BarChartFragment extends BaseFragment implements OnChartGestureListener {
-    public static final String BARCHART_URL="http://10.6.11.19:8080/chb/shop/getStatisticeByDay.do";
+    public static final String BARCHART_URL="http://10.6.12.110:8080/chb/shop/getStatisticeByDay.do";
     User user = MyApplication.getInstance().getUser();
     HashMap hashMap = user.getUser();
     ArrayList<Map<String, String>> oderList=null;
@@ -185,13 +185,14 @@ public class BarChartFragment extends BaseFragment implements OnChartGestureList
     private void setData() {
 
         RequestParams params = new RequestParams(BARCHART_URL);
-        params.addBodyParameter("shopId",(int)Double.parseDouble(hashMap.get("id").toString()),null);
+        params.addQueryStringParameter("shopId",Double.parseDouble(hashMap.get("id").toString())+"");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
 
-                Gson gson  = new Gson();
-                oderList = gson.fromJson(result,new TypeToken<ArrayList<Map<String,String>>>() {}.getType());
+                Gson gson = new Gson();
+                oderList = gson.fromJson(result, new TypeToken<ArrayList<Map<String, String>>>() {
+                }.getType());
                 Message msg = new Message();
                /* Bundle bundle = new Bundle();
                 bundle.putSerializable("oderList",oderList);
