@@ -16,11 +16,12 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("商家入驻");
         setSupportActionBar(toolbar);
         mWebView= (WebView) findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new WebViewClient());
-        mWebView.loadUrl("http://10.6.12.96:8080/chb/shop/toshopJoin.do");
+        mWebView.loadUrl("http://10.6.12.37:8080/chb/shop/toshopJoin.do");
     }
 
 }

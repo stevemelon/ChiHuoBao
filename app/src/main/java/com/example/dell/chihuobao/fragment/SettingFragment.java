@@ -11,13 +11,16 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.FeedBackActivity;
@@ -25,30 +28,40 @@ import com.example.dell.chihuobao.activity.HelpActivity;
 import com.example.dell.chihuobao.activity.LocationActivity;
 import com.example.dell.chihuobao.activity.LoginActivity;
 import com.example.dell.chihuobao.activity.PhoneVerifyActivity;
-import com.example.dell.chihuobao.activity.ShopMessageModifyctivity;
 import com.example.dell.chihuobao.activity.UserModifyActivity;
 import com.example.dell.chihuobao.activity.UserUpdateActivity;
+import com.example.dell.chihuobao.bean.User;
 import com.example.dell.chihuobao.util.MyApplication;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
 
 
 public class SettingFragment extends Fragment {
+    private User user = MyApplication.getInstance().getUser();
+    private HashMap hashMap ;
     Bitmap bitmap;
     ImageView restaurant_icon;
     TextView tv_restaurant_name;
     TextView tv_owner_phone;
     TextView tv_owner_cardnumber;
+    TextView shopmessage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        hashMap = user.getUser();
         View view = inflater.inflate(R.layout.setting, container, false);
         restaurant_icon = (ImageView) view.findViewById(R.id.restaurant_icon);
         tv_restaurant_name = (TextView) view.findViewById(R.id.tv_restaurant_name);
         tv_owner_phone = (TextView) view.findViewById(R.id.tv_owner_phone);
         tv_owner_cardnumber=(TextView) view.findViewById(R.id.tv_owner_cardnumber);
+        shopmessage=(TextView) view.findViewById(R.id.shopmessage);
         if (MyApplication.getUser().getUser().get("name") != null) {
             tv_restaurant_name.setText(MyApplication.getUser().getUser().get("name").toString());
         }
@@ -124,11 +137,27 @@ public class SettingFragment extends Fragment {
             }
         });
 
-        RelativeLayout feedback_layout = (RelativeLayout) view.findViewById(R.id.feedback_layout);
-        feedback_layout.setOnClickListener(new View.OnClickListener() {
+        if (hashMap.get("shopmessage") != null) {
+            shopmessage.setText(hashMap.get("shopmessage").toString());
+        }
+        LinearLayout shopmessage_layout = (LinearLayout) view.findViewById(R.id.shopmessage_layout);
+        shopmessage_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ShopMessageModifyctivity.class));
+                final EditText editText = new EditText(getActivity());
+                editText.setText(hashMap.get("shopmessage").toString());
+                new AlertDialog.Builder(getActivity()).setTitle("修改餐厅公告").setView(editText)
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String text=editText.getText().toString().trim();
+                                shopmessage.setText(text);
+                                hashMap.put("shopmessage", text);
+                                updateUser(hashMap);
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
             }
         });
         Thread thread = new Thread(new Runnable() {
@@ -155,6 +184,7 @@ public class SettingFragment extends Fragment {
 
     @Override
     public void onStart() {
+        hashMap = user.getUser();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -163,6 +193,9 @@ public class SettingFragment extends Fragment {
             }
         });
         thread.start();
+        if (hashMap.get("shopmessage") != null) {
+            shopmessage.setText(MyApplication.getUser().getUser().get("shopmessage").toString());
+        }
         if (MyApplication.getUser().getUser().get("name") != null) {
             tv_restaurant_name.setText(MyApplication.getUser().getUser().get("name").toString());
         }
@@ -235,5 +268,65 @@ public class SettingFragment extends Fragment {
             }
         }
         return new String(cs);
+    }
+
+    public void updateUser(final HashMap hashMap) {
+        RequestParams params = new RequestParams(UserModifyActivity.URL + UserModifyActivity.UPDATE_USER);
+        params.addBodyParameter("id", (int) (Double.parseDouble(hashMap.get("id").toString())), null);
+        params.addBodyParameter("username", hashMap.get("username").toString(), null);
+        /*params.addBodyParameter("password", hashMap.get("password").toString(), null);*/
+       /* params.addBodyParameter("phone", hashMap.get("phone"), null);
+        params.addBodyParameter("address", hashMap.get("address"), null);*/
+        params.addBodyParameter("shopmessage", hashMap.get("shopmessage"), null);
+      /*  params.addBodyParameter("registertime", hashMap.get("registertime"), null);*/
+       /* params.addBodyParameter("updatetime", hashMap.get("updatetime").toString(), null);*/
+        /*params.addBodyParameter("shoptype", (int)(Double.parseDouble(hashMap.get("shoptype").toString())), null);*/
+      /*  params.addBodyParameter("minconsume", Double.parseDouble(hashMap.get("minconsume").toString()), null);
+        params.addBodyParameter("sendexpense", Double.parseDouble(hashMap.get("sendexpense").toString()), null);
+        params.addBodyParameter("email", hashMap.get("email").toString(), null);*/
+       /* params.addBodyParameter("qrcode", hashMap.get("qrcode"), null);
+
+        params.addBodyParameter("telephone", hashMap.get("telephone"), null);
+        params.addBodyParameter("identify", hashMap.get("identify"), null);
+        params.addBodyParameter("license", hashMap.get("license"), null);*/
+      /*  params.addBodyParameter("name", hashMap.get("name"), null);
+        params.addBodyParameter("businessstarttime", hashMap.get("businessstarttime").toString(), null);
+        params.addBodyParameter("businessendtime", hashMap.get("businessendtime").toString(), null);*/
+        params.addBodyParameter("isServing", (int) (Double.parseDouble(hashMap.get("isServing").toString())), null);
+       /* params.addBodyParameter("axisX", hashMap.get("axisX"), null);
+        params.addBodyParameter("axisY", hashMap.get("axisY"), null);*/
+      /*  if(hashMap.get("rank")!=null) {
+            params.addBodyParameter("rank", (int) (Double.parseDouble(hashMap.get("rank").toString())), null);
+        }else{
+            params.addBodyParameter("rank", "0", null);
+        }*/
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Log.d("result", result);
+
+                user.setUser(hashMap);
+                MyApplication.getInstance().setUser(user);
+                Toast.makeText(x.app(), "更新成功" + result, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(x.app(), "更新失败", Toast.LENGTH_SHORT).show();
+                ex.printStackTrace();
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 }

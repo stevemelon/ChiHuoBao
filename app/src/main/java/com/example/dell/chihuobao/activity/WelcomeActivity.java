@@ -10,8 +10,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import com.example.dell.chihuobao.R;
 
 import java.util.ArrayList;
@@ -30,12 +28,13 @@ public class WelcomeActivity extends BaseActivity implements ViewPager.OnPageCha
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_main);
-        PushManager.startWork(getApplicationContext(),
+        /*PushManager.startWork(getApplicationContext(),
                 PushConstants.LOGIN_TYPE_API_KEY,
                 "gO1E8nGxMfNwiV7BZXoRiMPu");
         List<String> list=new ArrayList<String>();
-        list.add("110");
-        PushManager.setTags(getApplicationContext(), list);
+        //String shopId= (String) MyApplication.getInstance().getUser().getUser().get("shopId");
+       // list.add(shopId);
+        PushManager.setTags(getApplicationContext(), list);*/
         initial();
         login= (TextView) findViewById(R.id.tv_to_login);
         register= (TextView) findViewById(R.id.tv_to_register);

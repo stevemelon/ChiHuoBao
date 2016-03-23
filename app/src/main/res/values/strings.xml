@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ChiHuoBao</string>
+    <string name="app_name">吃货宝</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="loaction">店铺位置</string>
@@ -33,13 +33,7 @@
 
 
     <string name="notification_vibration">提示振动</string>
-    <string-array name="foodType">
-        <item>套餐一</item>
-        <item>套餐二</item>
-        <item>套餐三</item>
-        <item>套餐四</item>
-        <item>套餐五</item>
-    </string-array>
+
     <string name="title_activity_register">RegisterActivity</string>
     <string name="title_activity_shop_message_modifyctivity">ShopMessageModifyctivity</string>
     <string name="content_message_hint" >请输入你的商家信息</string>
