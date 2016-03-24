@@ -17,6 +17,7 @@ import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.BaseFragment;
 import com.example.dell.chihuobao.appwidget.MyMarkerView;
 import com.example.dell.chihuobao.bean.User;
+import com.example.dell.chihuobao.util.BaseLog;
 import com.example.dell.chihuobao.util.MyApplication;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -42,7 +43,7 @@ import java.util.Map;
 
 
 public class BarChartFragment extends BaseFragment implements OnChartGestureListener {
-    public static final String BARCHART_URL="http://10.6.12.110:8080/chb/shop/getStatisticeByDay.do";
+    public static final String BARCHART_URL="http://10.6.12.88:8080/chb/shop/getStatisticeByDay.do";
     User user = MyApplication.getInstance().getUser();
     HashMap hashMap = user.getUser();
     ArrayList<Map<String, String>> oderList=null;
@@ -189,7 +190,7 @@ public class BarChartFragment extends BaseFragment implements OnChartGestureList
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-
+                BaseLog.d(result);
                 Gson gson = new Gson();
                 oderList = gson.fromJson(result, new TypeToken<ArrayList<Map<String, String>>>() {
                 }.getType());
