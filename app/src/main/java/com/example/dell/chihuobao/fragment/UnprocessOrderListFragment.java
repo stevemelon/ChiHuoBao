@@ -28,7 +28,9 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**未处理订单界面
@@ -76,7 +78,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
 //    从服务器获取数据
     public void getDataFromServe(){
         String shopId=(int)Double.parseDouble(MyApplication.getInstance().getUser().getUser().get("id").toString())+"";
-        RequestParams params = new RequestParams("http://10.6.12.88:8080/chb/shop/queryOrderByStatus.do?");
+        RequestParams params = new RequestParams(MyApplication.getLocalhost()+"/chb/shop/queryOrderByStatus.do?");
         params.addQueryStringParameter("shopId", shopId);
         params.addQueryStringParameter("sendStatus", "0");
         params.addQueryStringParameter("orderStatus", "2");
@@ -176,7 +178,9 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
             final Order order=mOrders.get(arg0);
             if (order!=null){
                 viewHolder.telephone.setText(order.getTelephone());
-                viewHolder.time.setText(order.getOrdertime());
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                Date date=new Date(Long.parseLong(order.getOrdertime()));
+                viewHolder.time.setText(formatter.format(date));
                 viewHolder.address.setText(order.getAddress());
                 final String a=order.getOrderId();
                 BaseLog.e("!!!!" + a);
@@ -198,7 +202,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                                         // 点击“确认”后的操作
 //                                        mOrders.remove(arg0);
 //                                        simpleAdapter.notifyDataSetChanged();
-                                        RequestParams params = new RequestParams("http://10.6.12.88:8080/chb/shop/ignoreOrder.do?");
+                                        RequestParams params = new RequestParams(MyApplication.getLocalhost()+"/chb/shop/ignoreOrder.do?");
                                         params.addQueryStringParameter("orderId", a);
                                         params.addQueryStringParameter("sendStatus", "1");
                                         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -248,7 +252,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
 //                                        mOrders.remove(arg0);
 //                                        simpleAdapter.notifyDataSetChanged();
 
-                                        RequestParams params = new RequestParams("http://10.6.12.88:8080/chb/shop/ignoreOrder.do?");
+                                        RequestParams params = new RequestParams(MyApplication.getLocalhost()+"/chb/shop/ignoreOrder.do?");
                                         String orderId=order.getId();
                                         String Orderstatus=order.getOrderstatus()+"";
                                         params.addQueryStringParameter("orderId", a);

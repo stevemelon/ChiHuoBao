@@ -21,6 +21,7 @@ import com.example.dell.chihuobao.bean.Item;
 import com.example.dell.chihuobao.bean.Order;
 import com.example.dell.chihuobao.bean.OrderJson;
 import com.example.dell.chihuobao.util.BaseLog;
+import com.example.dell.chihuobao.util.MyApplication;
 import com.example.dell.chihuobao.util.OrderFoodAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -29,7 +30,9 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OrderSelectActivity extends AppCompatActivity {
@@ -57,7 +60,7 @@ public class OrderSelectActivity extends AppCompatActivity {
 
     }
     public void getDataFromServe(String orderId){
-        RequestParams params = new RequestParams("http://10.6.12.88:8080/chb/shop/queryOrderByStatus.do?");
+        RequestParams params = new RequestParams(MyApplication.getLocalhost()+"/chb/shop/queryOrderByStatus.do?");
         params.addQueryStringParameter("orderId",orderId);
         //RequestParams params = new RequestParams("http://10.6.11.19:8080/chb/shop/getSendPersonByStatus.do");
         x.http().get(params, new Callback.CommonCallback<String>() {
@@ -164,7 +167,9 @@ public class OrderSelectActivity extends AppCompatActivity {
             final Order order=mOrders.get(arg0);
             if (order!=null){
                 viewHolder.telephone.setText(order.getTelephone());
-                viewHolder.time.setText(order.getOrdertime());
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+                Date date=new Date(Long.parseLong(order.getOrdertime()));
+                viewHolder.time.setText(formatter.format(date));
                 viewHolder.address.setText(order.getAddress());
                 viewHolder.orderId.setText(order.getOrderId());
                 mItems=order.getOrderdelist();

@@ -21,6 +21,7 @@ import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.bean.DeliverMan;
 import com.example.dell.chihuobao.bean.DeliverManJson;
 import com.example.dell.chihuobao.util.BaseLog;
+import com.example.dell.chihuobao.util.MyApplication;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -103,7 +104,7 @@ public class DeliverManActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 // 点击“确认”后的操作
                                 BaseLog.e("！！！！！！！！！"+orderId);
-                                RequestParams params = new RequestParams("http://10.6.12.88:8080/chb/shop/ignoreOrder.do?");
+                                RequestParams params = new RequestParams(MyApplication.getLocalhost()+"/chb/shop/ignoreOrder.do?");
                                 params.addQueryStringParameter("orderId", orderId);
                                 params.addQueryStringParameter("transferOrder", "1");
                                 x.http().post(params, new Callback.CommonCallback<String>() {
