@@ -67,7 +67,7 @@ public class OrderFoodAdapter extends BaseAdapter {
         Item item=getItem(arg0);
 
         if (item!=null){
-            viewHolder.price.setText("$"+item.getProductprice());
+            viewHolder.price.setText("￥"+item.getProductprice());
             viewHolder.count.setText(item.getProductnum());
             viewHolder.name.setText(item.getProductname());
         }

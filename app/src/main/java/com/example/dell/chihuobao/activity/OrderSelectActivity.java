@@ -97,6 +97,7 @@ public class OrderSelectActivity extends AppCompatActivity {
         }.getType();
         BaseLog.e(result);
         OrderJson orderJson=gson.fromJson(result,type);
+        BaseLog.e(""+orderJson.getFlag());
         if (orderJson.getFlag()==0){
             new AlertDialog.Builder(OrderSelectActivity.this).setTitle("警告")
                     .setMessage("暂无此订单信息，请检查订单是否正确")
@@ -175,7 +176,11 @@ public class OrderSelectActivity extends AppCompatActivity {
                 mItems=order.getOrderdelist();
                 OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);//嵌套listvie的适配器
                 viewHolder.food.setAdapter(orderFoodAdapter);
-                viewHolder.notice.setText(order.getRequest());
+                if (order.getRequest()!=null) {
+                    viewHolder.notice.setText("备注：" + order.getRequest());
+                }else {
+                    viewHolder.notice.setText("备注:无" );
+                }
                 viewHolder.item_id.setText(""+(arg0+1));
                 if (order.getOrderstatus()==3){
                     viewHolder.receipt.setText("订单状态：商家已取消订单");

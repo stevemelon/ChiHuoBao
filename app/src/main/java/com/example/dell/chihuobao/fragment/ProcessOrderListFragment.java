@@ -167,6 +167,7 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
                 viewHolder.notice=(TextView) arg1.findViewById(R.id.order_notice);
                 viewHolder.item_id= (TextView) arg1.findViewById(R.id.order_search_result_item_id);
                 viewHolder.accept= (TextView) arg1.findViewById(R.id.accept_order);
+                viewHolder.receipt= (TextView) arg1.findViewById(R.id.order_receipt);
                 arg1.setTag(viewHolder);
             }else {
                 viewHolder = (ViewHolder) arg1.getTag();
@@ -181,8 +182,17 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
                 viewHolder.orderId.setText(order.getOrderId());
                 mItems=order.getOrderdelist();
                 OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);
+                if (order.getOrderstatus()==2){
+                    viewHolder.receipt.setText("支付状态：已付款");
+                }else {
+                    viewHolder.receipt.setText("支付状态：未付款");
+                }
                 viewHolder.food.setAdapter(orderFoodAdapter);
-                viewHolder.notice.setText("备注：" + order.getRequest());
+                if (order.getRequest()!=null) {
+                    viewHolder.notice.setText("备注：" + order.getRequest());
+                }else {
+                    viewHolder.notice.setText("备注:无" );
+                }
                 viewHolder.item_id.setText(""+(arg0+1));
                 viewHolder.accept.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -225,6 +235,7 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
             TextView notice;
             TextView item_id;
             TextView accept;
+            TextView receipt;
         }
     }
 
