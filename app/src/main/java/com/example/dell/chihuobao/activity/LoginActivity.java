@@ -124,7 +124,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login(String username, String password) {
-        RequestParams params = new RequestParams("ADDRESS");
+        RequestParams params = new RequestParams(ADDRESS);
         params.addQueryStringParameter("username", username);
         params.addQueryStringParameter("password", password);
         /*if (etUserName.getText().toString().trim().equals("") || erUserPwd.getText().toString().trim().equals("")) {
