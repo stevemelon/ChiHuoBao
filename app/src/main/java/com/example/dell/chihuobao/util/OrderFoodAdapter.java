@@ -60,6 +60,7 @@ public class OrderFoodAdapter extends BaseAdapter {
             viewHolder.price=(TextView) arg1.findViewById(R.id.order_item_price);
             viewHolder.count=(TextView) arg1.findViewById(R.id.order_item_count);
             viewHolder.name=(TextView) arg1.findViewById(R.id.order_item_name);
+            viewHolder.totalprice= (TextView) arg1.findViewById(R.id.totalprice);
             arg1.setTag(viewHolder);
         }else {
             viewHolder = (ViewHolder) arg1.getTag();
@@ -95,6 +96,7 @@ public class OrderFoodAdapter extends BaseAdapter {
         TextView price;
         TextView count;
         TextView name;
+        TextView totalprice;
 
     }
 }

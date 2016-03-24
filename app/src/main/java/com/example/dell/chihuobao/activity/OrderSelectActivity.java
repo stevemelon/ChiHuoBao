@@ -161,6 +161,7 @@ public class OrderSelectActivity extends AppCompatActivity {
                 viewHolder.notice=(TextView) arg1.findViewById(R.id.order_notice);
                 viewHolder.item_id= (TextView) arg1.findViewById(R.id.order_search_result_item_id);
                 viewHolder.receipt= (TextView) arg1.findViewById(R.id.order_receipt);
+                viewHolder.totalprice= (TextView) arg1.findViewById(R.id.totalprice);
                 arg1.setTag(viewHolder);
             }else {
                 viewHolder = (ViewHolder) arg1.getTag();
@@ -173,6 +174,7 @@ public class OrderSelectActivity extends AppCompatActivity {
                 viewHolder.time.setText(formatter.format(date));
                 viewHolder.address.setText(order.getAddress());
                 viewHolder.orderId.setText(order.getOrderId());
+                viewHolder.totalprice.setText("总计:￥"+order.getTotalprice());
                 mItems=order.getOrderdelist();
                 OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);//嵌套listvie的适配器
                 viewHolder.food.setAdapter(orderFoodAdapter);
@@ -223,6 +225,7 @@ public class OrderSelectActivity extends AppCompatActivity {
             TextView notice;
             TextView receipt;
             TextView item_id;
+            TextView totalprice;
         }
     }
 }

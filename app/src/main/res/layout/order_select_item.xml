@@ -60,7 +60,12 @@
             android:id="@+id/MyListView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        <View android:layout_width="fill_parent" android:layout_height="15.0dip" android:layout_below="@+id/order_item_name" />
+        <TextView
+            android:id="@+id/totalprice"
+            android:layout_marginLeft="25dp"
+            android:text="总计："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
     <LinearLayout android:orientation="vertical" android:background="@drawable/rect_stroke_black_top_gray_solid_withe" android:paddingTop="15.0dip" android:paddingBottom="15.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content"
                   xmlns:android="http://schemas.android.com/apk/res/android">
