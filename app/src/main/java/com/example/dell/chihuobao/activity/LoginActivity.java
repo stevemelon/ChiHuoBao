@@ -34,7 +34,7 @@ public class LoginActivity extends BaseActivity {
     public static final int LOGIN_SUCCESS = 1;
     public static final int LOGIN_FAILURE = 2;
 
-    public static final String ADDRESS = "http://10.6.12.70:8080/chb/fragment_user/login.do?";
+    public static final String ADDRESS = "http://10.6.12.88:8080/chb/shop/login.do?";
     public final static String QUERY_CATEGORY = "chb/shop/queryCategory.do";
     @ViewInject(R.id.toolbar)
     private Toolbar toolbar;
@@ -124,7 +124,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login(String username, String password) {
-        RequestParams params = new RequestParams("http://10.6.12.88:8080/chb/shop/login.do?");
+        RequestParams params = new RequestParams("ADDRESS");
         params.addQueryStringParameter("username", username);
         params.addQueryStringParameter("password", password);
         /*if (etUserName.getText().toString().trim().equals("") || erUserPwd.getText().toString().trim().equals("")) {

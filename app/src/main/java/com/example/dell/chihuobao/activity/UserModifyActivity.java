@@ -20,7 +20,10 @@ import android.widget.Toast;
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.bean.User;
 import com.example.dell.chihuobao.util.AndroidUtil;
+import com.example.dell.chihuobao.util.BaseLog;
 import com.example.dell.chihuobao.util.MyApplication;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -409,8 +412,9 @@ public class UserModifyActivity extends BaseActivity{
 
                 user.setUser(hashMap);
                 MyApplication.getInstance().setUser(user);
-                Toast.makeText(x.app(), "更新成功，马上去服务器看看吧！" , Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UserModifyActivity.this, LoginActivity.class);
+                login(MyApplication.getInstance().getUser().getUser().get("username")+"",MyApplication.getInstance().getUser().getUser().get("password")+"");
+                Toast.makeText(x.app(), "更新成功，马上去服务器看看吧！", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UserModifyActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -496,6 +500,55 @@ public class UserModifyActivity extends BaseActivity{
 
     }
 
+    private void login(String username, String password) {
+        RequestParams params = new RequestParams(LoginActivity.ADDRESS);
+        params.addQueryStringParameter("username", username);
+        params.addQueryStringParameter("password", password);
+        /*if (etUserName.getText().toString().trim().equals("") || erUserPwd.getText().toString().trim().equals("")) {
+            Toast.makeText(LoginActivity.this, "用户名或密码不能为空", Toast.LENGTH_SHORT).show();
+            etUserName.setText(etUserName.getText().toString().trim());
+            erUserPwd.setText("");
+            return;
+        }*/
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                BaseLog.i(result);
+                Gson gson = new Gson();
+                User user = null;
+                user = gson.fromJson(result, new TypeToken<User>() {
+                }.getType());
+                if (user.getStatus().equals("success")) {
+
+
+                    //bundle.putSerializable("data", user.getInfo());
+
+                    MyApplication.getInstance().setUser(user);
+
+                } else if (user.getStatus().equals("fail")) {
+
+                } else {
+                    BaseLog.e("返回数据出错！！！");
+                }
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                BaseLog.e(ex.toString());
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 
 
 
