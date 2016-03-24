@@ -7,6 +7,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.example.dell.chihuobao.R;
+import com.example.dell.chihuobao.util.MyApplication;
 
 public class RegisterActivity extends AppCompatActivity {
     private WebView mWebView;
@@ -21,7 +22,7 @@ public class RegisterActivity extends AppCompatActivity {
         mWebView= (WebView) findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setWebViewClient(new WebViewClient());
-        mWebView.loadUrl("http://10.6.12.37:8080/chb/shop/toshopJoin.do");
+        mWebView.loadUrl(MyApplication.getLocalhost()+"/chb/shop/toshopJoin.do");
     }
 
 }
