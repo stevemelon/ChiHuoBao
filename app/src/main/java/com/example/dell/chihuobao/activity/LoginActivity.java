@@ -12,8 +12,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.bean.User;
 import com.example.dell.chihuobao.util.BaseLog;
@@ -28,9 +26,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 
 @ContentView(R.layout.activity_login)
@@ -153,14 +149,6 @@ public class LoginActivity extends BaseActivity {
                     //bundle.putSerializable("data", user.getInfo());
                     msg.setData(bundle);
                     MyApplication.getInstance().setUser(user);
-
-                    PushManager.startWork(getApplicationContext(),
-                            PushConstants.LOGIN_TYPE_API_KEY,
-                            "pF1ZHTsnWuUZNlcnWAdQPEwA");
-                    List<String> list=new ArrayList<String>();
-                    String shopId=(int)Double.parseDouble(MyApplication.getInstance().getUser().getUser().get("id").toString())+"";
-                    list.add("" + shopId);
-                    PushManager.setTags(getApplicationContext(), list);
                     handler.sendMessage(msg);
                 } else if (user.getStatus().equals("fail")) {
 

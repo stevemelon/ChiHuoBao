@@ -185,7 +185,7 @@ public class BarChartFragment extends BaseFragment implements OnChartGestureList
     private void setData() {
 
         RequestParams params = new RequestParams(BARCHART_URL);
-        params.addQueryStringParameter("shopId",Double.parseDouble(hashMap.get("id").toString())+"");
+        params.addQueryStringParameter("shopId",(int)Double.parseDouble(hashMap.get("id").toString())+"");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

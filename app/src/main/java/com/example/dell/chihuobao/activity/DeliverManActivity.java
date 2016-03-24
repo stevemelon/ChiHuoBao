@@ -55,7 +55,7 @@ public class DeliverManActivity extends AppCompatActivity {
         getDataFromServe();
     }
     public void getDataFromServe(){
-        RequestParams params = new RequestParams("http://10.6.12.110:8080/chb/shop/getSendPersonByStatus.do");
+        RequestParams params = new RequestParams("http://10.6.12.88:8080/chb/shop/getSendPersonByStatus.do");
         //RequestParams params = new RequestParams("http://10.6.11.19:8080/chb/shop/getSendPersonByStatus.do");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
@@ -103,7 +103,7 @@ public class DeliverManActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 // 点击“确认”后的操作
                                 BaseLog.e("！！！！！！！！！"+orderId);
-                                RequestParams params = new RequestParams("http://10.6.12.110:8080/chb/shop/ignoreOrder.do?");
+                                RequestParams params = new RequestParams("http://10.6.12.88:8080/chb/shop/ignoreOrder.do?");
                                 params.addQueryStringParameter("orderId", orderId);
                                 params.addQueryStringParameter("transferOrder", "1");
                                 x.http().post(params, new Callback.CommonCallback<String>() {
@@ -112,6 +112,7 @@ public class DeliverManActivity extends AppCompatActivity {
                                         Toast.makeText(DeliverManActivity.this, "配送成功", Toast.LENGTH_SHORT).show();
                                         //getDataFromServe();
                                         BaseLog.e("配送成功");
+                                        finish();
                                     }
                                     @Override
                                     public void onError(Throwable ex, boolean isOnCallback) {

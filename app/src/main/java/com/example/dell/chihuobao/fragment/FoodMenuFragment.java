@@ -37,7 +37,7 @@ public class FoodMenuFragment extends Fragment {
 
 
 
-    public String URL="http://10.6.12.110:8080/";
+    public String URL="http://10.6.12.88:8080/";
     public final static String QUERY_PRODUCT = "chb/shopCategory/getGoodsListSeparatedByGoodscategory.do";
     private ListView listView;
     private ListView listView2 ;

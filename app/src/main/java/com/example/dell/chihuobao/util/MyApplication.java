@@ -10,6 +10,8 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by wyouflf on 15/10/28.
  */
@@ -53,7 +55,9 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         x.Ext.init(this);
-        x.Ext.setDebug(true); // 是否输出debug日志
+        x.Ext.setDebug(true);
+        JPushInterface.setDebugMode(false);  // 设置是否为Debug模式
+        JPushInterface.init(this);
         // 在使用 SDK 各组间之前初始化 context 信息，传入 ApplicationContext
         SDKInitializer.initialize(this);
     }

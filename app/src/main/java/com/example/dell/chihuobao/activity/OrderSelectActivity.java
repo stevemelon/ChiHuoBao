@@ -57,7 +57,7 @@ public class OrderSelectActivity extends AppCompatActivity {
 
     }
     public void getDataFromServe(String orderId){
-        RequestParams params = new RequestParams("http://10.6.12.110:8080/chb/shop/queryOrderByStatus.do?");
+        RequestParams params = new RequestParams("http://10.6.12.88:8080/chb/shop/queryOrderByStatus.do?");
         params.addQueryStringParameter("orderId",orderId);
         //RequestParams params = new RequestParams("http://10.6.11.19:8080/chb/shop/getSendPersonByStatus.do");
         x.http().get(params, new Callback.CommonCallback<String>() {
