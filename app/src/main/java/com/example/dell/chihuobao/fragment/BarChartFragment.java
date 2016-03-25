@@ -64,7 +64,7 @@ public class BarChartFragment extends BaseFragment implements OnChartGestureList
                 ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
                 if (oderList!=null) {
                     for (int i = 0; i < oderList.size(); i++) {
-                        xVals.add(oderList.get(i).get("day"));
+                        xVals.add(oderList.get(i).get("day").toString());
                         yVals1.add(new BarEntry(Float.parseFloat(oderList.get(i).get("dailySales")), i));
                     }
                 }
@@ -136,7 +136,8 @@ public class BarChartFragment extends BaseFragment implements OnChartGestureList
         mChart.getAxisRight().setEnabled(false);
 
         XAxis xAxis = mChart.getXAxis();
-        xAxis.setEnabled(false);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setEnabled(true);
 
         // programatically add the chart
         FrameLayout parent = (FrameLayout) v.findViewById(R.id.parentLayout);
