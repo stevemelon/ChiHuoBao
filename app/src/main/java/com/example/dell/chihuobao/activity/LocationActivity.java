@@ -341,7 +341,7 @@ public class LocationActivity extends Activity {
                 Log.d("result", result);
                 user.setUser(hashMap);
                 MyApplication.getInstance().setUser(user);
-                Toast.makeText(x.app(), "map更新成功！" + result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(x.app(), "map更新成功！" , Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LocationActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

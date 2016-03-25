@@ -207,7 +207,7 @@ public class BarChartFragment extends BaseFragment implements OnChartGestureList
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
             }
 
             @Override

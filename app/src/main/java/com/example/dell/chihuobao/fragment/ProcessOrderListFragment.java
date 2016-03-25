@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.DeliverManActivity;
@@ -86,7 +85,7 @@ public class ProcessOrderListFragment extends BaseRefreshFragment {
             }
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
                 BaseLog.e("失败已处理");
             }
 
