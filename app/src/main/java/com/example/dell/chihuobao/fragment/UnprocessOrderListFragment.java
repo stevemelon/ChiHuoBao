@@ -172,6 +172,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                 viewHolder.accept= (TextView) arg1.findViewById(R.id.accept_order);
                 viewHolder.reject= (TextView) arg1.findViewById(R.id.reject_order);
                 viewHolder.receipt= (TextView) arg1.findViewById(R.id.order_receipt);
+                viewHolder.totalprice= (TextView) arg1.findViewById(R.id.totalprice);
                 arg1.setTag(viewHolder);
             }else {
                 viewHolder = (ViewHolder) arg1.getTag();
@@ -186,6 +187,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
                 final String a=order.getOrderId();
                 BaseLog.e("!!!!" + a);
                 viewHolder.orderId.setText(order.getOrderId());
+                viewHolder.totalprice.setText("总计:￥"+order.getTotalprice());
                 mItems=order.getOrderdelist();
                 OrderFoodAdapter orderFoodAdapter=new OrderFoodAdapter(mItems,R.layout.item_mylistview,context);//嵌套listvie的适配器
                 viewHolder.food.setAdapter(orderFoodAdapter);
@@ -316,6 +318,7 @@ public class UnprocessOrderListFragment extends BaseRefreshFragment {
             TextView accept;
             TextView reject;
             TextView receipt;
+            TextView totalprice;
 
 
         }
