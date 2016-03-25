@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.appwidget.MyListView;
@@ -72,7 +71,7 @@ public class OrderSelectActivity extends AppCompatActivity {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(x.app(), ex.getMessage(), Toast.LENGTH_LONG).show();
                 BaseLog.e("失败查询");
             }
 

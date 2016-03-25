@@ -312,7 +312,7 @@ public class SettingFragment extends Fragment {
 
                 user.setUser(hashMap);
                 MyApplication.getInstance().setUser(user);
-                Toast.makeText(x.app(), "更新成功" + result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(x.app(), "更新成功" , Toast.LENGTH_SHORT).show();
 
             }
 
