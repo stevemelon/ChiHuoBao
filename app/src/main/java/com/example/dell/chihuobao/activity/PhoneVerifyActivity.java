@@ -36,7 +36,7 @@ import cn.smssdk.SMSSDK;
  */
 @ContentView(R.layout.activity_phone_verify)
 public class PhoneVerifyActivity extends BaseActivity implements View.OnClickListener{
-    public static final String URL = "http://10.6.12.88:8080/chb/shop/updatePwd.do";
+    public static final String URL = MyApplication.getLocalhost()+"/chb/shop/updatePwd.do";
     // 用户名输入框
     private EditText login_username;
 

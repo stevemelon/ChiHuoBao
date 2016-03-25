@@ -56,7 +56,7 @@ public class DeliverManActivity extends AppCompatActivity {
         getDataFromServe();
     }
     public void getDataFromServe(){
-        RequestParams params = new RequestParams("http://10.6.12.88:8080/chb/shop/getSendPersonByStatus.do");
+        RequestParams params = new RequestParams(MyApplication.getLocalhost()+"/chb/shop/getSendPersonByStatus.do");
         //RequestParams params = new RequestParams("http://10.6.11.19:8080/chb/shop/getSendPersonByStatus.do");
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override

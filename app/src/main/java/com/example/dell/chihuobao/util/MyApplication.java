@@ -17,7 +17,7 @@ import cn.jpush.android.api.JPushInterface;
  */
 public class MyApplication extends Application {
 
-    public static final String localhost = "http://10.6.12.88:8080";
+    public static final String localhost = "http://10.6.12.58:8080";
     public static User user;
     private static ArrayList<FoodCategory> foodCategoryArrayList =new ArrayList<>();
     private static MyApplication instance;

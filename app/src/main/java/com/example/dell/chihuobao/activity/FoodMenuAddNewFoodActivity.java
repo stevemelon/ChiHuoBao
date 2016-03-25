@@ -43,7 +43,7 @@ import java.util.HashMap;
  * Created by dell on 2016/3/9.
  */
 public class FoodMenuAddNewFoodActivity extends Activity {
-    private final static String URL = "http://10.6.12.88:8080";
+    private final static String URL = MyApplication.getLocalhost();
     private final static String ADD_FOOD = "/chb/shop/addProduct.do";
     private String shopId = (int)Double.parseDouble(MyApplication.getInstance().getUser().getUser().get("id").toString())+"";
     private ImageView ivFoodImage;

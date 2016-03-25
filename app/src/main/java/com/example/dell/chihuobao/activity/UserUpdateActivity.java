@@ -33,7 +33,7 @@ import java.util.HashMap;
 @ContentView(R.layout.activity_user_update)
 public class UserUpdateActivity extends BaseActivity {
     public final static String UPDATE_USER = "chb/shop/updateShop.do?";
-    public final static String URL = "http://10.6.12.88:8080/";
+    public final static String URL = MyApplication.getLocalhost()+"/";
     private Context context=UserUpdateActivity.this;
     private User user = MyApplication.getInstance().getUser();
     private HashMap map = user.getUser();

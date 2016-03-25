@@ -43,7 +43,7 @@ import java.util.Map;
 
 
 public class BarChartFragment extends BaseFragment implements OnChartGestureListener {
-    public static final String BARCHART_URL="http://10.6.12.88:8080/chb/shop/getStatisticeByDay.do";
+    public static final String BARCHART_URL=MyApplication.getLocalhost()+"/chb/shop/getStatisticeByDay.do";
     User user = MyApplication.getInstance().getUser();
     HashMap hashMap = user.getUser();
     ArrayList<Map<String, String>> oderList=null;

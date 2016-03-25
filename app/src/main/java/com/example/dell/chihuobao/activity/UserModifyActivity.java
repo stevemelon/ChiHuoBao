@@ -46,7 +46,7 @@ import java.util.HashMap;
  */
 public class UserModifyActivity extends BaseActivity{
     public final static String UPDATE_USER = "chb/shop/updateShop.do?";
-    public final static String URL = "http://10.6.12.88:8080/";
+    public final static String URL = MyApplication.getLocalhost()+"/";
     private User user;
     private HashMap hashMap ;
     private ImageView shopphoto;

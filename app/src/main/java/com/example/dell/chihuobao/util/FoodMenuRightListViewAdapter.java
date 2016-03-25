@@ -1,40 +1,29 @@
 package com.example.dell.chihuobao.util;
-import android.app.Activity;
-import android.app.ActivityOptions;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
-
-import java.util.ArrayList;
 import com.example.dell.chihuobao.R;
 import com.example.dell.chihuobao.activity.FoodMenuModifyActivity;
-import com.example.dell.chihuobao.activity.MainActivity;
 import com.example.dell.chihuobao.bean.Food;
 import com.example.dell.chihuobao.bean.FoodCategory;
 
-import org.xutils.common.util.DensityUtil;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
+
+import java.util.ArrayList;
 
 /**
  * Created by dell on 2016/3/1.
  */
 public class FoodMenuRightListViewAdapter extends BaseAdapter {
-    public String URL="http://10.6.12.88:8080/";
+    public String URL=MyApplication.getLocalhost()+"/";
     ImageOptions imageOptions = new ImageOptions.Builder()
             .setCrop(true) // 很多时候设置了合适的scaleType也不需要它.
                     // 加载中或错误图片的ScaleType

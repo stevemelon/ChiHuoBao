@@ -34,8 +34,7 @@ public class LoginActivity extends BaseActivity {
     public static final int LOGIN_SUCCESS = 1;
     public static final int LOGIN_FAILURE = 2;
 
-    public static final String ADDRESS = "http://10.6.12.88:8080/chb/shop/login.do?";
-    public final static String QUERY_CATEGORY = "chb/shop/queryCategory.do";
+    public static final String ADDRESS = MyApplication.getLocalhost()+"/chb/shop/login.do?";
     @ViewInject(R.id.toolbar)
     private Toolbar toolbar;
 
